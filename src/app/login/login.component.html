@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>ავტორიზაცია</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field class="full-width" *ngIf="!usernameExists">
+      <input matInput placeholder="მომხმარებლის სახელი" #username [formControl]="user">
+      <mat-error *ngIf="user.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="usernameExists" class="full-width">
+      <input matInput placeholder="პაროლი" #password [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field *ngIf="!passwordExists" class="full-width">
+      <input matInput placeholder="გაიმეორეთ პაროლი" #repeatPassword [formControl]="passwordVal" [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hideRepeat = !hideRepeat">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <mat-error *ngIf="passwordVal.invalid">{{getPassErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button *ngIf="!usernameExists" mat-raised-button
+            (click)="checkUsername()">შემდეგ
+    </button>
+    <button *ngIf="usernameExists" mat-raised-button
+            (click)="login()">შესვლა
+    </button>
+  </mat-card-actions>
+</mat-card>

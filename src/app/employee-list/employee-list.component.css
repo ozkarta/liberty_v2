@@ -1,0 +1,132 @@
+.mat-card {
+  width: 80%;
+  transition: ease-out 0.3s;
+  border-radius: 6px;
+}
+
+.mat-card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.mat-card-title {
+  margin: 0;
+  color: #e70d2f;
+  transition: ease-out 0.3s;
+}
+
+.card-number {
+  font-size: 2.43rem;
+  font-weight: 500;
+  font-family: "Avenir Next W01", "Proxima Nova W01", "Rubik", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 5px;
+  transition: ease-out 0.3s;
+}
+
+.mat-card:hover .card-number {
+  transform: translateY(-3px);
+  color: #047bf8;
+}
+
+.mat-card:hover .mat-card-title {
+  transform: translateY(-2px);
+}
+
+.table-padded {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  background-color: transparent;
+}
+
+td {
+  padding: 0.9rem 1.1rem !important;
+  background-color: #fff;
+  border: none;
+  border-right: 1px solid rgba(0, 0, 0, 0.03);
+  border-bottom: none !important;
+}
+
+.table-padded tbody td:first-child {
+  border-radius: 4px 0px 0px 4px;
+}
+
+tr:hover {
+  -webkit-box-shadow: 0px 2px 5px rgba(69, 101, 173, 0.1);
+  box-shadow: 0px 2px 5px rgba(69, 101, 173, 0.1);
+  -webkit-transform: translateY(-1px) scale(1.01);
+  transform: translateY(-1px) scale(1.01);
+  transition: all ease-out 0.1s;
+}
+
+span {
+  content: '';
+  height: 6px;
+  width: 6px;
+  background-color: red;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.active {
+  background-color: green;
+}
+
+td img {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+td {
+  cursor: pointer;
+}
+
+tr.mat-header-row {
+  background-color: #8d9092;
+  transform: translateY(0) scale(1);
+  transition: all ease-out 0.1s;
+}
+
+tr.mat-header-row th {
+  padding: 0.9rem 1.1rem !important;
+}
+
+@media only screen and (max-width: 1690px) {
+  .card-number {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 1480px) {
+  .card-number {
+    font-size: 1.6rem;
+  }
+
+  .mat-card-title {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 1270px) {
+  .card-number {
+    font-size: 1.2rem;
+  }
+  .mat-card-title {
+    font-size: 0.7rem;
+  }
+}
+
+@media only screen and (max-width: 1115px) {
+  .card-number {
+    font-size: 1rem;
+  }
+  .mat-card-title {
+    font-size: 0.6rem;
+  }
+}

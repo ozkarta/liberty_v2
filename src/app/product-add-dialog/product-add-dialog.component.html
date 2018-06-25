@@ -1,0 +1,23 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="პროდუქტის სახელი" #productName>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="ქულების რაოდენობა" type="number" #productPoints>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="ათვლის წერტილი" type="number" #startPoint>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="გადასალახი ზღვარი" type="number" #minSaleQuantity>
+  </mat-form-field>
+<mat-form-field>
+  <mat-select placeholder="აირჩიეთ საბონუე სისტემა" [(value)]="selectedOption">
+    <mat-option *ngFor="let systems of bonusSystems" [value]="systems.id" >{{systems.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+  <button mat-raised-button (click)="addProduct()">დამატება</button>
+</form>

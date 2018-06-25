@@ -1,0 +1,56 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" opened="true" class="side-navbar"
+               [fixedInViewport]="options.value.fixed"
+               *ngIf="isAuthorized">
+    <div class="logo">
+      <img src="../images/libertyLogo.png">
+    </div>
+    <div class="logged-user">
+      <div class="logged-user-info">
+        <div class="user-avatar">
+          <img src="../images/avatar.png">
+        </div>
+        <div class="logged-user-ident">
+          <div class="logged-user-name">
+            {{userData?.firstName + ' ' + userData?.lastName}}
+          </div>
+          <div class="logged-user-position">
+            მენეჯერი
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="main-menu">
+      <li class="menu-item" routerLink="/profile">
+        <mat-icon>perm_identity</mat-icon>
+        <a>
+          ჩემი პროფილი
+        </a></li>
+      <li class="menu-item" routerLink="/my-transactions">
+        <mat-icon>perm_identity</mat-icon>
+        <a>
+          ჩემი ტრანზაქციები
+        </a></li>
+      <li class="menu-item" routerLink="/employees">
+        <mat-icon>supervisor_account</mat-icon>
+        <a>
+          თანამშრომელთა სია
+        </a></li>
+      <li class="menu-item" routerLink="/transactions">
+        <mat-icon>table_chart</mat-icon>
+        <a>
+          ტრანზაქციები
+        </a></li>
+      <li class="menu-item" routerLink="/branch-bonuses">
+        <mat-icon>insert_chart</mat-icon>
+        <a>
+          ბონუს ქულების მარტიცა
+        </a></li>
+    </ul>
+    <button mat-raised-button (click)="logout()" class="logout">გამოსვლა</button>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

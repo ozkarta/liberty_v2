@@ -1,0 +1,41 @@
+<div class="padded"  style="overflow: scroll">
+  <table mat-table [dataSource]="dataSource" class="full-width table-padded">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> სახელი </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="productMinSales">
+      <th mat-header-cell *matHeaderCellDef> გადასალახი ზღვარი (რ-ბა) </th>
+      <td mat-cell *matCellDef="let element"> {{element.productMinSales}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="productBonusPointStart">
+      <th mat-header-cell *matHeaderCellDef> ათვლის წერტილი </th>
+      <td mat-cell *matCellDef="let element"> {{element.productBonusPointStart}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="mySaleQuantity">
+      <th mat-header-cell *matHeaderCellDef> ჩემი რაოდნეობა </th>
+      <td mat-cell *matCellDef="let element"> {{element.mySaleQuantity}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="myBonusReward">
+      <th mat-header-cell *matHeaderCellDef> ჩემი ქულა </th>
+      <td mat-cell *matCellDef="let element"> {{element.myBonusReward}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

@@ -1,0 +1,20 @@
+.mat-card {
+  height: auto;
+  width: 448px;
+  position: absolute;
+  top: calc((100vh - 350px)/2);
+  left: calc((100vw - 448px)/2)
+}
+.mat-card-actions {
+  margin: 0;
+  padding: 8px;
+}
+.mat-card-title {
+  font-size: 18px;
+}
+.mat-card-content {
+  padding: 8px;
+}
+.mat-card>.mat-card-actions:last-child {
+  margin: 0;
+}

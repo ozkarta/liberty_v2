@@ -1,0 +1,8 @@
+.example-form {
+  background-color: white;
+  border-radius: 6px;
+  padding: 20px;
+}
+.mat-form-field {
+ width: 300px
+}
