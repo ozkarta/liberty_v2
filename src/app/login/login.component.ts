@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
             (tokens: any) => {
               this.auth.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
               this.auth.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
+              this.auth.getLoggedUser();
               this.router.navigate(['/']);
             },
           );
@@ -70,6 +71,9 @@ export class LoginComponent implements OnInit {
           (tokens: any) => {
             this.auth.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
             this.auth.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
+            this.auth.getLoggedUser();
+            this.auth.getLoggedUserOperations();
+            this.auth.getLoogedUserBonuses();
             this.router.navigate(['/']);
           },
         );

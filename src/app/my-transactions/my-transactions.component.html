@@ -1,41 +1,68 @@
-<div class="padded"  style="overflow: scroll">
-  <table mat-table [dataSource]="dataSource" class="full-width table-padded">
+<div class="padded">
+  <mat-slide-toggle
+    [checked]="checked"
+    (change)="onSlideChange()">{{!checked ? 'ქულები' : 'რაოდენობა'}}
+  </mat-slide-toggle>
+</div>
+<div class="padded">
+  <table mat-table [dataSource]="!checked ? myBonuses : saleQuantities" class="full-width table-padded">
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> სახელი </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    <ng-container matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef> პროდუქტი </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.product.name}} </td>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="productMinSales">
-      <th mat-header-cell *matHeaderCellDef> გადასალახი ზღვარი (რ-ბა) </th>
-      <td mat-cell *matCellDef="let element"> {{element.productMinSales}} </td>
+    <ng-container matColumnDef="myOwn">
+      <th mat-header-cell *matHeaderCellDef> საკუთარი </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.userResult}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="productBonusPointStart">
-      <th mat-header-cell *matHeaderCellDef> ათვლის წერტილი </th>
-      <td mat-cell *matCellDef="let element"> {{element.productBonusPointStart}} </td>
+    <ng-container matColumnDef="groupRating">
+      <th mat-header-cell *matHeaderCellDef> რეიტინგი ჯგუფში </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.groupRating}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="mySaleQuantity">
-      <th mat-header-cell *matHeaderCellDef> ჩემი რაოდნეობა </th>
-      <td mat-cell *matCellDef="let element"> {{element.mySaleQuantity}} </td>
+    <ng-container matColumnDef="bankRating">
+      <th mat-header-cell *matHeaderCellDef> რეიტინგი ბანკში </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.bankrating}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="myBonusReward">
-      <th mat-header-cell *matHeaderCellDef> ჩემი ქულა </th>
-      <td mat-cell *matCellDef="let element"> {{element.myBonusReward}} </td>
+    <ng-container matColumnDef="groupMin">
+      <th mat-header-cell *matHeaderCellDef> ჯგუფის მინიმუმი </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.groupMin}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="groupAvg">
+      <th mat-header-cell *matHeaderCellDef> ჯგუფის საშუალო </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.groupAverage}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="groupMax">
+      <th mat-header-cell *matHeaderCellDef> ჯგუფის მაქსიმუმი </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.groupMax}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="bankMin">
+      <th mat-header-cell *matHeaderCellDef> ბანკის მინიმუმი </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.bankMin}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="bankAvg">
+      <th mat-header-cell *matHeaderCellDef> ბანკის საშუალო </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.bankAverage}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="bankMax">
+      <th mat-header-cell *matHeaderCellDef> ბანკის მაქსიმუმი </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.bankmax}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hrCode">
+      <th mat-header-cell *matHeaderCellDef> HR კოდი </th>
+      <td mat-cell *matCellDef="let operation"> {{operation.staffId}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
 </div>

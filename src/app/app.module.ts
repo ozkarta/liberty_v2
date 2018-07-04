@@ -13,6 +13,12 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { BonusPointsComponent } from './bonus-points/bonus-points.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
+import { ProductAddDialogComponent } from './product-add-dialog/product-add-dialog.component';
+import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
+import { DialogComponent } from './dialog/dialog.component';
+import { BranchTransactionsComponent } from './branch-transactions/branch-transactions.component';
+import { OrganizationStructureComponent } from './organization-structure/organization-structure.component';
 
 // Module Imports
 import { RoutingModule } from './app-routing.module';
@@ -22,6 +28,8 @@ import { ChartsModule } from 'ng2-charts';
 import { AuthService } from './services/auth.service';
 import { RouteGuardService } from './services/route-guard.service';
 import { LoggedOutGuardService } from './services/logged-out-guard.service';
+import { OtherUserService } from './services/other-user.service';
+import { AuthorizedUserService } from './services/authorized-user.service';
 
 // Material Design Imports
 import { MatInputModule } from '@angular/material/input';
@@ -32,15 +40,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent } from './dialog/dialog.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
-import {OtherUserService} from './services/other-user.service';
-import { ProductAddDialogComponent } from './product-add-dialog/product-add-dialog.component';
-import {MatSelectModule} from '@angular/material/select';
-import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {AuthorizedUserService} from './services/authorized-user.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -55,6 +61,8 @@ import {AuthorizedUserService} from './services/authorized-user.service';
     OtherUserProfileComponent,
     ProductAddDialogComponent,
     MyTransactionsComponent,
+    BranchTransactionsComponent,
+    OrganizationStructureComponent,
   ],
   imports: [
     HttpClientModule,
@@ -74,7 +82,11 @@ import {AuthorizedUserService} from './services/authorized-user.service';
     MatDialogModule,
     MatTabsModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTooltipModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatRadioModule,
   ],
   providers: [
     AuthService,

@@ -3,7 +3,7 @@
                [fixedInViewport]="options.value.fixed"
                *ngIf="isAuthorized">
     <div class="logo">
-      <img src="../images/libertyLogo.png">
+      <img src="../images/logo.png">
     </div>
     <div class="logged-user">
       <div class="logged-user-info">
@@ -15,7 +15,7 @@
             {{userData?.firstName + ' ' + userData?.lastName}}
           </div>
           <div class="logged-user-position">
-            მენეჯერი
+            {{userData?.userPosition}}
           </div>
         </div>
       </div>
@@ -24,27 +24,27 @@
       <li class="menu-item" routerLink="/profile">
         <mat-icon>perm_identity</mat-icon>
         <a>
-          ჩემი პროფილი
+          ჩემი შედეგები
         </a></li>
       <li class="menu-item" routerLink="/my-transactions">
-        <mat-icon>perm_identity</mat-icon>
+        <mat-icon>trending_up</mat-icon>
         <a>
-          ჩემი ტრანზაქციები
+          ჩემი ოპერაციები
         </a></li>
-      <li class="menu-item" routerLink="/employees">
-        <mat-icon>supervisor_account</mat-icon>
+      <li *ngIf="userData?.userStaffLevel === 'MIDDLE_MANAGER'" class="menu-item" routerLink="/my-branch-transactions">
+        <mat-icon>trending_up</mat-icon>
         <a>
-          თანამშრომელთა სია
-        </a></li>
-      <li class="menu-item" routerLink="/transactions">
-        <mat-icon>table_chart</mat-icon>
-        <a>
-          ტრანზაქციები
+          ჩემი ჯგუფის ოპერაციები
         </a></li>
       <li class="menu-item" routerLink="/branch-bonuses">
         <mat-icon>insert_chart</mat-icon>
         <a>
-          ბონუს ქულების მარტიცა
+          სამოტივაციო პოლიტიკა
+        </a></li>
+      <li class="menu-item" routerLink="/org-chart">
+        <mat-icon>device_hub</mat-icon>
+        <a>
+          ორგანიზაციული სტრუქტურა
         </a></li>
     </ul>
     <button mat-raised-button (click)="logout()" class="logout">გამოსვლა</button>

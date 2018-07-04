@@ -104,17 +104,15 @@
 }
 
 .progress-bar__container {
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  position: relative;
 }
 
 .progress-bar__container .progress-bar__labels {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  position: absolute;
+  top: -36px;
+  width: 40%;
 }
 
 .progress-bar__level1 {
@@ -155,11 +153,12 @@
   z-index: 2;
   max-width: 66.66667%;
   width: 66.66667%;
-  max-height: 400px;
+  max-height: 600px;
 }
 
 .chartjs-render-monitor {
   max-height: 350px;
+  max-width: 67%;
 }
 
 .profile__doughnut-chart--legend {
@@ -198,6 +197,81 @@
   height: 8px;
   margin-right: 5px;
 }
+.doughnut-chart__label {
+  position: absolute;
+  top: 260px;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 0.83rem;
+  text-transform: uppercase;
+  z-index: 1;
+}
+.doughnut-chart__label strong {
+  display: block;
+  font-size: 1.98rem;
+  line-height: 1.1;
+}
+.doughnut-chart__label label {
+  display: block;
+  color: rgba(0, 0, 0, 0.4);
+}
+.doughnut-chart__rating-data {
+  position: absolute;
+  top: 360px;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 9999;
+  display: block;
+  width: 66%;
+}
+.doughnut-chart__rating-data--left-side {
+  width: 50%;
+  display: inline-block;
+}
+.doughnut-chart__rating-data--right-side {
+  width: 50%;
+  display: inline-block;
+}
+.doughnut-chart__rating-data p {
+  margin-top: 0;
+}
+.mat-divider {
+  margin: 10px 0;
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid #000;
+  position: absolute;
+  top: -13px;
+  left: 5%;
+}
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid black;
+  position: absolute;
+  top: 8px;
+  left: 5%;
+}
+
+
+.parameter-statistics {
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
 @media only screen and (max-width: 1690px) {
   .card-number {
     font-size: 2rem;

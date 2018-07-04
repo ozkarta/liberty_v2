@@ -1,7 +1,4 @@
 <div class="padded">
-  <button mat-raised-button (click)="openDialog()">ახალი პროდუქტის დამატება</button>
-</div>
-<div class="padded">
 
   <table mat-table [dataSource]="dataSource" class="full-width table-padded">
 
@@ -16,22 +13,22 @@
 
     <!-- Name Column -->
     <ng-container matColumnDef="bonusSystem">
-      <th mat-header-cell *matHeaderCellDef> საბონუსე სისტემა </th>
-      <td mat-cell *matCellDef="let element"> {{element.bonusSystem}} </td>
+      <th mat-header-cell *matHeaderCellDef> შეფასებითი ჯგუფის დასახელება </th>
+      <td mat-cell *matCellDef="let element"> {{element.evaluationGroup}} </td>
     </ng-container>
 
     <ng-container matColumnDef="bonusPoints">
-      <th mat-header-cell *matHeaderCellDef> ბონუს ქულა </th>
+      <th mat-header-cell *matHeaderCellDef> ბონუსის ოდენობა </th>
       <td mat-cell *matCellDef="let element"> {{element.bonusPoints}} </td>
     </ng-container>
 
     <ng-container matColumnDef="productMinSales">
-      <th mat-header-cell *matHeaderCellDef> გადასალახი ზღვარი (რ-ბა) </th>
+      <th mat-header-cell *matHeaderCellDef> კომერციული კომპეტენციის მინიმალური ზღვარი </th>
       <td mat-cell *matCellDef="let element"> {{element.productMinSales}} </td>
     </ng-container>
 
     <ng-container matColumnDef="productBonusPointStart">
-      <th mat-header-cell *matHeaderCellDef> ათვლის წერტილი </th>
+      <th mat-header-cell *matHeaderCellDef> ბონუსის გადახდის ათვლის წერტილი </th>
       <td mat-cell *matCellDef="let element"> {{element.productBonusPointStart}} </td>
     </ng-container>
 

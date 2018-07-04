@@ -10,6 +10,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { BonusPointsComponent } from './bonus-points/bonus-points.component';
 import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
 import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
+import { BranchTransactionsComponent } from './branch-transactions/branch-transactions.component';
+import { OrganizationStructureComponent } from 'src/app/organization-structure/organization-structure.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -21,6 +23,8 @@ const appRoutes: Routes = [
   { path: 'branch-bonuses', component: BonusPointsComponent, canActivate: [RouteGuardService] },
   { path: 'transactions', component: TransactionsComponent, canActivate: [RouteGuardService] },
   { path: 'my-transactions', component: MyTransactionsComponent, canActivate: [RouteGuardService] },
+  { path: 'my-branch-transactions', component: BranchTransactionsComponent, canActivate: [RouteGuardService] },
+  { path: 'org-chart', component: OrganizationStructureComponent, canActivate: [RouteGuardService] },
 ];
 
 @NgModule({

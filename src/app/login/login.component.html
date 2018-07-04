@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content>
     <mat-form-field class="full-width" *ngIf="!usernameExists">
-      <input matInput placeholder="მომხმარებლის სახელი" #username [formControl]="user">
+      <input matInput placeholder="მომხმარებლის სახელი" #username [formControl]="user" (keyup.enter)="checkUsername()">
       <mat-error *ngIf="user.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="usernameExists" class="full-width">

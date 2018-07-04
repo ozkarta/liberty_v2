@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {AuthService} from '../services/auth.service';
-import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
-import {DialogComponent} from '../dialog/dialog.component';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-employee-list',
@@ -48,7 +48,7 @@ export class EmployeeListComponent implements OnInit {
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '600px',
-      data: {userId: id},
+      data: { userId: id },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

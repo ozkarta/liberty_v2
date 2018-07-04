@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
-import { UserProfileData } from './user-profile/user-profile.component';
 import { UserModel } from './models/user.model';
 import {AuthorizedUserService} from './services/authorized-user.service';
+import {LibertyUserModel} from './models/liberty-user.model';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ import {AuthorizedUserService} from './services/authorized-user.service';
 export class AppComponent implements OnInit {
   options: FormGroup;
   isAuthorized = false;
-  userData: UserModel;
+  userData: LibertyUserModel;
 
   constructor(public auth: AuthService, fb: FormBuilder, private router: Router, private currentUser: AuthorizedUserService) {
     this.options = fb.group({
@@ -31,6 +31,8 @@ export class AppComponent implements OnInit {
         });
     if (this.auth.isAuthorized()) {
       this.auth.getLoggedUser();
+      this.auth.getLoggedUserOperations();
+      this.auth.getLoogedUserBonuses();
     }
     this.setUser();
   }
@@ -38,7 +40,7 @@ export class AppComponent implements OnInit {
   setUser() {
     this.currentUser.getUser
       .subscribe(
-        (userData: UserModel) => {
+        (userData: LibertyUserModel) => {
           this.userData = userData;
         });
   }

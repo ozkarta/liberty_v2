@@ -9,7 +9,7 @@ import { ProductAddDialogComponent } from '../product-add-dialog/product-add-dia
   styleUrls: ['./bonus-points.component.css'],
 })
 export class BonusPointsComponent implements OnInit {
-  displayedColumns = ['name', 'bonusSystem', 'bonusPoints', 'productMinSales', 'productBonusPointStart'];
+  displayedColumns = ['name', 'bonusSystem', 'productMinSales', 'productBonusPointStart', 'bonusPoints'];
   products: BonusPoints[] = [];
   dataSource = new MatTableDataSource(this.products);
   @ViewChild(MatSort) sort: MatSort;
@@ -40,6 +40,7 @@ export class BonusPointsComponent implements OnInit {
               bonusPoints: t.product.bonusPoints,
               productMinSales: t.competenceLevel.productMinSales,
               productBonusPointStart: t.competenceLevel.productBonusPointStart,
+              evaluationGroup: t.evaluationGroup.name,
             });
           });
           this.dataSource.sort = this.sort;
@@ -65,4 +66,5 @@ export interface BonusPoints {
   bonusPoints: number;
   productMinSales: number;
   productBonusPointStart: number;
+  evaluationGroup: any;
 }

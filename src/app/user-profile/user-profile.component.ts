@@ -1,8 +1,10 @@
-import {Component, OnInit, Pipe, ɵEMPTY_ARRAY} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormControl } from '@angular/forms';
-import {AuthorizedUserService} from '../services/authorized-user.service';
-import {UserModel} from '../models/user.model';
+import { AuthorizedUserService } from '../services/authorized-user.service';
+import { UserModel } from '../models/user.model';
+import { MyOperationsModel } from '../models/my-operations.model';
+import { LibertyUserModel } from '../models/liberty-user.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,6 +12,7 @@ import {UserModel} from '../models/user.model';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
+  selectedOption = 0;
   selected = new FormControl(0);
   isDataAvailable = false;
   summedProductBonuses: SummerProductData[] = [];
@@ -75,12 +78,44 @@ export class UserProfileComponent implements OnInit {
   };
   public lineChartColors = [
     { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
+      backgroundColor: 'rgba(41,255,188,0.2)',
+      borderColor: '#6dffaf',
+      pointBackgroundColor: '#6dffaf',
       pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      pointHoverBackgroundColor: '#6dffaf',
+      pointHoverBorderColor: '6dffaf',
+    },
+    { // dark grey
+      backgroundColor: 'rgba(255,239,159,0.2)',
+      borderColor: '#ffed36',
+      pointBackgroundColor: '#ffed36',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#ffed36',
+      pointHoverBorderColor: '#ffed36',
+    },
+    { // grey
+      backgroundColor: 'rgba(255,81,84,0.2)',
+      borderColor: '#ff5154',
+      pointBackgroundColor: '#ff5154',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#ff5154',
+      pointHoverBorderColor: '#ff5154',
+    },
+    { // dark grey
+      backgroundColor: 'rgba(205,155,255,0.2)',
+      borderColor: '#f067ff',
+      pointBackgroundColor: '#f067ff',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#f067ff',
+      pointHoverBorderColor: '#f067ff',
+    },
+    { // grey
+      backgroundColor: 'rgba(92,96,255,0.2)',
+      borderColor: '#4060ff',
+      pointBackgroundColor: '#4060ff',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#4060ff',
+      pointHoverBorderColor: '#4060ff',
     },
   ];
   public lineChartLegend = true;
@@ -96,14 +131,48 @@ export class UserProfileComponent implements OnInit {
 
   checked = false;
 
-  dispersion = 0;
+  salesTotalQuantity = 0;
+  salesTotalQuantityPrimary = 0;
+  salesTotalQuantityOther = 0;
+
+  bonusTotalQuantity = 0;
+  bonusTotalQuantityPrimary = 0;
+  bonusTotalQuantityOther = 0;
+
+  myBonusInGel = 0;
+
+  userSales: MyOperationsModel[] = [];
+
+  userBonuses: MyOperationsModel[] = [];
+
+  bankAvgOperations = 0;
+
+  bankMaxOperations = 0;
+
+  bankMaxBonusPoints = 0;
+
+  myRatingByBonusPoints = 0;
+
+  user: LibertyUserModel;
+
+  lineChartArray: UserModel;
+
+  branchTotalOperations: BranchStatistics;
 
   constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
   }
 
   ngOnInit() {
-    this.getUserData();
-    this.getDispersion();
+    this.auth.getRequest('/bonusRewards/getUserData')
+      .subscribe(
+        (response: UserModel) => {
+          this.lineChartArray = response;
+          this.loadLineChartData(0);
+        });
+    this.loadChartData();
+    this.getUserOperations();
+    this.getBankStatistics();
+    this.setUser();
   }
 
   getUserData() {
@@ -132,47 +201,101 @@ export class UserProfileComponent implements OnInit {
         });
   }
 
-  getDispersion() {
-    this.auth.getRequest('/bonusRewards/getUserVariance/').subscribe(
-      (response: number) => {
-        this.dispersion = Math.round(response);
-      });
+  setUser() {
+    this.currentUser.getUser
+      .subscribe(
+        (userData: LibertyUserModel) => {
+          if (userData) {
+            this.user = userData;
+            if (this.user.userStaffLevel === 'MIDDLE_MANAGER') {
+              this.auth.getRequest('/sales/branchTotalOperations')
+                .subscribe(
+                  (response: BranchStatistics) => {
+                    this.branchTotalOperations = response;
+                  });
+            }
+          }
+        });
+  }
+
+  getUserOperations() {
+    this.currentUser.getMyOperations
+      .subscribe(
+        (operations: MyOperationsModel[]) => {
+          if (operations) {
+            this.userSales.length = 0;
+            this.userSales = operations;
+            operations.forEach((o) => {
+              this.salesTotalQuantityPrimary += o.product.primary ? o.userResult : 0;
+              this.salesTotalQuantityOther += !o.product.primary ? o.userResult : 0;
+              this.salesTotalQuantity += o.userResult;
+              this.bonusTotalQuantityPrimary += o.product.primary ? o.bonusPoints : 0;
+              this.bonusTotalQuantityOther += !o.product.primary ? o.bonusPoints : 0;
+              this.bonusTotalQuantity += o.bonusPoints;
+              this.bankAvgOperations += o.bankAverage;
+              this.bankMaxOperations += o.bankmax;
+            });
+          }
+        });
   }
 
   loadChartData() {
-    this.summedProductBonuses.forEach((item) => {
-      this.doughnutChartData.push(item.value);
-      this.doughnutChartLabels.push(item.name);
-    });
+    this.currentUser.getMyBonuses
+      .subscribe(
+        (bonuses: MyOperationsModel[]) => {
+          if (bonuses) {
+            this.userBonuses.length = 0;
+            this.doughnutChartData = [];
+            this.doughnutChartLabels = [];
+            this.myBonusInGel = 0;
+            this.userBonuses = bonuses;
+            bonuses.forEach((b) => {
+              this.doughnutChartData.push(b.userResult);
+              this.doughnutChartLabels.push(b.product.name);
+              this.myBonusInGel += b.userResult;
+            });
+            this.mergeArrays();
+            this.isDataAvailable = true;
+          }
+        });
   }
 
   loadProgressData() {
-    this.userData.prorductsBonusesByMonths.forEach((item) => {
-      this.progressBarData.push({
-        name: item.product.name,
-        currentMonth: item.productMonthBonuses[item.productMonthBonuses.length - 1].bonusReward,
-        previousMonth: item.productMonthBonuses[item.productMonthBonuses.length - 2].bonusReward,
-        saleQuantity: item.productMonthBonuses[item.productMonthBonuses.length - 1].saleQuantity,
-        bankMax: item.productMonthBonuses[item.productMonthBonuses.length - 1].bankMax,
-        percentage: item.productMonthBonuses[item.productMonthBonuses.length - 1].bonusReward / item.productMonthBonuses[item.productMonthBonuses.length - 1].bankMax * 100,
-      });
-    });
-    console.log(this.progressBarData);
+
   }
 
   loadLineChartData(index: number) {
     this.lineChartData.length = 0;
     this.lineChartDataAvailable = false;
-    const _lineChartData: Array<any> = new Array(this.lineChartData.length);
+    const _lineChartData = Array(this.lineChartData.length);
     _lineChartData.push({
-      label: this.userData.prorductsBonusesByMonths[index].product.name,
-      data: this.userData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
+      label: 'თქვენი ქულა',
+      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
+    });
+    _lineChartData.push({
+      label: 'ბანკის მაქსიმუმი',
+      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMax),
+    });
+
+    _lineChartData.push({
+      label: 'ბანკის საშუალო',
+      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMean),
+    });
+    _lineChartData.push({
+      label: 'ჯგუფის მაქსიმუმი',
+      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMax),
+    });
+
+    _lineChartData.push({
+      label: 'ჯგუფის საშუალო',
+      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMean),
     });
     this.lineChartData = _lineChartData;
     this.lineChartDataAvailable = true;
   }
 
   mergeArrays() {
+    this.combinedArray = [];
     for (let _i = 0; _i < this.doughnutChartLabels.length; _i++) {
       this.combinedArray.push({
         label: this.doughnutChartLabels[_i],
@@ -180,32 +303,20 @@ export class UserProfileComponent implements OnInit {
       });
     }
   }
-// events
 
   onSlideChange() {
     this.checked = !this.checked;
   }
-  public chartClicked(e: any): void {
-    console.log(e);
+
+  getBankStatistics() {
+    this.auth.getRequest('/bonusRewards/getBankStatistics')
+      .subscribe(
+        (response: any) => {
+          this.bankMaxBonusPoints = response.maxPoints;
+          this.myRatingByBonusPoints = response.rating;
+        });
   }
 
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
-}
-
-export interface UserProfileData {
-  bankCurrentMonthMean: number;
-  bonusByCurrentMonth: number;
-  bonusByYear: number;
-  firstName: string;
-  highestCurrentMonth: number;
-  lastName: string;
-  productsBonusByMonth: any;
-  productsBonusByYear: any;
-  prorductsBonusesByMonths: any;
-  email?: string;
-  mobile?: string;
 }
 
 export interface SummerProductData {
@@ -214,10 +325,14 @@ export interface SummerProductData {
 }
 
 export interface LastTwoMonthBonuses {
+  id?: number;
   name: string;
-  currentMonth: number;
-  previousMonth: number;
-  saleQuantity?: number;
+  saleQuantity: number;
   bankMax: number;
-  percentage: number;
+}
+
+export interface BranchStatistics {
+  branchesMax: number;
+  branchesMean: number;
+  currentBranchSales: number;
 }

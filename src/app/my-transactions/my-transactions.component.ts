@@ -1,6 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import { AuthService } from '../services/auth.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatSort, MatTableDataSource} from '@angular/material';
+import {AuthService} from '../services/auth.service';
+import {MyOperationsModel} from '../models/my-operations.model';
+import {Transactions} from '../transactions/transactions.component';
+import {AuthorizedUserService} from '../services/authorized-user.service';
 
 @Component({
   selector: 'app-my-transactions',
@@ -8,35 +11,56 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./my-transactions.component.css'],
 })
 export class MyTransactionsComponent implements OnInit {
-  displayedColumns = ['name', 'productMinSales', 'productBonusPointStart', 'mySaleQuantity', 'myBonusReward'];
-  transactions: Transactions[] = [];
-  dataSource = new MatTableDataSource(this.transactions);
+  displayedColumns = [
+    'productName',
+    'myOwn',
+    'groupRating',
+    'bankRating',
+    'groupMin',
+    'groupAvg',
+    'groupMax',
+    'bankMin',
+    'bankAvg',
+    'bankMax',
+    'hrCode',
+  ];
+  myBonuses: MyOperationsModel[] = [];
+
+  saleQuantities: MyOperationsModel[] = [];
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private auth: AuthService) { }
+  checked = false;
+
+  constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
+  }
 
   ngOnInit() {
-    this.auth.getRequest('/sales/currentMonthSales')
+    this.getMyBonuses();
+    this.getMySales();
+  }
+
+  getMyBonuses() {
+    this.currentUser.getMyBonuses
       .subscribe(
-        (trans: any[]) => {
-          trans.forEach((t) => {
-            this.transactions.push({
-              name: t.sale.product.name,
-              myBonusReward: t.bonusReward,
-              productMinSales: t.competenceLevel.productMinSales,
-              productBonusPointStart: t.competenceLevel.productBonusPointStart,
-              mySaleQuantity: t.sale.saleQuantity,
-            });
-          });
-          this.dataSource.sort = this.sort;
+        (bonuses: MyOperationsModel[]) => {
+          if (bonuses) {
+            this.myBonuses = bonuses;
+          }
         });
   }
-}
-export interface Transactions {
-  name: string;
-  myBonusReward: number;
-  productMinSales: number;
-  productBonusPointStart: number;
-  mySaleQuantity: number;
+
+  getMySales() {
+    this.currentUser.getMyOperations
+        .subscribe(
+          (operations: MyOperationsModel[]) => {
+            if (operations) {
+              this.saleQuantities = operations;
+            }
+          });
+  }
+
+  onSlideChange() {
+    this.checked = !this.checked;
+  }
 }
 
 // export interface Product {
