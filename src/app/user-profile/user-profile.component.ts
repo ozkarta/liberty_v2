@@ -12,7 +12,7 @@ import { LibertyUserModel } from '../models/liberty-user.model';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
-  selectedOption = 0;
+  selectedOption = -1;
   selected = new FormControl(0);
   isDataAvailable = false;
   summedProductBonuses: SummerProductData[] = [];

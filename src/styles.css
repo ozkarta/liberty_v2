@@ -147,6 +147,7 @@ h5 {
 .padded {
   padding: 1rem 2rem;
   display: flex;
+  justify-content: space-between;
 }
 .title-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);

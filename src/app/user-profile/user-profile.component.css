@@ -262,7 +262,14 @@
   top: 8px;
   left: 5%;
 }
-
+.scrolled-container-center {
+  padding: 25px;
+  width: 70%;
+  display: inline-block;
+  height: calc(100vh - 260px);
+  overflow-y: scroll;
+  vertical-align: top;
+}
 
 .parameter-statistics {
   position: absolute;
@@ -270,6 +277,11 @@
   right: 15px;
   margin: 0;
   font-size: 0.8rem;
+}
+.fixed-container-right {
+  display: inline-block;
+  width: 25%;
+  position: relative;
 }
 
 @media only screen and (max-width: 1690px) {

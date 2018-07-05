@@ -1,11 +1,26 @@
-<mat-grid-list cols="3" rowHeight="130px">
+<div class="padded" style="align-items: center;">
+  <mat-form-field>
+    <mat-select [(value)]="selectedOption">
+      <mat-option [value]="-1">ყველა</mat-option>
+      <mat-option *ngFor="let product of userSales; let i = index" [value]="i">
+        {{product?.product.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-slide-toggle
+    [checked]="checked"
+    (change)="onSlideChange()">{{!checked ? 'რაოდენობა' : 'ქულები' }}
+  </mat-slide-toggle>
+</div>
+<mat-divider></mat-divider>
+<mat-grid-list [cols]="selectedOption > -1 ? 5 : 3" rowHeight="130px">
   <mat-grid-tile>
     <mat-card>
       <mat-card-header>
         <mat-card-title>ჩემი ოპერაციები</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="card-number">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.currentBranchSales : salesTotalQuantityPrimary?.toLocaleString()}}</p>
+        <p class="card-number">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.currentBranchSales.toLocaleString() : selectedOption > -1 ? userSales[selectedOption].userResult : salesTotalQuantityPrimary?.toLocaleString()}}</p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
@@ -15,7 +30,7 @@
         <mat-card-title>საშუალო ოპერაციები: ბანკი</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="card-number">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : bankAvgOperations.toLocaleString()}}</p>
+        <p class="card-number">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? userSales[selectedOption].bankAverage : bankAvgOperations.toLocaleString()}}</p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
@@ -25,244 +40,248 @@
         <mat-card-title>მაქსიმალური ოპერაციები: ბანკი</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="card-number">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : bankMaxOperations.toLocaleString()}}</p>
+        <p class="card-number">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? userSales[selectedOption].bankmax : bankMaxOperations.toLocaleString()}}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="selectedOption > -1 && user?.userStaffLevel !== 'MIDDLE_MANAGER'">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>საშუალო ოპერაციები: ჯგუფი</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="card-number">{{userSales[selectedOption].groupAverage}}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile *ngIf="selectedOption > -1 && user?.userStaffLevel !== 'MIDDLE_MANAGER'">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>მაქსიმალური ოპერაციები: ჯგუფი</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="card-number">{{userSales[selectedOption].groupMax}}</p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
-<mat-divider></mat-divider>
-<div class="padded">
-  <mat-card class="profile-container">
-    <mat-card-header class="profile-background">
-      <svg class="decor" width="842px" height="219px" viewBox="0 0 842 219"
-           preserveAspectRatio="xMaxYMax meet" version="1.1"
-           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <g transform="translate(-381.000000, -362.000000)" fill="#FFFFFF">
-          <path class="decor-path"
-                d="M1223,362 L1223,581 L381,581 C868.912802,575.666667 1149.57947,502.666667 1223,362 Z"></path>
-        </g>
-      </svg>
-      <img [src]="'data:image/png;base64,'+user?.profilePicture" alt="" class="profile-img">
-      <div class="user-name">
-        <h5 class="name">{{user?.firstName + ' ' + user?.lastName}}</h5>
-      </div>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="profile__user--info">
-        <div class="profile__user--info--details">
-          <div class="value">{{user?.email}}</div>
-          <div class="label">ელ-ფოსტა</div>
+<div class="scrolled-container-center">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        ძირითადი პროდუქტი
+      </mat-panel-title>
+      <mat-panel-description>
+        {{checked ? bonusTotalQuantityPrimary?.toLocaleString() + ' ქულა' : salesTotalQuantityPrimary?.toLocaleString() + ' ოპერაცია'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          მოზიდვა
+        </mat-panel-title>
+        <mat-panel-description>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let data of userSales">
+        <div class="progress-bar__container"
+             *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'ACQUISITION'">
+          <div class="progress-bar__labels">
+            <div class="progress-bar__labels-left">
+              {{data.product.name}}
+            </div>
+          </div>
+          <div class="triangle" style="border-top: 10px solid green"
+               [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
+               [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid green"
+               [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%'}"
+               [matTooltip]="'თქვენი შედეგი ' + data.userResult"
+               matTooltipPosition="above"></div>
+          <div class="triangle" style="border-top: 10px solid blue"
+               [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
+               matTooltipPosition="above"></div>
+          <div class="triangle" style="border-top: 10px solid blue"
+               [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid red"
+               [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid red" [ngStyle]="{left: '95%'}"
+               [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
+               matTooltipPosition="above"></div>
+          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales === 0 ?
+          'blue' : data.competenceLevel.productMinSales < data.userResult ? 'green' : 'red' }">
+          </div>
+        </div>
+
+      </ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          დაკრედიტება
+        </mat-panel-title>
+        <mat-panel-description>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let data of userSales">
+        <div class="progress-bar__container"
+             *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'CREDIT_ISSUANCE'">
+          <div class="progress-bar__labels">
+            <div class="progress-bar__labels-left">
+              {{data.product.name}}
+            </div>
+          </div>
+          <div class="triangle" style="border-top: 10px solid green"
+               [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
+               [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid green"
+               [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%'}"
+               [matTooltip]="'თქვენი შედეგი ' + data.userResult"
+               matTooltipPosition="above"></div>
+          <div class="triangle" style="border-top: 10px solid blue"
+               [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
+               matTooltipPosition="above"></div>
+          <div class="triangle" style="border-top: 10px solid blue"
+               [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid red"
+               [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid red" [ngStyle]="{left: '95%'}"
+               [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
+               matTooltipPosition="above"></div>
+          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales === 0 ?
+          'blue' : data.competenceLevel.productMinSales < data.userResult ? 'green' : 'red' }">
+          </div>
+        </div>
+
+      </ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          მომსახურება
+        </mat-panel-title>
+        <mat-panel-description>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-container *ngFor="let data of userSales">
+        <div class="progress-bar__container"
+             *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'SERVICE'">
+          <div class="progress-bar__labels">
+            <div class="progress-bar__labels-left">
+              {{data.product.name}}
+            </div>
+          </div>
+          <div class="triangle" style="border-top: 10px solid green"
+               [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
+               [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid green"
+               [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%'}"
+               [matTooltip]="'თქვენი შედეგი ' + data.userResult"
+               matTooltipPosition="above"></div>
+          <div class="triangle" style="border-top: 10px solid blue"
+               [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
+               matTooltipPosition="above"></div>
+          <div class="triangle" style="border-top: 10px solid blue"
+               [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid red"
+               [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
+               [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
+               matTooltipPosition="above"></div>
+          <div class="triangle-up" style="border-bottom: 10px solid red" [ngStyle]="{left: '95%'}"
+               [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
+               matTooltipPosition="above"></div>
+          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales === 0 ?
+          'blue' : data.competenceLevel.productMinSales < data.userResult ? 'green' : 'red' }">
+          </div>
+        </div>
+
+      </ng-container>
+    </mat-expansion-panel>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        სხვა პროდუქტი
+      </mat-panel-title>
+      <mat-panel-description>
+        {{checked ? bonusTotalQuantityOther?.toLocaleString() + ' ქულა'  : salesTotalQuantityOther?.toLocaleString() + ' ოპერაცია' }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container *ngFor="let data of userSales">
+      <div class="progress-bar__container"
+           *ngIf="!data.product.primary">
+        <div class="progress-bar__labels">
+          <div class="progress-bar__labels-left">
+            {{data.product.name}}
+          </div>
+        </div>
+        <div class="triangle" style="border-top: 10px solid green"
+             [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
+             [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
+             matTooltipPosition="above"></div>
+        <div class="triangle-up" style="border-bottom: 10px solid green"
+             [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%'}"
+             [matTooltip]="'თქვენი შედეგი ' + data.userResult"
+             matTooltipPosition="above"></div>
+        <div class="triangle" style="border-top: 10px solid blue"
+             [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
+             [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
+             matTooltipPosition="above"></div>
+        <div class="triangle" style="border-top: 10px solid blue"
+             [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
+             [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
+             matTooltipPosition="above"></div>
+        <div class="triangle-up" style="border-bottom: 10px solid red"
+             [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
+             [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
+             matTooltipPosition="above"></div>
+        <div class="triangle-up" style="border-bottom: 10px solid red" [ngStyle]="{left: '95%'}"
+             [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
+             matTooltipPosition="above"></div>
+        <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales === 0 ?
+          'blue' : data.competenceLevel.productMinSales < data.userResult ? 'green' : 'red' }">
         </div>
       </div>
-      <div class="padded">
-        <mat-slide-toggle
-          [checked]="checked"
-          (change)="onSlideChange()">{{!checked ? 'რაოდენობა' : 'ქულები' }}
-        </mat-slide-toggle>
-      </div>
-      <div class="padded" style="display: block; overflow-y: scroll; max-height: 600px; height: auto">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              ძირითადი პროდუქტი
-            </mat-panel-title>
-            <mat-panel-description>
-              {{checked ? bonusTotalQuantityPrimary?.toLocaleString() + ' ქულა' : salesTotalQuantityPrimary?.toLocaleString() + ' ოპერაცია'}}
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                მოზიდვა
-              </mat-panel-title>
-              <mat-panel-description>
 
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <ng-container *ngFor="let data of userSales">
-              <div class="progress-bar__container"
-                   *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'ACQUISITION'">
-                <div class="progress-bar__labels">
-                  <div class="progress-bar__labels-left">
-                    {{data.product.name}}
-                  </div>
-                </div>
-                <div class="triangle" style="border-top: 10px solid green"
-                     [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
-                     [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid green"
-                     [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'თქვენი შედეგი ' + data.userResult"
-                     matTooltipPosition="above"></div>
-                <div class="triangle" style="border-top: 10px solid blue"
-                     [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
-                     matTooltipPosition="above"></div>
-                <div class="triangle" style="border-top: 10px solid blue"
-                     [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid red"
-                     [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid red" [ngStyle]="{left: '95%'}"
-                     [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
-                     matTooltipPosition="above"></div>
-                <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales === 0 ?
-          'blue' : data.competenceLevel.productMinSales < data.userResult ? 'green' : 'red' }">
-                </div>
-              </div>
+    </ng-container>
+  </mat-expansion-panel>
+  <div class="padded" *ngIf="isDataAvailable && lineChartDataAvailable" style="padding: 0; margin-top: 30px">
+    <canvas baseChart
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"></canvas>
 
-            </ng-container>
-          </mat-expansion-panel>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                დაკრედიტება
-              </mat-panel-title>
-              <mat-panel-description>
-
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <ng-container *ngFor="let data of userSales">
-              <div class="progress-bar__container"
-                   *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'CREDIT_ISSUANCE'">
-                <div class="progress-bar__labels">
-                  <div class="progress-bar__labels-left">
-                    {{data.product.name}}
-                  </div>
-                </div>
-                <div class="triangle" style="border-top: 10px solid green"
-                     [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
-                     [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid green"
-                     [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'თქვენი შედეგი ' + data.userResult"
-                     matTooltipPosition="above"></div>
-                <div class="triangle" style="border-top: 10px solid blue"
-                     [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
-                     matTooltipPosition="above"></div>
-                <div class="triangle" style="border-top: 10px solid blue"
-                     [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid red"
-                     [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid red" [ngStyle]="{left: '95%'}"
-                     [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
-                     matTooltipPosition="above"></div>
-                <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales === 0 ?
-          'blue' : data.competenceLevel.productMinSales < data.userResult ? 'green' : 'red' }">
-                </div>
-              </div>
-
-            </ng-container>
-          </mat-expansion-panel>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                მომსახურება
-              </mat-panel-title>
-              <mat-panel-description>
-
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <ng-container *ngFor="let data of userSales">
-              <div class="progress-bar__container"
-                   *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'SERVICE'">
-                <div class="progress-bar__labels">
-                  <div class="progress-bar__labels-left">
-                    {{data.product.name}}
-                  </div>
-                </div>
-                <div class="triangle" style="border-top: 10px solid green"
-                     [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
-                     [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid green"
-                     [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'თქვენი შედეგი ' + data.userResult"
-                     matTooltipPosition="above"></div>
-                <div class="triangle" style="border-top: 10px solid blue"
-                     [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
-                     matTooltipPosition="above"></div>
-                <div class="triangle" style="border-top: 10px solid blue"
-                     [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid red"
-                     [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-                     [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
-                     matTooltipPosition="above"></div>
-                <div class="triangle-up" style="border-bottom: 10px solid red" [ngStyle]="{left: '95%'}"
-                     [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
-                     matTooltipPosition="above"></div>
-                <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales === 0 ?
-          'blue' : data.competenceLevel.productMinSales < data.userResult ? 'green' : 'red' }">
-                </div>
-              </div>
-
-            </ng-container>
-          </mat-expansion-panel>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              სხვა პროდუქტი
-            </mat-panel-title>
-            <mat-panel-description>
-              {{checked ? bonusTotalQuantityOther?.toLocaleString() + ' ქულა'  : salesTotalQuantityOther?.toLocaleString() + ' ოპერაცია' }}
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <ng-container *ngFor="let data of userSales">
-            <div class="progress-bar__container"
-                 *ngIf="!data.product.primary">
-              <div class="progress-bar__labels">
-                <div class="progress-bar__labels-left">
-                  {{data.product.name}}
-                </div>
-              </div>
-              <div class="triangle" style="border-top: 10px solid green"
-                   [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
-                   [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
-                   matTooltipPosition="above"></div>
-              <div class="triangle-up" style="border-bottom: 10px solid green"
-                   [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%'}"
-                   [matTooltip]="'თქვენი შედეგი ' + data.userResult"
-                   matTooltipPosition="above"></div>
-              <div class="triangle" style="border-top: 10px solid blue"
-                   [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                   [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
-                   matTooltipPosition="above"></div>
-              <div class="triangle" style="border-top: 10px solid blue"
-                   [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-                   [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
-                   matTooltipPosition="above"></div>
-              <div class="triangle-up" style="border-bottom: 10px solid red"
-                   [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-                   [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
-                   matTooltipPosition="above"></div>
-              <div class="triangle-up" style="border-bottom: 10px solid red" [ngStyle]="{left: '95%'}"
-                   [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
-                   matTooltipPosition="above"></div>
-              <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales === 0 ?
-          'blue' : data.competenceLevel.productMinSales < data.userResult ? 'green' : 'red' }">
-              </div>
-            </div>
-
-          </ng-container>
-        </mat-expansion-panel>
-      </div>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="profile__chart-container" *ngIf="isDataAvailable">
+    <mat-form-field>
+      <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
+                  (selectionChange)="loadLineChartData(selected.value)">
+        <mat-option *ngFor="let product of lineChartArray.prorductsBonusesByMonths; let i = index" [value]="i ">{{product.product.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="fixed-container-right" *ngIf="isDataAvailable">
     <div class="profile__doughnut-chart">
       <div class="title-header">
         <h5 class="text-left">
@@ -295,22 +314,7 @@
         </div>
       </div>
     </div>
-  </mat-card>
-</div>
-<div class="padded" *ngIf="isDataAvailable && lineChartDataAvailable">
 
-      <canvas baseChart
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [colors]="lineChartColors"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"></canvas>
-
-  <mat-form-field>
-    <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
-                (selectionChange)="loadLineChartData(selected.value)">
-      <mat-option *ngFor="let product of lineChartArray.prorductsBonusesByMonths; let i = index" [value]="i ">{{product.product.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
 </div>
+
+
