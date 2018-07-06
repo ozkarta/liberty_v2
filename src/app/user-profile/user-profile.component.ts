@@ -159,6 +159,9 @@ export class UserProfileComponent implements OnInit {
 
   branchTotalOperations: BranchStatistics;
 
+  bankAvarageBonus = 0;
+
+
   constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
   }
 
@@ -229,9 +232,7 @@ export class UserProfileComponent implements OnInit {
               this.salesTotalQuantityPrimary += o.product.primary ? o.userResult : 0;
               this.salesTotalQuantityOther += !o.product.primary ? o.userResult : 0;
               this.salesTotalQuantity += o.userResult;
-              this.bonusTotalQuantityPrimary += o.product.primary ? o.bonusPoints : 0;
-              this.bonusTotalQuantityOther += !o.product.primary ? o.bonusPoints : 0;
-              this.bonusTotalQuantity += o.bonusPoints;
+
               this.bankAvgOperations += o.bankAverage;
               this.bankMaxOperations += o.bankmax;
             });
@@ -252,10 +253,18 @@ export class UserProfileComponent implements OnInit {
             bonuses.forEach((b) => {
               this.doughnutChartData.push(b.userResult);
               this.doughnutChartLabels.push(b.product.name);
-              this.myBonusInGel += b.userResult;
+              this.bankAvarageBonus += b.bankAverage;
+              this.bonusTotalQuantityPrimary += b.product.primary ? b.userResult : 0;
+              this.bonusTotalQuantityOther += !b.product.primary ? b.userResult : 0;
+              this.bonusTotalQuantity += b.bonusPoints;
             });
             this.mergeArrays();
-            this.isDataAvailable = true;
+            this.auth.getRequest('/bonusRewards/getUserTotalBonus')
+              .subscribe(
+                (response: any) => {
+                  this.myBonusInGel = response;
+                  this.isDataAvailable = true;
+                });
           }
         });
   }
@@ -268,28 +277,54 @@ export class UserProfileComponent implements OnInit {
     this.lineChartData.length = 0;
     this.lineChartDataAvailable = false;
     const _lineChartData = Array(this.lineChartData.length);
-    _lineChartData.push({
-      label: 'თქვენი ქულა',
-      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
-    });
-    _lineChartData.push({
-      label: 'ბანკის მაქსიმუმი',
-      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMax),
-    });
+    if (!this.checked) {
+      _lineChartData.push({
+        label: 'თქვენი ქულა',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
+      });
+      _lineChartData.push({
+        label: 'ბანკის მაქსიმუმი',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMax),
+      });
 
-    _lineChartData.push({
-      label: 'ბანკის საშუალო',
-      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMean),
-    });
-    _lineChartData.push({
-      label: 'ჯგუფის მაქსიმუმი',
-      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMax),
-    });
+      _lineChartData.push({
+        label: 'ბანკის საშუალო',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMean),
+      });
+      _lineChartData.push({
+        label: 'ჯგუფის მაქსიმუმი',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMax),
+      });
 
-    _lineChartData.push({
-      label: 'ჯგუფის საშუალო',
-      data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMean),
-    });
+      _lineChartData.push({
+        label: 'ჯგუფის საშუალო',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMean),
+      });
+    } else {
+      _lineChartData.push({
+        label: 'თქვენი ოპერაციები',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.saleQuantity),
+      });
+      _lineChartData.push({
+        label: 'ბანკის მაქსიმუმი',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMax),
+      });
+
+      _lineChartData.push({
+        label: 'ბანკის საშუალო',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMეან),
+      });
+      _lineChartData.push({
+        label: 'ჯგუფის მაქსიმუმი',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMax),
+      });
+
+      _lineChartData.push({
+        label: 'ჯგუფის საშუალო',
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMean),
+      });
+    }
+
     this.lineChartData = _lineChartData;
     this.lineChartDataAvailable = true;
   }
@@ -306,6 +341,8 @@ export class UserProfileComponent implements OnInit {
 
   onSlideChange() {
     this.checked = !this.checked;
+    this.selectedOption = -1;
+    this.loadLineChartData(0);
   }
 
   getBankStatistics() {

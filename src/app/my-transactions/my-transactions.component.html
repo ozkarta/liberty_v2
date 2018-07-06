@@ -1,11 +1,11 @@
 <div class="padded">
   <mat-slide-toggle
     [checked]="checked"
-    (change)="onSlideChange()">{{!checked ? 'ქულები' : 'რაოდენობა'}}
+    (change)="onSlideChange()">{{checked ? 'ქულები' : 'რაოდენობა'}}
   </mat-slide-toggle>
 </div>
 <div class="padded">
-  <table mat-table [dataSource]="!checked ? myBonuses : saleQuantities" class="full-width table-padded">
+  <table mat-table [dataSource]="checked ? myBonuses : saleQuantities" class="full-width table-padded">
 
     <ng-container matColumnDef="productName">
       <th mat-header-cell *matHeaderCellDef> პროდუქტი </th>

@@ -8,14 +8,17 @@
     <div class="logged-user">
       <div class="logged-user-info">
         <div class="user-avatar">
-          <img src="../images/avatar.png">
+          <img [src]="'data:image/png;base64,'+userData?.profilePicture">
         </div>
         <div class="logged-user-ident">
           <div class="logged-user-name">
             {{userData?.firstName + ' ' + userData?.lastName}}
           </div>
-          <div class="logged-user-position">
-            {{userData?.userPosition}}
+          <div class="logged-user-position"
+               [matTooltip]="userData?.email"
+               matTooltipPosition="above"
+               matTooltipClass="tooltip__bigger-text">
+            {{userData?.email}}
           </div>
         </div>
       </div>
@@ -34,7 +37,7 @@
       <li *ngIf="userData?.userStaffLevel === 'MIDDLE_MANAGER'" class="menu-item" routerLink="/my-branch-transactions">
         <mat-icon>trending_up</mat-icon>
         <a>
-          ჩემი ჯგუფის ოპერაციები
+          ჩემი გუნდის ოპერაციები
         </a></li>
       <li class="menu-item" routerLink="/branch-bonuses">
         <mat-icon>insert_chart</mat-icon>

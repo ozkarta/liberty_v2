@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
-import { UserModel } from './models/user.model';
 import {AuthorizedUserService} from './services/authorized-user.service';
 import {LibertyUserModel} from './models/liberty-user.model';
 

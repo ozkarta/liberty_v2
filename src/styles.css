@@ -81,19 +81,19 @@ h5 {
 }
 
 .user-avatar {
-  padding: 5px;
+  padding: 3px;
   border: 1px solid #262626;
   border-radius: 50%;
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
-  height: 46px;
+  height: 56px;
   width: 56px;
 }
 
 .user-avatar img {
-  width: 35px;
-  height: auto;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
 
@@ -112,6 +112,10 @@ h5 {
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.4);
   letter-spacing: 1px;
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 3px;
 }
 
 .main-menu {
@@ -180,4 +184,7 @@ h5 {
 .mat-dialog-container {
   background-color: transparent !important;
   box-shadow: none !important;
+}
+.tooltip__bigger-text {
+  font-size: 0.75rem;
 }
