@@ -89,7 +89,7 @@
 
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <ng-container *ngFor="let data of userSales">
+      <ng-container *ngFor="let data of (!checked ? userSales : userBonuses)">
         <div class="progress-bar__container"
              *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'ACQUISITION'">
           <div class="progress-bar__labels">
@@ -97,30 +97,30 @@
               {{data.product.name}}
             </div>
           </div>
-          <div class="triangle-up" style="border-top: 10px solid red"
+          <div *ngIf="!checked" class="triangle-up" style="border-top: 10px solid red"
                [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
                [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
                matTooltipPosition="above"></div>
           <mat-icon class="triangle"
-               [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red'}"
-               [matTooltip]="'ჩემი შედეგი ' + data.userResult"
-               matTooltipPosition="above">{{data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied'}}</mat-icon>
+               [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
+               [matTooltip]="!checked ? 'ჩემი შედეგი ' + data.userResult : 'ჩემი შედეგი ' + data.userResult/100 + 'ლ'"
+               matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
           <mat-icon class="triangle-down" style="color: blue"
                [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-               [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
+               [matTooltip]="!checked ? 'ჯგუფის საშუალო ' + data.groupAverage : 'ჯგუფის საშუალო ' + data.groupAverage/100 + 'ლ'"
                matTooltipPosition="above">group</mat-icon>
           <img src="../../images/groupMax.png" class="triangle"
                [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-               [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
+               [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი ' + data.groupMax : 'ჯგუფის მაქსიმუმი ' + data.groupMax/100 + 'ლ'"
                matTooltipPosition="above">
           <i class="fa fa-users triangle-down" style="color: #f067ff; top:8px; font-size: 0.9rem"
                [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-               [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
+               [matTooltip]="!checked ? 'ბანკის საშუალო ' + data.bankAverage : 'ბანკის საშუალო ' + data.bankAverage/100 + 'ლ'"
                matTooltipPosition="above"></i>
           <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
-               [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
+               [matTooltip]="!checked ? 'ბანკის მაქსიმუმი ' + data.bankmax : 'ბანკის მაქსიმუმი ' + data.bankmax/100 + 'ლ'"
                matTooltipPosition="above">
-          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' }">
+          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
           </div>
         </div>
 
@@ -135,7 +135,7 @@
 
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <ng-container *ngFor="let data of userSales">
+      <ng-container *ngFor="let data of (!checked ? userSales : userBonuses)">
         <div class="progress-bar__container"
              *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'CREDIT_ISSUANCE'">
           <div class="progress-bar__labels">
@@ -143,30 +143,30 @@
               {{data.product.name}}
             </div>
           </div>
-          <div class="triangle-up" style="border-top: 10px solid red"
+          <div *ngIf="!checked" class="triangle-up" style="border-top: 10px solid red"
                [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
                [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
                matTooltipPosition="above"></div>
           <mat-icon class="triangle"
-                    [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red'}"
-                    [matTooltip]="'ჩემი შედეგი ' + data.userResult"
-                    matTooltipPosition="above">{{data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied'}}</mat-icon>
+                    [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
+                    [matTooltip]="!checked ? 'ჩემი შედეგი ' + data.userResult : 'ჩემი შედეგი ' + data.userResult/100 + 'ლ'"
+                    matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
           <mat-icon class="triangle-down" style="color: blue"
                     [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                    [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
+                    [matTooltip]="!checked ? 'ჯგუფის საშუალო ' + data.groupAverage : 'ჯგუფის საშუალო ' + data.groupAverage/100 + 'ლ'"
                     matTooltipPosition="above">group</mat-icon>
           <img src="../../images/groupMax.png" class="triangle"
                [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-               [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
+               [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი ' + data.groupMax : 'ჯგუფის მაქსიმუმი ' + data.groupMax/100 + 'ლ'"
                matTooltipPosition="above">
           <i class="fa fa-users triangle-down" style="color: #f067ff; top:8px; font-size: 0.9rem"
              [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-             [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
+             [matTooltip]="!checked ? 'ბანკის საშუალო ' + data.bankAverage : 'ბანკის საშუალო ' + data.bankAverage/100 + 'ლ'"
              matTooltipPosition="above"></i>
           <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
-               [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
+               [matTooltip]="!checked ? 'ბანკის მაქსიმუმი ' + data.bankmax : 'ბანკის მაქსიმუმი ' + data.bankmax/100 + 'ლ'"
                matTooltipPosition="above">
-          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' }">
+          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
           </div>
         </div>
 
@@ -181,7 +181,7 @@
 
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <ng-container *ngFor="let data of userSales">
+      <ng-container *ngFor="let data of (!checked ? userSales : userBonuses)">
         <div class="progress-bar__container"
              *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'SERVICE'">
           <div class="progress-bar__labels">
@@ -189,30 +189,30 @@
               {{data.product.name}}
             </div>
           </div>
-          <div class="triangle-up" style="border-top: 10px solid red"
+          <div *ngIf="!checked" class="triangle-up" style="border-top: 10px solid red"
                [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
                [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
                matTooltipPosition="above"></div>
           <mat-icon class="triangle"
-                    [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red'}"
-                    [matTooltip]="'ჩემი შედეგი ' + data.userResult"
-                    matTooltipPosition="above">{{data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied'}}</mat-icon>
+                    [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
+                    [matTooltip]="!checked ? 'ჩემი შედეგი ' + data.userResult : 'ჩემი შედეგი ' + data.userResult/100 + 'ლ'"
+                    matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
           <mat-icon class="triangle-down" style="color: blue"
                     [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                    [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
+                    [matTooltip]="!checked ? 'ჯგუფის საშუალო ' + data.groupAverage : 'ჯგუფის საშუალო ' + data.groupAverage/100 + 'ლ'"
                     matTooltipPosition="above">group</mat-icon>
           <img src="../../images/groupMax.png" class="triangle"
                [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-               [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
+               [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი ' + data.groupMax : 'ჯგუფის მაქსიმუმი ' + data.groupMax/100 + 'ლ'"
                matTooltipPosition="above">
           <i class="fa fa-users triangle-down" style="color: #f067ff; top:8px; font-size: 0.9rem"
              [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-             [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
+             [matTooltip]="!checked ? 'ბანკის საშუალო ' + data.bankAverage : 'ბანკის საშუალო ' + data.bankAverage/100 + 'ლ'"
              matTooltipPosition="above"></i>
           <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
-               [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
+               [matTooltip]="!checked ? 'ბანკის მაქსიმუმი ' + data.bankmax : 'ბანკის მაქსიმუმი ' + data.bankmax/100 + 'ლ'"
                matTooltipPosition="above">
-          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' }">
+          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
           </div>
         </div>
 
@@ -228,7 +228,7 @@
         {{checked ? 'ლარი: '+(bonusTotalQuantityOther/100)?.toLocaleString()  :  'ოპერაცია: ' + salesTotalQuantityOther?.toLocaleString() }}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <ng-container *ngFor="let data of userSales">
+    <ng-container *ngFor="let data of (!checked ? userSales : userBonuses)">
       <div class="progress-bar__container"
            *ngIf="!data.product.primary">
         <div class="progress-bar__labels">
@@ -236,30 +236,30 @@
             {{data.product.name}}
           </div>
         </div>
-        <div class="triangle-up" style="border-top: 10px solid red"
+        <div *ngIf="!checked" class="triangle-up" style="border-top: 10px solid red"
              [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
              [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
              matTooltipPosition="above"></div>
         <mat-icon class="triangle"
-                  [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red'}"
-                  [matTooltip]="'ჩემი შედეგი ' + data.userResult"
-                  matTooltipPosition="above">{{data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied'}}</mat-icon>
+                  [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
+                  [matTooltip]="!checked ? 'ჩემი შედეგი ' + data.userResult : 'ჩემი შედეგი ' + data.userResult/100 + 'ლ'"
+                  matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
         <mat-icon class="triangle-down" style="color: blue"
                   [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                  [matTooltip]="'ჯგუფის საშუალო ' + data.groupAverage"
+                  [matTooltip]="!checked ? 'ჯგუფის საშუალო ' + data.groupAverage : 'ჯგუფის საშუალო ' + data.groupAverage/100 + 'ლ'"
                   matTooltipPosition="above">group</mat-icon>
         <img src="../../images/groupMax.png" class="triangle"
              [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-             [matTooltip]="'ჯგუფის მაქსიმუმი ' + data.groupMax"
+             [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი ' + data.groupMax : 'ჯგუფის მაქსიმუმი ' + data.groupMax/100 + 'ლ'"
              matTooltipPosition="above">
         <i class="fa fa-users triangle-down" style="color: #f067ff; top:8px; font-size: 0.9rem"
            [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-           [matTooltip]="'ბანკის საშუალო ' + data.bankAverage"
+           [matTooltip]="!checked ? 'ბანკის საშუალო ' + data.bankAverage : 'ბანკის საშუალო ' + data.bankAverage/100 + 'ლ'"
            matTooltipPosition="above"></i>
         <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
-             [matTooltip]="'ბანკის მაქსიმუმი ' + data.bankmax"
+             [matTooltip]="!checked ? 'ბანკის მაქსიმუმი ' + data.bankmax : 'ბანკის მაქსიმუმი ' + data.bankmax/100 + 'ლ'"
              matTooltipPosition="above">
-        <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' }">
+        <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
         </div>
       </div>
 
