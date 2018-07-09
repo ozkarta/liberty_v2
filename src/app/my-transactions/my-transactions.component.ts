@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatSort, MatTableDataSource} from '@angular/material';
-import {AuthService} from '../services/auth.service';
-import {MyOperationsModel} from '../models/my-operations.model';
-import {Transactions} from '../transactions/transactions.component';
-import {AuthorizedUserService} from '../services/authorized-user.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatTableDataSource } from '@angular/material';
+import { AuthService } from '../services/auth.service';
+import { MyOperationsModel } from '../models/my-operations.model';
+import { Transactions } from '../transactions/transactions.component';
+import { AuthorizedUserService } from '../services/authorized-user.service';
 
 @Component({
   selector: 'app-my-transactions',
@@ -22,7 +22,6 @@ export class MyTransactionsComponent implements OnInit {
     'bankMin',
     'bankAvg',
     'bankMax',
-    'hrCode',
   ];
   myBonuses: MyOperationsModel[] = [];
 
@@ -60,6 +59,19 @@ export class MyTransactionsComponent implements OnInit {
 
   onSlideChange() {
     this.checked = !this.checked;
+  }
+  export() {
+    this.auth.getRequestDownload('/bonusRewards/exportCurrentMonthBonuses')
+      .subscribe(
+        (response: any) => {
+          this.downloadFile(response);
+        });
+  }
+
+  downloadFile(data: any) {
+    const blob = new Blob([data], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
   }
 }
 

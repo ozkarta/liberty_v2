@@ -23,6 +23,7 @@ import { OrganizationStructureComponent } from './organization-structure/organiz
 // Module Imports
 import { RoutingModule } from './app-routing.module';
 import { ChartsModule } from 'ng2-charts';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 // Service Imports
 import { AuthService } from './services/auth.service';
@@ -47,6 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
+import { ProductWikiComponent } from './product-wiki/product-wiki.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MyTransactionsComponent,
     BranchTransactionsComponent,
     OrganizationStructureComponent,
+    ProductWikiComponent,
   ],
   imports: [
     HttpClientModule,
@@ -87,6 +90,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatDividerModule,
     MatExpansionModule,
     MatRadioModule,
+    PdfViewerModule,
   ],
   providers: [
     AuthService,

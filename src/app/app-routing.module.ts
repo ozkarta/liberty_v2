@@ -12,6 +12,7 @@ import { OtherUserProfileComponent } from './other-user-profile/other-user-profi
 import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
 import { BranchTransactionsComponent } from './branch-transactions/branch-transactions.component';
 import { OrganizationStructureComponent } from 'src/app/organization-structure/organization-structure.component';
+import {ProductWikiComponent} from './product-wiki/product-wiki.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   { path: 'my-transactions', component: MyTransactionsComponent, canActivate: [RouteGuardService] },
   { path: 'my-branch-transactions', component: BranchTransactionsComponent, canActivate: [RouteGuardService] },
   { path: 'org-chart', component: OrganizationStructureComponent, canActivate: [RouteGuardService] },
+  { path: 'product', component: ProductWikiComponent, canActivate: [RouteGuardService] },
 ];
 
 @NgModule({

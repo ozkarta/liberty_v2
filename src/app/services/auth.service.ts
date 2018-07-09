@@ -6,6 +6,7 @@ import {UserModel} from '../models/user.model';
 import {AuthorizedUserService} from './authorized-user.service';
 import {LibertyUserModel} from '../models/liberty-user.model';
 import {MyOperationsModel} from '../models/my-operations.model';
+import {ResponseContentType} from '@angular/http';
 
 @Injectable()
 export class AuthService {
@@ -49,6 +50,19 @@ export class AuthService {
     return this.http.get(`${this.url}${url}`, {headers: header})
       .pipe(map(
         (response: Response) => {
+          return response;
+        }), catchError(
+        (error: Response) => {
+          return throwError(error);
+        }));
+  }
+
+  getRequestDownload(url: string): Observable<Blob> {
+    const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
+      .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
+    return this.http.get(`${this.url}${url}`, { headers: header, responseType: 'blob' })
+      .pipe(map(
+        (response: Blob) => {
           return response;
         }), catchError(
         (error: Response) => {

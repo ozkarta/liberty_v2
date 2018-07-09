@@ -241,6 +241,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadChartData() {
+    let otherCount = 0;
     this.currentUser.getMyBonuses
       .subscribe(
         (bonuses: MyOperationsModel[]) => {
@@ -251,13 +252,19 @@ export class UserProfileComponent implements OnInit {
             this.myBonusInGel = 0;
             this.userBonuses = bonuses;
             bonuses.forEach((b) => {
-              this.doughnutChartData.push(b.userResult);
-              this.doughnutChartLabels.push(b.product.name);
+              if (b.product.primary) {
+                this.doughnutChartData.push(b.userResult);
+                this.doughnutChartLabels.push(b.product.name);
+              } else {
+                otherCount += b.userResult
+              }
               this.bankAvarageBonus += b.bankAverage;
               this.bonusTotalQuantityPrimary += b.product.primary ? b.userResult : 0;
               this.bonusTotalQuantityOther += !b.product.primary ? b.userResult : 0;
               this.bonusTotalQuantity += b.bonusPoints;
             });
+            this.doughnutChartData.push(otherCount);
+            this.doughnutChartLabels.push('სხვა');
             this.mergeArrays();
             this.auth.getRequest('/bonusRewards/getUserTotalBonus')
               .subscribe(
@@ -279,7 +286,7 @@ export class UserProfileComponent implements OnInit {
     const _lineChartData = Array(this.lineChartData.length);
     if (!this.checked) {
       _lineChartData.push({
-        label: 'თქვენი ქულა',
+        label: 'ჩემი ქულა',
         data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
       });
       _lineChartData.push({
@@ -302,7 +309,7 @@ export class UserProfileComponent implements OnInit {
       });
     } else {
       _lineChartData.push({
-        label: 'თქვენი ოპერაციები',
+        label: 'ჩემი ოპერაციები',
         data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.saleQuantity),
       });
       _lineChartData.push({
@@ -312,7 +319,7 @@ export class UserProfileComponent implements OnInit {
 
       _lineChartData.push({
         label: 'ბანკის საშუალო',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMეან),
+        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMean),
       });
       _lineChartData.push({
         label: 'ჯგუფის მაქსიმუმი',
@@ -341,7 +348,6 @@ export class UserProfileComponent implements OnInit {
 
   onSlideChange() {
     this.checked = !this.checked;
-    this.selectedOption = -1;
     this.loadLineChartData(0);
   }
 

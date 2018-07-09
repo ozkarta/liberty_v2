@@ -1,11 +1,11 @@
 <div class="padded">
   <mat-slide-toggle
     [checked]="checked"
-    (change)="onSlideChange()">{{checked ? 'ქულები' : 'რაოდენობა'}}
+    (change)="onSlideChange()">{{checked ? 'თანხა' : 'რაოდენობა'}}
   </mat-slide-toggle>
 </div>
 <div class="padded">
-  <table mat-table [dataSource]="checked ? myBonuses : saleQuantities" class="full-width table-padded">
+  <table mat-table [dataSource]="checked ? myBonuses : saleQuantities" class="full-width table-padded" style="padding: 0">
 
     <ng-container matColumnDef="productName">
       <th mat-header-cell *matHeaderCellDef> პროდუქტი </th>
@@ -13,8 +13,8 @@
     </ng-container>
 
     <ng-container matColumnDef="myOwn">
-      <th mat-header-cell *matHeaderCellDef> საკუთარი </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.userResult}} </td>
+      <th mat-header-cell *matHeaderCellDef> ჩემი შედეგი </th>
+      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.userResult : (operation.userResult/100)+' ლ'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="groupRating">
@@ -29,40 +29,36 @@
 
     <ng-container matColumnDef="groupMin">
       <th mat-header-cell *matHeaderCellDef> ჯგუფის მინიმუმი </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.groupMin}} </td>
+      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.groupMin : (operation.groupMin/100)+' ლ'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="groupAvg">
       <th mat-header-cell *matHeaderCellDef> ჯგუფის საშუალო </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.groupAverage}} </td>
+      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.groupAverage : (operation.groupAverage/100)+' ლ'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="groupMax">
       <th mat-header-cell *matHeaderCellDef> ჯგუფის მაქსიმუმი </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.groupMax}} </td>
+      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.groupMax : (operation.groupMax/100)+' ლ'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="bankMin">
       <th mat-header-cell *matHeaderCellDef> ბანკის მინიმუმი </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.bankMin}} </td>
+      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.bankMin : (operation.bankMin/100)+' ლ'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="bankAvg">
       <th mat-header-cell *matHeaderCellDef> ბანკის საშუალო </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.bankAverage}} </td>
+      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.bankAverage : (operation.bankAverage/100)+' ლ'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="bankMax">
       <th mat-header-cell *matHeaderCellDef> ბანკის მაქსიმუმი </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.bankmax}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="hrCode">
-      <th mat-header-cell *matHeaderCellDef> HR კოდი </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.staffId}} </td>
+      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.bankmax : (operation.bankmax/100)+' ლ'}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <button (click)="export()">export</button>
 </div>
