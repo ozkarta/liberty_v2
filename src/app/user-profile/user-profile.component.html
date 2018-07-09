@@ -93,7 +93,7 @@
         <div class="progress-bar__container"
              *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'ACQUISITION'">
           <div class="progress-bar__labels">
-            <div class="progress-bar__labels-left">
+            <div class="progress-bar__labels-left" routerLink="/product">
               {{data.product.name}}
             </div>
           </div>
@@ -139,7 +139,7 @@
         <div class="progress-bar__container"
              *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'CREDIT_ISSUANCE'">
           <div class="progress-bar__labels">
-            <div class="progress-bar__labels-left">
+            <div class="progress-bar__labels-left" routerLink="/product">
               {{data.product.name}}
             </div>
           </div>
@@ -232,7 +232,7 @@
       <div class="progress-bar__container"
            *ngIf="!data.product.primary">
         <div class="progress-bar__labels">
-          <div class="progress-bar__labels-left">
+          <div class="progress-bar__labels-left" routerLink="/product">
             {{data.product.name}}
           </div>
         </div>
