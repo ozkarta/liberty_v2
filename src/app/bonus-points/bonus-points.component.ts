@@ -41,10 +41,38 @@ export class BonusPointsComponent implements OnInit {
               productMinSales: t.competenceLevel.productMinSales,
               productBonusPointStart: t.competenceLevel.productBonusPointStart,
               evaluationGroup: t.evaluationGroup.name,
+              product: t.product,
             });
           });
+          this.products.sort((a, b) => a.product.sortOrder - b.product.sortOrder);
           this.dataSource.sort = this.sort;
         });
+  }
+
+  export() {
+    this.auth.getRequestDownload('/bonusRewards/exportCurrentMonthBonuses')
+      .subscribe(
+        (response: any) => {
+          this.downloadFile(response, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'export.xlsx');
+        });
+  }
+
+  downloadFile(blob: any, type: string, filename: string) {
+
+    const binaryData = [];
+    binaryData.push(blob);
+
+    const url = window.URL.createObjectURL(new Blob(binaryData)); // <-- work with blob directly
+
+    // create hidden dom element (so it works in all browsers)
+    const a = document.createElement('a');
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+
+    // create file, attach to hidden element and open hidden element
+    a.href = url;
+    a.download = filename;
+    a.click();
   }
 }
 
@@ -67,4 +95,5 @@ export interface BonusPoints {
   productMinSales: number;
   productBonusPointStart: number;
   evaluationGroup: any;
+  product?: any;
 }

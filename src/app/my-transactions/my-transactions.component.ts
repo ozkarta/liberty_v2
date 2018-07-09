@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { MyOperationsModel } from '../models/my-operations.model';
@@ -28,6 +28,8 @@ export class MyTransactionsComponent implements OnInit {
   saleQuantities: MyOperationsModel[] = [];
   @ViewChild(MatSort) sort: MatSort;
   checked = false;
+
+  @ViewChild('downloadFile') private downloadExcel: ElementRef;
 
   constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
   }
@@ -61,17 +63,41 @@ export class MyTransactionsComponent implements OnInit {
     this.checked = !this.checked;
   }
   export() {
-    this.auth.getRequestDownload('/bonusRewards/exportCurrentMonthBonuses')
+    let url;
+    if (!this.checked) {
+      url = '/bonusRewards/exportCurrentMonthBonuses';
+    } else {
+      url = '/sales/exportCurrentMonthSales';
+    }
+    this.auth.getRequestDownload(url)
       .subscribe(
         (response: any) => {
-          this.downloadFile(response);
+          this.downloadFile(response, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'export.xlsx');
         });
   }
 
-  downloadFile(data: any) {
-    const blob = new Blob([data], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    window.open(url);
+  // downloadFile(data: any) {
+  //   const blob = new Blob([data], { type: 'application/vnd.ms-excel' });
+  //   const url = window.URL.createObjectURL(blob);
+  //   window.URL.revokeObjectURL(url);
+  // }
+
+  downloadFile(blob: any, type: string, filename: string) {
+
+    const binaryData = [];
+    binaryData.push(blob);
+
+    const url = window.URL.createObjectURL(new Blob(binaryData)); // <-- work with blob directly
+
+    // create hidden dom element (so it works in all browsers)
+    const a = document.createElement('a');
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+
+    // create file, attach to hidden element and open hidden element
+    a.href = url;
+    a.download = filename;
+    a.click();
   }
 }
 

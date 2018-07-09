@@ -1,12 +1,12 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError, of} from 'rxjs';
-import {map, catchError} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {UserModel} from '../models/user.model';
-import {AuthorizedUserService} from './authorized-user.service';
-import {LibertyUserModel} from '../models/liberty-user.model';
-import {MyOperationsModel} from '../models/my-operations.model';
-import {ResponseContentType} from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { UserModel } from '../models/user.model';
+import { AuthorizedUserService } from './authorized-user.service';
+import { LibertyUserModel } from '../models/liberty-user.model';
+import { MyOperationsModel } from '../models/my-operations.model';
+import { ResponseContentType } from '@angular/http';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +20,7 @@ export class AuthService {
   postRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
       .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
-    return this.http.post(`${this.url}${url}`, data, {headers: header})
+    return this.http.post(`${this.url}${url}`, data, { headers: header })
       .pipe(map(
         (response: Response) => {
           return response;
@@ -33,12 +33,12 @@ export class AuthService {
   putRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
       .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
-    return this.http.put(`${this.url}${url}`, data, {headers: header})
+    return this.http.put(`${this.url}${url}`, data, { headers: header })
       .pipe(map(
         (response: Response) => {
           return response;
         }),
-        catchError(
+            catchError(
           (error: Response) => {
             return throwError(error);
           }));
@@ -47,7 +47,7 @@ export class AuthService {
   getRequest(url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
       .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
-    return this.http.get(`${this.url}${url}`, {headers: header})
+    return this.http.get(`${this.url}${url}`, { headers: header })
       .pipe(map(
         (response: Response) => {
           return response;
@@ -62,7 +62,7 @@ export class AuthService {
       .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.get(`${this.url}${url}`, { headers: header, responseType: 'blob' })
       .pipe(map(
-        (response: Blob) => {
+        (response: Response) => {
           return response;
         }), catchError(
         (error: Response) => {
@@ -82,6 +82,10 @@ export class AuthService {
     this.getRequest('/sales/currentMonthSales')
       .subscribe(
         (sales: MyOperationsModel[]) => {
+          sales.sort((a, b) => {
+            return a.product.sortOrder - b.product.sortOrder;
+          });
+          console.log(sales);
           this.currentUser.setMyOperations(sales);
         });
   }
@@ -90,6 +94,7 @@ export class AuthService {
     this.getRequest('/bonusRewards/currentMonthBonuses')
       .subscribe(
         (operations: MyOperationsModel[]) => {
+          operations.sort((a, b) => a.product.sortOrder - b.product.sortOrder);
           this.currentUser.setMyBonuses(operations);
         });
   }
@@ -133,7 +138,7 @@ export class AuthService {
     if (this.getCookie('access_token') === null && this.getCookie('refresh_token') !== null) {
       const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
         .set('Authorization', 'Bearer ' + this.getCookie('refresh_token'));
-      this.http.post(`${this.url}/auth/refresh`, null, {headers: header})
+      this.http.post(`${this.url}/auth/refresh`, null, { headers: header })
         .pipe(map(
           (tokens: any) => {
             this.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
@@ -142,4 +147,5 @@ export class AuthService {
           }));
     }
   }
+
 }

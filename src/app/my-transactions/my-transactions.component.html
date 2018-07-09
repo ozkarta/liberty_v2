@@ -3,6 +3,7 @@
     [checked]="checked"
     (change)="onSlideChange()">{{checked ? 'თანხა' : 'რაოდენობა'}}
   </mat-slide-toggle>
+  <button mat-raised-button (click)="export()">ექსპორტი</button>
 </div>
 <div class="padded">
   <table mat-table [dataSource]="checked ? myBonuses : saleQuantities" class="full-width table-padded" style="padding: 0">
@@ -60,5 +61,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <button (click)="export()">export</button>
 </div>

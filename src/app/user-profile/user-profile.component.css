@@ -303,6 +303,9 @@
 .mat-card-content {
   text-align: center;
 }
+.progress-bar__labels-left {
+  cursor: pointer;
+}
 @media only screen and (max-width: 1690px) {
   .card-number {
     font-size: 2rem;
