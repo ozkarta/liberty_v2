@@ -12,9 +12,12 @@ body, html {
 * {
   box-sizing: border-box;
 }
+
 h5 {
   font-size: 1.25rem;
+  margin: 1rem 0;
 }
+
 .mat-input-element {
   caret-color: #8f908b;
 }
@@ -148,11 +151,13 @@ h5 {
   transform: translateX(5%);
   transition: all ease-out 0.2s;
 }
+
 .padded {
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
 }
+
 .title-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding-bottom: 1rem;
@@ -160,6 +165,7 @@ h5 {
   position: relative;
   z-index: 1;
 }
+
 .title-header:after {
   content: "";
   background-color: #047bf8;
@@ -171,20 +177,25 @@ h5 {
   bottom: -3px;
   left: 0;
 }
+
 .text-left {
   text-align: left !important;
 }
+
 .full-width {
   width: 100%;
   padding: 5px;
 }
+
 .mat-drawer-container {
   background-color: #f2f4f8;
 }
+
 .mat-dialog-container {
   background-color: transparent !important;
   box-shadow: none !important;
 }
+
 .tooltip__bigger-text {
   font-size: 0.75rem;
 }
