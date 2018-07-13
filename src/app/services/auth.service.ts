@@ -83,7 +83,7 @@ export class AuthService {
       .subscribe(
         (sales: MyOperationsModel[]) => {
           sales.sort((a, b) => {
-            return a.product.sortOrder - b.product.sortOrder;
+            return a.product.productMotivationalBlockTypeId - b.product.productMotivationalBlockTypeId || a.product.sortOrder - b.product.sortOrder;
           });
           this.currentUser.setMyOperations(sales);
         });
@@ -93,7 +93,7 @@ export class AuthService {
     this.getRequest('/bonusRewards/currentMonthBonuses')
       .subscribe(
         (operations: MyOperationsModel[]) => {
-          operations.sort((a, b) => a.product.sortOrder - b.product.sortOrder);
+          operations.sort((a, b) => a.product.productMotivationalBlockTypeId - b.product.productMotivationalBlockTypeId ||  a.product.sortOrder - b.product.sortOrder);
           this.currentUser.setMyBonuses(operations);
         });
   }

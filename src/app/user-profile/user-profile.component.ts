@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormControl } from '@angular/forms';
 import { AuthorizedUserService } from '../services/authorized-user.service';
@@ -6,6 +6,7 @@ import { UserModel } from '../models/user.model';
 import { MyOperationsModel } from '../models/my-operations.model';
 import { LibertyUserModel } from '../models/liberty-user.model';
 import { BankStatisticsModel, Statistic } from '../models/bank-statistics.model';
+import {BaseChartDirective} from 'ng2-charts';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   selectedTab = new FormControl(0);
 
   selectedOption = -1;
-  selected = new FormControl(0);
+  selected = new FormControl(-1);
   isDataAvailable = false;
   public doughnutChartLabels: string[] = [];
   public doughnutChartData: number[] = [];
@@ -158,12 +159,9 @@ export class UserProfileComponent implements OnInit {
 
   bankStatistics: BankStatisticsModel;
 
-  monthlyLineChartData: {
-    data: number[];
-    label: string;
-  }[] = [];
+  monthlyLineChartData: BankTotalStatistics[] = [];
 
-  monthlyLineChartLabels: string[] = [];
+  totalBonuses: BankTotalStatistics[] = [];
 
   constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
   }
@@ -173,9 +171,14 @@ export class UserProfileComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.lineChartArray = response;
-          console.log(this.lineChartArray);
-          this.loadLineChartData(0, 3);
+          this.auth.getRequest('/bonusRewards/totalStatisticsByMonths')
+            .subscribe(
+              (totals: BankTotalStatistics[]) => {
+                this.monthlyLineChartData = totals;
+                this.loadLineChartData(-1, 3);
+              });
         });
+
     this.loadChartData();
     this.getUserOperations();
     this.getBankStatistics();
@@ -254,61 +257,116 @@ export class UserProfileComponent implements OnInit {
         });
   }
 
-  loadLineChartData(index: number, months: number) {
-    const firstData = JSON.parse(JSON.stringify(this.lineChartArray));
-    firstData.prorductsBonusesByMonths.forEach((p) => {
-      p.productMonthBonuses = p.productMonthBonuses.filter(prod => prod.monthOrdinal <= months);
-    });
+  loadLineChartData(index: number, months: number, chart?) {
+    let firstData = index === -1 ? JSON.parse(JSON.stringify(this.monthlyLineChartData)) : JSON.parse(JSON.stringify(this.lineChartArray));
+    if (index !== -1) {
+      firstData.prorductsBonusesByMonths.forEach((p) => {
+        p.productMonthBonuses = p.productMonthBonuses.filter(prod => prod.monthOrdinal <= months);
+      });
+    } else {
+      firstData = Object.values(firstData);
+      firstData = firstData.filter(prod => prod.monthOrdinal <= months);
+    }
     this.lineChartData.length = 0;
     this.lineChartLabels.length = 0;
     this.lineChartDataAvailable = false;
     const _lineChartData = Array(this.lineChartData.length);
-    if (!this.checked) {
-      _lineChartData.push({
-        label: 'ჩემი ქულა',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
-      });
-      _lineChartData.push({
-        label: 'ბანკის მაქსიმუმი',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMax),
-      });
+    if (index !== -1) {
+      if (!this.checked) {
+        _lineChartData.push({
+          label: 'ჩემი ქულა',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
+        });
+        _lineChartData.push({
+          label: 'ბანკის მაქსიმუმი',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMax),
+        });
 
-      _lineChartData.push({
-        label: 'ბანკის საშუალო',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMean),
-      });
-      _lineChartData.push({
-        label: 'ჯგუფის მაქსიმუმი',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMax),
-      });
+        _lineChartData.push({
+          label: 'ბანკის საშუალო',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMean),
+        });
+        _lineChartData.push({
+          label: 'ჯგუფის მაქსიმუმი',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMax),
+        });
 
-      _lineChartData.push({
-        label: 'ჯგუფის საშუალო',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMean),
-      });
+        _lineChartData.push({
+          label: 'ჯგუფის საშუალო',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMean),
+        });
+      } else {
+        _lineChartData.push({
+          label: 'ჩემი ოპერაციები',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.saleQuantity),
+        });
+        _lineChartData.push({
+          label: 'ბანკის მაქსიმუმი',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMax),
+        });
+
+        _lineChartData.push({
+          label: 'ბანკის საშუალო',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMean),
+        });
+        _lineChartData.push({
+          label: 'ჯგუფის მაქსიმუმი',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMax),
+        });
+
+        _lineChartData.push({
+          label: 'ჯგუფის საშუალო',
+          data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMean),
+        });
+      }
     } else {
-      _lineChartData.push({
-        label: 'ჩემი ოპერაციები',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.saleQuantity),
-      });
-      _lineChartData.push({
-        label: 'ბანკის მაქსიმუმი',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMax),
-      });
+      if (!this.checked) {
+        _lineChartData.push({
+          label: 'ჩემი ქულა',
+          data: firstData.map(number => number.bonusReward),
+        });
+        _lineChartData.push({
+          label: 'ბანკის მაქსიმუმი',
+          data: firstData.map(number => number.bonusBankMax),
+        });
 
-      _lineChartData.push({
-        label: 'ბანკის საშუალო',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMean),
-      });
-      _lineChartData.push({
-        label: 'ჯგუფის მაქსიმუმი',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMax),
-      });
+        _lineChartData.push({
+          label: 'ბანკის საშუალო',
+          data: firstData.map(number => number.bonusBankMean),
+        });
+        _lineChartData.push({
+          label: 'ჯგუფის მაქსიმუმი',
+          data: [],
+        });
 
-      _lineChartData.push({
-        label: 'ჯგუფის საშუალო',
-        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMean),
-      });
+        _lineChartData.push({
+          label: 'ჯგუფის საშუალო',
+          data: [],
+        });
+      } else {
+        _lineChartData.push({
+          label: 'ჩემი ქულა',
+          data: firstData.map(number => number.saleQuantity),
+        });
+        _lineChartData.push({
+          label: 'ბანკის მაქსიმუმი',
+          data: firstData.map(number => number.salesBankMax),
+        });
+
+        _lineChartData.push({
+          label: 'ბანკის საშუალო',
+          data: firstData.map(number => number.salesBankMean),
+        });
+        _lineChartData.push({
+          label: 'ჯგუფის მაქსიმუმი',
+          data: [],
+        });
+
+        _lineChartData.push({
+          label: 'ჯგუფის საშუალო',
+          data: [],
+        });
+      }
     }
     _lineChartData.forEach((data) => {
       data.data.reverse();
@@ -325,6 +383,7 @@ export class UserProfileComponent implements OnInit {
     this.lineChartData = _lineChartData;
     this.lineChartDataAvailable = true;
   }
+
 
   mergeArrays() {
     this.combinedArray = [];
@@ -356,4 +415,11 @@ export interface BranchStatistics {
   branchesMax: number;
   branchesMean: number;
   currentBranchSales: number;
+}
+
+export interface BankTotalStatistics {
+  bonusBankMax: number;
+  bonusBankMean: number;
+  salesBankMax: number;
+  salesBankMean: number;
 }

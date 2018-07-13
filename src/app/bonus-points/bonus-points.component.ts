@@ -19,15 +19,6 @@ export class BonusPointsComponent implements OnInit {
   ngOnInit() {
     this.getBonusPoints();
   }
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ProductAddDialogComponent, {
-      width: '400px',
-    });
-    dialogRef.afterClosed().subscribe(
-      () => {
-        this.getBonusPoints();
-      });
-  }
 
   getBonusPoints() {
     this.auth.getRequest('/products')
@@ -44,8 +35,9 @@ export class BonusPointsComponent implements OnInit {
               product: t.product,
             });
           });
-          this.products.sort((a, b) => a.product.sortOrder - b.product.sortOrder);
+          this.products.sort((a, b) => a.product.productMotivationalBlockTypeId - b.product.productMotivationalBlockTypeId || a.product.sortOrder - b.product.sortOrder);
           this.dataSource.sort = this.sort;
+          console.log(this.dataSource);
         });
   }
 
@@ -73,6 +65,10 @@ export class BonusPointsComponent implements OnInit {
     a.href = url;
     a.download = filename;
     a.click();
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
 

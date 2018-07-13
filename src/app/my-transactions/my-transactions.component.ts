@@ -29,6 +29,9 @@ export class MyTransactionsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   checked = false;
 
+  dataSourceSales = new MatTableDataSource(this.saleQuantities);
+  dataSourceBonuses = new MatTableDataSource(this.myBonuses);
+
   @ViewChild('downloadFile') private downloadExcel: ElementRef;
 
   constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
@@ -44,7 +47,11 @@ export class MyTransactionsComponent implements OnInit {
       .subscribe(
         (bonuses: MyOperationsModel[]) => {
           if (bonuses) {
-            this.myBonuses = bonuses;
+            bonuses.forEach((b) => {
+              b.productName = b.product.name;
+              this.myBonuses.push(b);
+            });
+            this.dataSourceBonuses.sort = this.sort;
           }
         });
   }
@@ -54,7 +61,11 @@ export class MyTransactionsComponent implements OnInit {
         .subscribe(
           (operations: MyOperationsModel[]) => {
             if (operations) {
-              this.saleQuantities = operations;
+              operations.forEach((b) => {
+                b.productName = b.product.name;
+                this.saleQuantities.push(b);
+              });
+              this.dataSourceSales.sort = this.sort;
             }
           });
   }
@@ -62,6 +73,7 @@ export class MyTransactionsComponent implements OnInit {
   onSlideChange() {
     this.checked = !this.checked;
   }
+
   export() {
     let url;
     if (!this.checked) {
@@ -75,12 +87,6 @@ export class MyTransactionsComponent implements OnInit {
           this.downloadFile(response, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'export.xlsx');
         });
   }
-
-  // downloadFile(data: any) {
-  //   const blob = new Blob([data], { type: 'application/vnd.ms-excel' });
-  //   const url = window.URL.createObjectURL(blob);
-  //   window.URL.revokeObjectURL(url);
-  // }
 
   downloadFile(blob: any, type: string, filename: string) {
 
@@ -98,6 +104,11 @@ export class MyTransactionsComponent implements OnInit {
     a.href = url;
     a.download = filename;
     a.click();
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSourceSales.filter = filterValue.trim().toLowerCase();
+    this.dataSourceBonuses.filter = filterValue.trim().toLowerCase();
   }
 }
 

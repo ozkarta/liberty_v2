@@ -5,8 +5,15 @@
   </mat-slide-toggle>
   <button mat-raised-button (click)="export()">ექსპორტი</button>
 </div>
+<mat-divider></mat-divider>
 <div class="padded">
-  <table mat-table [dataSource]="checked ? myBonuses : saleQuantities" class="full-width table-padded" style="padding: 0">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ფილტრი">
+  </mat-form-field>
+</div>
+<mat-divider></mat-divider>
+<div class="padded">
+  <table mat-table [dataSource]="checked ? dataSourceBonuses : dataSourceSales" class="full-width table-padded" style="padding: 0">
 
     <ng-container matColumnDef="productName">
       <th mat-header-cell *matHeaderCellDef> პროდუქტი </th>
