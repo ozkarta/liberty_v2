@@ -1,5 +1,6 @@
 .mat-card {
   width: 80%;
+  height: 90%;
   transition: ease-out 0.3s;
   border-radius: 6px;
 }
@@ -15,7 +16,7 @@
 }
 
 .card-number {
-  font-size: 2.43rem;
+  font-size: 2.33rem;
   font-weight: 500;
   font-family: "Avenir Next W01", "Proxima Nova W01", "Rubik", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   letter-spacing: 1px;
@@ -179,10 +180,7 @@
   padding-bottom: 5px;
 }
 .mat-tab-group {
-  width: 66.6667%;
-}
-.fill-av {
-  min-height: -webkit-fill-available;
+  width: 100%;
 }
 .chart-legend {
   display: inline-block;
@@ -199,7 +197,7 @@
 }
 .doughnut-chart__label {
   position: absolute;
-  top: 260px;
+  top: 210px;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -219,12 +217,12 @@
 }
 .doughnut-chart__rating-data {
   position: absolute;
-  top: 360px;
+  top: 310px;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 9999;
+  z-index: 3;
   display: block;
   width: 66%;
 }
@@ -235,6 +233,7 @@
 .doughnut-chart__rating-data--right-side {
   width: 50%;
   display: inline-block;
+  font-size: 0.9rem;
 }
 .doughnut-chart__rating-data p {
   margin-top: 0;
@@ -306,9 +305,23 @@
 .progress-bar__labels-left {
   cursor: pointer;
 }
+.rating__position {
+  position: absolute;
+  bottom: 10px;
+  right: 62px;
+  margin: 0;
+  cursor: pointer;
+}
+.rating__percentage {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  margin: 0;
+  cursor: pointer;
+}
 @media only screen and (max-width: 1690px) {
   .card-number {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
 }
 

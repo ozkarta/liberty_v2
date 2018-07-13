@@ -31,8 +31,10 @@
         <mat-card-title>ბანკის საშუალო</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? userSales[selectedOption].bankAverage : bankAvgOperations.toLocaleString()}}</p>
-        <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? (userBonuses[selectedOption].bankAverage/100)+' ლ' : (bankAvarageBonus/100).toLocaleString()+' ლ'}}</p>
+        <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? userSales[selectedOption].bankAverage : bankStatistics?.saleRatingDto.mean.toLocaleString()}}</p>
+        <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? (userBonuses[selectedOption].bankAverage/100)+' ლ' : (bankStatistics?.bonusRatingDto.mean/100).toLocaleString()+' ლ'}}</p>
+        <p class="rating__position" [matTooltip]="!checked ? 'თქვენი რეიტინგი ბანკში ოპერაციების მიხედვით' : 'თქვენი რეიტინგი ბანკში თანხის მიხედვით'">{{selectedOption === -1 && !checked ? bankStatistics?.saleRatingDto.rating  + ' |' : selectedOption === -1 && checked ? bankStatistics?.bonusRatingDto.rating  + ' |' : !checked ? userSales[selectedOption].bankrating + ' |' : userBonuses[selectedOption].bankrating + ' |'}}</p>
+        <p class="rating__percentage" [matTooltip]="!checked ? 'თქვენი ოპერაციების შეფარდება ბანკის საშუალო ოპერაციებთან' : 'თქვენი თანხის შეფარდება ბანკის საშუალო თანხასთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.mean/100)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.mean/100)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankAverage/100)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankAverage/100)).toFixed(1) + '%'}}</p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
@@ -42,8 +44,10 @@
         <mat-card-title>ბანკის მაქსიმუმი</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? userSales[selectedOption].bankmax : bankMaxOperations.toLocaleString()}}</p>
-        <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? (userBonuses[selectedOption].bankmax/100)+' ლ' : (bankMaxBonusPoints/100).toLocaleString()+' ლ'}}</p>
+        <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? userSales[selectedOption].bankmax : bankStatistics?.saleRatingDto.maxPoints.toLocaleString()}}</p>
+        <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? (userBonuses[selectedOption].bankmax/100)+' ლ' : (bankStatistics?.bonusRatingDto.maxPoints/100).toLocaleString()+' ლ'}}</p>
+        <p class="rating__position" [matTooltip]="!checked ? 'თქვენი რეიტინგი ბანკში ოპერაციების მიხედვით' : 'თქვენი რეიტინგი ბანკში თანხის მიხედვით'">{{selectedOption === -1 && !checked ? bankStatistics?.saleRatingDto.rating  + ' |' : selectedOption === -1 && checked ? bankStatistics?.bonusRatingDto.rating  + ' |' : !checked ? userSales[selectedOption].bankrating + ' |' : userBonuses[selectedOption].bankrating + ' |'}}</p>
+        <p class="rating__percentage" [matTooltip]="!checked ? 'თქვენი ოპერაციების შეფარდება ბანკის მაქსიმალურ ოპერაციებთან' : 'თქვენი თანხის შეფარდება ბანკის მაქსიმალურ თანხასთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.maxPoints/100)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.maxPoints/100)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankmax/100)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankmax/100)).toFixed(1) + '%'}}</p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
@@ -55,6 +59,8 @@
       <mat-card-content>
         <p class="card-number" *ngIf="!checked">{{userSales[selectedOption].groupAverage}}</p>
         <p class="card-number" *ngIf="checked">{{(userBonuses[selectedOption].groupAverage/100)+' ლ'}}</p>
+        <p class="rating__position" [matTooltip]="!checked ? 'თქვენი რეიტინგი ჯგუფში ოპერაციების მიხედვით' : 'თქვენი რეიტინგი ჯგუფში თანხის მიხედვით'" *ngIf="selectedOption > -1">{{!checked ? userSales[selectedOption].groupRating + ' |' : userBonuses[selectedOption].groupRating + ' |'}}</p>
+        <p class="rating__percentage" [matTooltip]="!checked ? 'თქვენი ოპერაციების შეფარდება ჯგუფის საშუალო ოპერაციებთან' : 'თქვენი თანხის შეფარდება ჯგუფის საშუალო თანხასთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupAverage/100)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].groupAverage/100)).toFixed(1) + '%'}}</p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
@@ -66,6 +72,8 @@
       <mat-card-content>
         <p class="card-number" *ngIf="!checked">{{userSales[selectedOption].groupMax.toLocaleString()}}</p>
         <p class="card-number" *ngIf="checked">{{(userBonuses[selectedOption].groupMax/100).toLocaleString()+' ლ'}}</p>
+        <p class="rating__position" [matTooltip]="!checked ? 'თქვენი რეიტინგი ჯგუფში ოპერაციების მიხედვით' : 'თქვენი რეიტინგი ჯგუფში თანხის მიხედვით'" *ngIf="selectedOption > -1">{{!checked ? userSales[selectedOption].groupRating + ' |' : userBonuses[selectedOption].groupRating + ' |'}}</p>
+        <p class="rating__percentage" [matTooltip]="!checked ? 'თქვენი ოპერაციების შეფარდება ჯგუფის მაქსიმალურ ოპერაციებთან' : 'თქვენი თანხის შეფარდება ჯგუფის მაქსიმალურ თანხასთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupMax/100)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses [selectedOption].groupMax/100)).toFixed(1) + '%'}}</p>
       </mat-card-content>
     </mat-card>
   </mat-grid-tile>
@@ -265,29 +273,102 @@
 
     </ng-container>
   </mat-expansion-panel>
+
+  <!--Line Chart Start-->
+
   <div class="title-header">
     <h5 class="text-left">
       გრაფიკული ანალიზი
     </h5>
   </div>
-  <div class="padded" *ngIf="isDataAvailable && lineChartDataAvailable" style="padding: 0; margin-top: 30px">
 
-    <canvas baseChart
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"></canvas>
+  <mat-tab-group
+    [selectedIndex]="selectedTab.value"
+    (selectedIndexChange)="loadLineChartData(selected.value, ($event + 1) * 3)">
+    <mat-tab label="წინა 3 თვე">
+      <div class="padded" *ngIf="isDataAvailable && lineChartDataAvailable" style="padding: 0; margin-top: 30px">
 
-    <mat-form-field>
-      <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
-                  (selectionChange)="loadLineChartData(selected.value)">
-        <mat-option *ngFor="let product of lineChartArray.prorductsBonusesByMonths; let i = index" [value]="i ">{{product.product.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"></canvas>
+
+        <mat-form-field>
+          <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
+                      (selectionChange)="loadLineChartData(selected.value, 3)">
+            <mat-option *ngFor="let product of lineChartArray.prorductsBonusesByMonths; let i = index" [value]="i ">{{product.product.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+    <mat-tab label="წინა 6 თვე">
+      <div class="padded" *ngIf="isDataAvailable && lineChartDataAvailable" style="padding: 0; margin-top: 30px">
+
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"></canvas>
+
+        <mat-form-field>
+          <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
+                      (selectionChange)="loadLineChartData(selected.value, 6)">
+            <mat-option *ngFor="let product of lineChartArray.prorductsBonusesByMonths; let i = index" [value]="i ">{{product.product.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+    <mat-tab label="წინა 9 თვე">
+      <div class="padded" *ngIf="isDataAvailable && lineChartDataAvailable" style="padding: 0; margin-top: 30px">
+
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"></canvas>
+
+        <mat-form-field>
+          <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
+                      (selectionChange)="loadLineChartData(selected.value, 9)">
+            <mat-option *ngFor="let product of lineChartArray.prorductsBonusesByMonths; let i = index" [value]="i ">{{product.product.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+    <mat-tab label="წინა 12 თვე">
+      <div class="padded" *ngIf="isDataAvailable && lineChartDataAvailable" style="padding: 0; margin-top: 30px">
+
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"></canvas>
+
+        <mat-form-field>
+          <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
+                      (selectionChange)="loadLineChartData(selected.value, 12)">
+            <mat-option *ngFor="let product of lineChartArray.prorductsBonusesByMonths; let i = index" [value]="i ">{{product.product.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+
+  <!--Line Chart End-->
 </div>
+
+<!--Doughnut Chart Start-->
+
 <div class="fixed-container-right" *ngIf="isDataAvailable">
     <div class="profile__doughnut-chart">
       <div class="title-header">
@@ -311,17 +392,12 @@
       </div>
       <div class="doughnut-chart__rating-data">
         <div class="doughnut-chart__rating-data--right-side">
-          <p>ბანკი</p>
-          <p
-            matTooltip="თქვენი რეიტინგი ბანკში ბონუსის მიხედვით"
-            matTooltipPosition="above">{{myRatingByBonusPoints}}</p>
-          <p
-            matTooltip="ბანკში მაქსიმალური ბონუსი"
-            matTooltipPosition="above">{{(bankMaxBonusPoints/100)?.toLocaleString()+' ლ'}}</p>
+          <p>{{'რეიტინგი ბანკში თანხის მიხედვით '+bankStatistics?.bonusRatingDto.rating}}</p>
+          <p>{{'მაქსიმალური თანხა ბანკში ' +(bankStatistics?.bonusRatingDto.maxPoints/100)?.toLocaleString()+' ლ'}}</p>
         </div>
       </div>
     </div>
 
 </div>
 
-
+<!--Doughnut Chart End-->

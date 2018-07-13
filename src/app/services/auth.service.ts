@@ -85,7 +85,6 @@ export class AuthService {
           sales.sort((a, b) => {
             return a.product.sortOrder - b.product.sortOrder;
           });
-          console.log(sales);
           this.currentUser.setMyOperations(sales);
         });
   }

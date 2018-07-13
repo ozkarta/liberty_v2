@@ -14,6 +14,8 @@ export class MyOperationsModel {
               public product: any,
               public staffId: string,
               public competenceLevel?: any,
-              public bonusPoints?: number) {
+              public bonusPoints?: number,
+              public bankPercentage?: number,
+              public groupPercentage?: number) {
   }
 }

@@ -5,6 +5,7 @@ import { AuthorizedUserService } from '../services/authorized-user.service';
 import { UserModel } from '../models/user.model';
 import { MyOperationsModel } from '../models/my-operations.model';
 import { LibertyUserModel } from '../models/liberty-user.model';
+import { BankStatisticsModel, Statistic } from '../models/bank-statistics.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,10 +13,11 @@ import { LibertyUserModel } from '../models/liberty-user.model';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
+  selectedTab = new FormControl(0);
+
   selectedOption = -1;
   selected = new FormControl(0);
   isDataAvailable = false;
-  summedProductBonuses: SummerProductData[] = [];
   public doughnutChartLabels: string[] = [];
   public doughnutChartData: number[] = [];
   public doughnutChartType = 'doughnut';
@@ -58,13 +60,16 @@ export class UserProfileComponent implements OnInit {
       '#1164B4'],
   }];
 
+  monthNames = ['იანვარი', 'თებერვალი', 'მარტი', 'აპრილი', 'მაისი', 'ივნისი',
+    'ივლისი', 'აგვისტო', 'სექტემბერი', 'ოქტომბერი', 'ნოემბერი', 'დეკემბერი',
+  ];
   combinedArray: any[] = [];
 
   public lineChartData: {
     data: number[];
     label: string;
   }[] = [];
-  public lineChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels: string[] = [];
   public lineChartOptions: any = {
     responsive: true,
     scales: {
@@ -121,12 +126,6 @@ export class UserProfileComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
 
-  summedProductData: SummerProductData = { name: '', value: 0 };
-
-  userData: UserModel;
-
-  progressBarData: LastTwoMonthBonuses[] = [];
-
   lineChartDataAvailable = false;
 
   checked = false;
@@ -149,18 +148,22 @@ export class UserProfileComponent implements OnInit {
 
   bankMaxOperations = 0;
 
-  bankMaxBonusPoints = 0;
-
-  myRatingByBonusPoints = 0;
-
   user: LibertyUserModel;
 
-  lineChartArray: UserModel;
+  lineChartArray: any;
 
   branchTotalOperations: BranchStatistics;
 
   bankAvarageBonus = 0;
 
+  bankStatistics: BankStatisticsModel;
+
+  monthlyLineChartData: {
+    data: number[];
+    label: string;
+  }[] = [];
+
+  monthlyLineChartLabels: string[] = [];
 
   constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
   }
@@ -168,40 +171,15 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.auth.getRequest('/bonusRewards/getUserData')
       .subscribe(
-        (response: UserModel) => {
+        (response: any) => {
           this.lineChartArray = response;
-          this.loadLineChartData(0);
+          console.log(this.lineChartArray);
+          this.loadLineChartData(0, 3);
         });
     this.loadChartData();
     this.getUserOperations();
     this.getBankStatistics();
     this.setUser();
-  }
-
-  getUserData() {
-    this.currentUser.getUser
-      .subscribe(
-        (response: UserModel) => {
-          if (response === null) {
-            return;
-          }
-          this.userData = response;
-          this.userData.prorductsBonusesByMonths.forEach((item) => {
-            this.summedProductData.name = item.product.name;
-            item.productMonthBonuses.forEach((inner) => {
-              this.summedProductData.value += inner.bonusReward;
-            });
-            this.summedProductBonuses.push({
-              name: this.summedProductData.name,
-              value: this.summedProductData.value,
-            });
-          });
-          this.loadChartData();
-          this.loadProgressData();
-          this.loadLineChartData(0);
-          this.isDataAvailable = true;
-          this.mergeArrays();
-        });
   }
 
   setUser() {
@@ -256,7 +234,7 @@ export class UserProfileComponent implements OnInit {
                 this.doughnutChartData.push(b.userResult);
                 this.doughnutChartLabels.push(b.product.name);
               } else {
-                otherCount += b.userResult
+                otherCount += b.userResult;
               }
               this.bankAvarageBonus += b.bankAverage;
               this.bonusTotalQuantityPrimary += b.product.primary ? b.userResult : 0;
@@ -276,62 +254,74 @@ export class UserProfileComponent implements OnInit {
         });
   }
 
-  loadProgressData() {
-
-  }
-
-  loadLineChartData(index: number) {
+  loadLineChartData(index: number, months: number) {
+    const firstData = JSON.parse(JSON.stringify(this.lineChartArray));
+    firstData.prorductsBonusesByMonths.forEach((p) => {
+      p.productMonthBonuses = p.productMonthBonuses.filter(prod => prod.monthOrdinal <= months);
+    });
     this.lineChartData.length = 0;
+    this.lineChartLabels.length = 0;
     this.lineChartDataAvailable = false;
     const _lineChartData = Array(this.lineChartData.length);
     if (!this.checked) {
       _lineChartData.push({
         label: 'ჩემი ქულა',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
       });
       _lineChartData.push({
         label: 'ბანკის მაქსიმუმი',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMax),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMax),
       });
 
       _lineChartData.push({
         label: 'ბანკის საშუალო',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMean),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusBankMean),
       });
       _lineChartData.push({
         label: 'ჯგუფის მაქსიმუმი',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMax),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMax),
       });
 
       _lineChartData.push({
         label: 'ჯგუფის საშუალო',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMean),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusGroupMean),
       });
     } else {
       _lineChartData.push({
         label: 'ჩემი ოპერაციები',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.saleQuantity),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.saleQuantity),
       });
       _lineChartData.push({
         label: 'ბანკის მაქსიმუმი',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMax),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMax),
       });
 
       _lineChartData.push({
         label: 'ბანკის საშუალო',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMean),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesBankMean),
       });
       _lineChartData.push({
         label: 'ჯგუფის მაქსიმუმი',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMax),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMax),
       });
 
       _lineChartData.push({
         label: 'ჯგუფის საშუალო',
-        data: this.lineChartArray.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMean),
+        data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.salesGroupMean),
       });
     }
+    _lineChartData.forEach((data) => {
+      data.data.reverse();
+    });
+    let tmpMonth = new Date().getMonth();
+    let monthLiteral;
+    for (let i = 0 ; i < months ; i++) {
+      monthLiteral = this.monthNames[tmpMonth - 1];
+      this.lineChartLabels.push(monthLiteral);
+      tmpMonth = (tmpMonth === 1) ? 12 : tmpMonth - 1;
+    }
 
+    this.lineChartLabels.reverse();
     this.lineChartData = _lineChartData;
     this.lineChartDataAvailable = true;
   }
@@ -348,30 +338,18 @@ export class UserProfileComponent implements OnInit {
 
   onSlideChange() {
     this.checked = !this.checked;
-    this.loadLineChartData(0);
+    this.loadLineChartData(0, 3);
   }
 
   getBankStatistics() {
     this.auth.getRequest('/bonusRewards/getBankStatistics')
       .subscribe(
         (response: any) => {
-          this.bankMaxBonusPoints = response.maxPoints;
-          this.myRatingByBonusPoints = response.rating;
+          this.bankStatistics = response;
+          console.log(this.bankStatistics);
         });
   }
 
-}
-
-export interface SummerProductData {
-  name?: string;
-  value?: number;
-}
-
-export interface LastTwoMonthBonuses {
-  id?: number;
-  name: string;
-  saleQuantity: number;
-  bankMax: number;
 }
 
 export interface BranchStatistics {
