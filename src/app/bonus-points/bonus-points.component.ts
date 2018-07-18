@@ -37,12 +37,11 @@ export class BonusPointsComponent implements OnInit {
           });
           this.products.sort((a, b) => a.product.productMotivationalBlockTypeId - b.product.productMotivationalBlockTypeId || a.product.sortOrder - b.product.sortOrder);
           this.dataSource.sort = this.sort;
-          console.log(this.dataSource);
         });
   }
 
   export() {
-    this.auth.getRequestDownload('/bonusRewards/exportCurrentMonthBonuses')
+    this.auth.getRequestDownload('/products/exportProducts')
       .subscribe(
         (response: any) => {
           this.downloadFile(response, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'export.xlsx');

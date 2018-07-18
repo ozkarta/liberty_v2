@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <ul class="main-menu">
+    <ul class="main-menu" *ngIf="userData?.isAdmin !== true">
       <li class="menu-item" routerLink="/profile">
         <mat-icon>perm_identity</mat-icon>
         <a>
@@ -48,6 +48,33 @@
         <mat-icon>device_hub</mat-icon>
         <a>
           ორგანიზაციული სტრუქტურა
+        </a></li>
+    </ul>
+    <ul class="main-menu" *ngIf="userData?.isAdmin">
+      <li class="menu-item" routerLink="/admin/bonus-systems">
+        <mat-icon>perm_identity</mat-icon>
+        <a>
+          ბონუს სისტემები
+        </a></li>
+      <li class="menu-item" routerLink="/admin/evaluation-groups">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          შეფასების ფგუფები
+        </a></li>
+      <li class="menu-item" routerLink="/admin/products">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          პროდუქტები
+        </a></li>
+      <li class="menu-item" routerLink="/admin/branch-bonus-system">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          ფილიალების ჯგუფები
+        </a></li>
+      <li class="menu-item" routerLink="/admin/staff-level-bonuses">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          მომხმარებლის ჯგუფის ბონუსები
         </a></li>
     </ul>
     <button mat-raised-button (click)="logout()" class="logout">გამოსვლა</button>

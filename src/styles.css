@@ -107,6 +107,7 @@ h5 {
 
 .logged-user-name {
   text-align: left;
+  font-size: 0.8rem;
 }
 
 .logged-user-position {
@@ -164,19 +165,9 @@ h5 {
   margin-bottom: 2rem;
   position: relative;
   z-index: 1;
+  outline: none;
 }
 
-.title-header:after {
-  content: "";
-  background-color: #047bf8;
-  width: 25px;
-  height: 4px;
-  border-radius: 0;
-  display: block;
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-}
 
 .text-left {
   text-align: left !important;
@@ -189,11 +180,6 @@ h5 {
 
 .mat-drawer-container {
   background-color: #f2f4f8;
-}
-
-.mat-dialog-container {
-  background-color: transparent !important;
-  box-shadow: none !important;
 }
 
 .tooltip__bigger-text {

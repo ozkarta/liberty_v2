@@ -1,0 +1,18 @@
+.table-padded {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  background-color: transparent;
+}
+td {
+  padding: 0.9rem 1.1rem !important;
+  border: none;
+  border-right: 1px solid rgba(0, 0, 0, 0.03);
+  border-bottom: none !important;
+}
+.table-padded tbody td:first-child {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.table-padded tr:nth-of-type(odd) {
+  background-color: #d5dade;
+}

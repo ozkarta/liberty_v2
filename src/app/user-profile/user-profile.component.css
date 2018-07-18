@@ -147,6 +147,7 @@
   position: relative;
   z-index: 2;
   max-width: 100%;
+  margin-top: 20px;
 }
 
 .profile__line-chart {
@@ -197,7 +198,7 @@
 }
 .doughnut-chart__label {
   position: absolute;
-  top: 210px;
+  top: 120px;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -213,11 +214,11 @@
 }
 .doughnut-chart__label label {
   display: block;
-  color: rgba(0, 0, 0, 0.4);
+  font-size: 14px;
 }
 .doughnut-chart__rating-data {
   position: absolute;
-  top: 310px;
+  top: 220px;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -231,7 +232,7 @@
   display: inline-block;
 }
 .doughnut-chart__rating-data--right-side {
-  width: 50%;
+  width: 90%;
   display: inline-block;
   font-size: 0.9rem;
 }
@@ -318,6 +319,9 @@
   right: 10px;
   margin: 0;
   cursor: pointer;
+}
+.mat-expansion-panel-header-description {
+  flex-grow: .5;
 }
 @media only screen and (max-width: 1690px) {
   .card-number {

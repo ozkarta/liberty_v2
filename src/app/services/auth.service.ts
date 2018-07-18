@@ -2,19 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { UserModel } from '../models/user.model';
 import { AuthorizedUserService } from './authorized-user.service';
 import { LibertyUserModel } from '../models/liberty-user.model';
 import { MyOperationsModel } from '../models/my-operations.model';
-import { ResponseContentType } from '@angular/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
   // url = 'http://home.gelashvili.net:8080';
   // url = 'http://31.146.153.23:8080';
-  url = 'http://192.168.100.23:9696';
+  url = 'http://192.168.100.100:9191';
 
-  constructor(private http: HttpClient, private currentUser: AuthorizedUserService) {
+  constructor(private http: HttpClient, private currentUser: AuthorizedUserService, private router: Router) {
   }
 
   postRequest(data: any, url: string): Observable<any> {
@@ -74,7 +73,22 @@ export class AuthService {
     this.getRequest('/users/me')
       .subscribe(
         (user: LibertyUserModel) => {
-          this.currentUser.setUser(user);
+          let found = false;
+          for (let i = 0; i < user.authorities.length; i++) {
+            if (user.authorities[i].authority === 'ADMIN') {
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            this.currentUser.setUser(user);
+            this.getLoggedUserOperations();
+            this.getLoogedUserBonuses();
+          } else {
+            user.isAdmin = true;
+            this.currentUser.setUser(user);
+            this.router.navigate(['admin/bonus-systems']);
+          }
         });
   }
 
@@ -93,23 +107,27 @@ export class AuthService {
     this.getRequest('/bonusRewards/currentMonthBonuses')
       .subscribe(
         (operations: MyOperationsModel[]) => {
-          operations.sort((a, b) => a.product.productMotivationalBlockTypeId - b.product.productMotivationalBlockTypeId ||  a.product.sortOrder - b.product.sortOrder);
+          operations.sort((a, b) => a.product.productMotivationalBlockTypeId - b.product.productMotivationalBlockTypeId || a.product.sortOrder - b.product.sortOrder);
           this.currentUser.setMyBonuses(operations);
         });
   }
 
   getCookie(cName): any {
-    let i;
-    let x;
-    let y;
-    const arRcookies = document.cookie.split(';');
-    for (i = 0; i < arRcookies.length; i++) {
-      x = arRcookies[i].substr(0, arRcookies[i].indexOf('='));
-      y = arRcookies[i].substr(arRcookies[i].indexOf('=') + 1);
-      x = x.replace(/^\s+|\s+$/g, '');
-      if (x === cName) {
-        return decodeURI(y);
-      }
+    // let i;
+    // let x;
+    // let y;
+    // const arRcookies = document.cookie.split(';');
+    // for (i = 0; i < arRcookies.length; i++) {
+    //   x = arRcookies[i].substr(0, arRcookies[i].indexOf('='));
+    //   y = arRcookies[i].substr(arRcookies[i].indexOf('=') + 1);
+    //   x = x.replace(/^\s+|\s+$/g, '');
+    //   if (x === cName) {
+    //     return decodeURI(y);
+    //   }
+    // }
+    // return null;
+    if (localStorage.getItem(cName)) {
+      return decodeURI(localStorage.getItem(cName));
     }
     return null;
   }
@@ -124,13 +142,10 @@ export class AuthService {
     if (TmpExDays || TmpExSeconds) {
       cValue += '; expires=' + exdate.toUTCString();
     }
-    document.cookie = cName + '=' + cValue;
+    localStorage.setItem(cName, value);
   }
 
-  isAuthorized(): Observable<boolean> {
-    if (this.getCookie('access_token') === null && this.getCookie('refresh_token') === null) {
-      return of(false);
-    }
+  isAuthorized() {
     if (this.getCookie('access_token') !== null) {
       return of(true);
     }
@@ -145,6 +160,8 @@ export class AuthService {
             return true;
           }));
     }
+    if (this.getCookie('access_token') === null && this.getCookie('refresh_token') === null) {
+      return of(false);
+    }
   }
-
 }

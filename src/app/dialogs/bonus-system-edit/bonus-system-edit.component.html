@@ -1,0 +1,55 @@
+<div contenteditable="true" *ngIf="editTitle" class="title-header" (keyup.enter)="editSystemName()" #systemName>{{bonusSystemForEdit[0]?.bonusSystem.name}}</div>
+<div contenteditable="false" *ngIf="!editTitle" class="title-header">{{bonusSystemForEdit[0]?.bonusSystem.name}}
+  <mat-icon matSuffix class="edit-icon" (click)="editTitle = !editTitle">mode_edit</mat-icon>
+</div>
+
+<div class="padded">
+  <mat-form-field>
+    <mat-select placeholder="ვინ იღებს" [value]="bonusSystemForEdit[0]?.staffLevel  === 'MIDDLE_MANAGER' ? 2 : 3" #firstSelect [disabled]="true">
+      <mat-option [value]="0">აირჩიეთ დონე</mat-option>
+      <mat-option [value]="2">შუა დონის მენეჯერი</mat-option>
+      <mat-option [value]="3">ზედა დონის მენეჯერი</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="ვისგან იღებს" [value]="bonusSystemForEdit[0]?.staffLevelBase  === 'PERFORMER' ? 1 : bonusSystemForEdit[0]?.staffLevelBase  === 'MIDDLE_MANAGER' ? 2 : 3" (selectionChange)="secondSelectChanged($event)" #secondSelect>
+      <mat-option [value]="0">აირჩიეთ დონე</mat-option>
+      <mat-option [value]="1">შემსრულებელი</mat-option>
+      <mat-option [value]="2" *ngIf="bonusSystemForEdit[0]?.staffLevel  !== 'MIDDLE_MANAGER'">შუა დონის მენეჯერი</mat-option>
+      <mat-option [value]="3" *ngIf="bonusSystemForEdit[0]?.staffLevel  !== 'UPPER_MANAGER'">ზედა დონის მენეჯერი</mat-option>
+    </mat-select>
+    <mat-error *ngIf="secondSelectControl.hasError('invalidSelect')">აირჩიეთ ერთ-ერთი</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="number" matInput placeholder="პროცენტი" [value]="bonusSystemForEdit[0]?.percentShare*100" #firstInput>
+  </mat-form-field>
+</div>
+<div class="padded">
+  <mat-form-field>
+    <mat-select placeholder="ვინ იღებს" [value]="bonusSystemForEdit[1]?.staffLevel  === 'MIDDLE_MANAGER' ? 2 : 3" #thirdSelect [disabled]="true">
+      <mat-option [value]="0">აირჩიეთ დონე</mat-option>
+      <mat-option [value]="2">შუა დონის მენეჯერი</mat-option>
+      <mat-option [value]="3">ზედა დონის მენეჯერი</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="ვისგან იღებს" [value]="bonusSystemForEdit[1]?.staffLevelBase  === 'PERFORMER' ? 1 : bonusSystemForEdit[1]?.staffLevelBase  === 'MIDDLE_MANAGER' ? 2 : 3" (selectionChange)="fourthSelectChanged($event)" #fourthSelect>
+      <mat-option [value]="0">აირჩიეთ დონე</mat-option>
+      <mat-option [value]="1">შემსრულებელი</mat-option>
+      <mat-option [value]="2"*ngIf="bonusSystemForEdit[1]?.staffLevel  !== 'MIDDLE_MANAGER'">შუა დონის მენეჯერი</mat-option>
+      <mat-option [value]="3"*ngIf="bonusSystemForEdit[1]?.staffLevel  !== 'UPPER_MANAGER'">ზედა დონის მენეჯერი</mat-option>
+    </mat-select>
+    <mat-error *ngIf="fourthSelectControl.hasError('invalidSelect')">აირჩიეთ ერთ-ერთი</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="number" matInput placeholder="პროცენტი" [value]="bonusSystemForEdit[1]?.percentShare*100" #secondInput>
+  </mat-form-field>
+</div>
+
+<div class="padded">
+    <button mat-raised-button (click)="editBonusSystem()">დამატება</button>
+</div>

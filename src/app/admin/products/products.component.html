@@ -1,0 +1,21 @@
+<div class="padded" style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll">
+  <div class="panel-row" *ngFor="let group of productGroups">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{group.name}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-container [dragula]='"bag-one"'>
+        <p class="product">bag</p>
+      </ng-container>
+    </mat-expansion-panel>
+  </div>
+</div>
+
+<div class="padded" style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll" [dragula]='"bag-one"'
+     [dragulaModel]='initialProducts'>
+  <p class="product" *ngFor="let product of initialProducts">
+    {{product.name}}
+  </p>
+</div>

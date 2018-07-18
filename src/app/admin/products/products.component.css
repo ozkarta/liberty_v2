@@ -1,0 +1,22 @@
+:host {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+.mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+.panel-row {
+
+}
+.product {
+  padding: 10px;
+  margin: 0 0 10px;
+  background-color: white;
+}

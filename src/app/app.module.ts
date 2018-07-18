@@ -16,18 +16,19 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { MyTransactionsComponent } from './my-transactions/my-transactions.component';
 import { ProductAddDialogComponent } from './product-add-dialog/product-add-dialog.component';
 import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
-import { DialogComponent } from './dialog/dialog.component';
 import { BranchTransactionsComponent } from './branch-transactions/branch-transactions.component';
 import { OrganizationStructureComponent } from './organization-structure/organization-structure.component';
+import { ProductWikiComponent } from './product-wiki/product-wiki.component';
 
 // Module Imports
 import { RoutingModule } from './app-routing.module';
 import { ChartsModule } from 'ng2-charts';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { DragulaModule } from 'ng2-dragula';
 
 // Service Imports
 import { AuthService } from './services/auth.service';
-import { RouteGuardService } from './services/route-guard.service';
+import { RouteGuardService } from './guards/route-guard.service';
 import { LoggedOutGuardService } from './services/logged-out-guard.service';
 import { OtherUserService } from './services/other-user.service';
 import { AuthorizedUserService } from './services/authorized-user.service';
@@ -48,7 +49,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
-import { ProductWikiComponent } from './product-wiki/product-wiki.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BonusSystemsComponent } from './admin/bonus-systems/bonus-systems.component';
+import { AddBonusSystemComponent } from './dialogs/add-bonus-system/add-bonus-system.component';
+import { EvaluationGroupComponent } from './admin/evaluation-group/evaluation-group.component';
+import { BonusSystemEditComponent } from './dialogs/bonus-system-edit/bonus-system-edit.component';
+import { ProductsComponent } from './admin/products/products.component';
+import { BranchBonusSystemComponent } from './admin/branch-bonus-system/branch-bonus-system.component';
+import { StaffLevelBonusesComponent } from './admin/staff-level-bonuses/staff-level-bonuses.component';
 
 @NgModule({
   declarations: [
@@ -59,13 +67,19 @@ import { ProductWikiComponent } from './product-wiki/product-wiki.component';
     EmployeeListComponent,
     BonusPointsComponent,
     TransactionsComponent,
-    DialogComponent,
     OtherUserProfileComponent,
     ProductAddDialogComponent,
     MyTransactionsComponent,
     BranchTransactionsComponent,
     OrganizationStructureComponent,
     ProductWikiComponent,
+    BonusSystemsComponent,
+    AddBonusSystemComponent,
+    EvaluationGroupComponent,
+    BonusSystemEditComponent,
+    ProductsComponent,
+    BranchBonusSystemComponent,
+    StaffLevelBonusesComponent,
   ],
   imports: [
     HttpClientModule,
@@ -91,6 +105,8 @@ import { ProductWikiComponent } from './product-wiki/product-wiki.component';
     MatExpansionModule,
     MatRadioModule,
     PdfViewerModule,
+    MatProgressSpinnerModule,
+    DragulaModule,
   ],
   providers: [
     AuthService,
@@ -100,7 +116,7 @@ import { ProductWikiComponent } from './product-wiki/product-wiki.component';
     AuthorizedUserService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent, ProductAddDialogComponent],
+  entryComponents: [ProductAddDialogComponent, AddBonusSystemComponent, BonusSystemEditComponent],
 })
 export class AppModule {
 }

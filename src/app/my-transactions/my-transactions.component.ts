@@ -76,7 +76,7 @@ export class MyTransactionsComponent implements OnInit {
 
   export() {
     let url;
-    if (!this.checked) {
+    if (this.checked) {
       url = '/bonusRewards/exportCurrentMonthBonuses';
     } else {
       url = '/sales/exportCurrentMonthSales';

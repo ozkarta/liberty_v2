@@ -1,19 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormControl } from '@angular/forms';
 import { AuthorizedUserService } from '../services/authorized-user.service';
-import { UserModel } from '../models/user.model';
 import { MyOperationsModel } from '../models/my-operations.model';
 import { LibertyUserModel } from '../models/liberty-user.model';
-import { BankStatisticsModel, Statistic } from '../models/bank-statistics.model';
-import {BaseChartDirective} from 'ng2-charts';
+import { BankStatisticsModel } from '../models/bank-statistics.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
   selectedTab = new FormControl(0);
 
   selectedOption = -1;
@@ -163,10 +162,43 @@ export class UserProfileComponent implements OnInit {
 
   totalBonuses: BankTotalStatistics[] = [];
 
-  constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
+  constructor(private auth: AuthService, private currentUser: AuthorizedUserService, private router: Router) {
   }
 
   ngOnInit() {
+    this.setUser();
+  }
+
+  ngOnDestroy() {
+
+  }
+
+  setUser() {
+    this.currentUser.getUser
+      .subscribe(
+        (userData: LibertyUserModel) => {
+          if (userData) {
+            if (!userData.isAdmin) {
+              this.loadChartData();
+              this.getUserOperations();
+              this.getBankStatistics();
+              this.getBonusRewards();
+            } else {
+              return;
+            }
+            this.user = userData;
+            if (this.user.userStaffLevel === 'MIDDLE_MANAGER') {
+              this.auth.getRequest('/sales/branchTotalOperations')
+                .subscribe(
+                  (response: BranchStatistics) => {
+                    this.branchTotalOperations = response;
+                  });
+            }
+          }
+        });
+  }
+
+  getBonusRewards() {
     this.auth.getRequest('/bonusRewards/getUserData')
       .subscribe(
         (response: any) => {
@@ -177,28 +209,6 @@ export class UserProfileComponent implements OnInit {
                 this.monthlyLineChartData = totals;
                 this.loadLineChartData(-1, 3);
               });
-        });
-
-    this.loadChartData();
-    this.getUserOperations();
-    this.getBankStatistics();
-    this.setUser();
-  }
-
-  setUser() {
-    this.currentUser.getUser
-      .subscribe(
-        (userData: LibertyUserModel) => {
-          if (userData) {
-            this.user = userData;
-            if (this.user.userStaffLevel === 'MIDDLE_MANAGER') {
-              this.auth.getRequest('/sales/branchTotalOperations')
-                .subscribe(
-                  (response: BranchStatistics) => {
-                    this.branchTotalOperations = response;
-                  });
-            }
-          }
         });
   }
 
@@ -272,9 +282,9 @@ export class UserProfileComponent implements OnInit {
     this.lineChartDataAvailable = false;
     const _lineChartData = Array(this.lineChartData.length);
     if (index !== -1) {
-      if (!this.checked) {
+      if (this.checked) {
         _lineChartData.push({
-          label: 'ჩემი ქულა',
+          label: 'ჩემი ბონუსი',
           data: firstData.prorductsBonusesByMonths[index].productMonthBonuses.map(number => number.bonusReward),
         });
         _lineChartData.push({
@@ -320,9 +330,9 @@ export class UserProfileComponent implements OnInit {
         });
       }
     } else {
-      if (!this.checked) {
+      if (this.checked) {
         _lineChartData.push({
-          label: 'ჩემი ქულა',
+          label: 'ჩემი ბონუსი',
           data: firstData.map(number => number.bonusReward),
         });
         _lineChartData.push({
@@ -345,7 +355,7 @@ export class UserProfileComponent implements OnInit {
         });
       } else {
         _lineChartData.push({
-          label: 'ჩემი ქულა',
+          label: 'ჩემი ოპერაციები',
           data: firstData.map(number => number.saleQuantity),
         });
         _lineChartData.push({
@@ -384,7 +394,6 @@ export class UserProfileComponent implements OnInit {
     this.lineChartDataAvailable = true;
   }
 
-
   mergeArrays() {
     this.combinedArray = [];
     for (let _i = 0; _i < this.doughnutChartLabels.length; _i++) {
@@ -397,7 +406,7 @@ export class UserProfileComponent implements OnInit {
 
   onSlideChange() {
     this.checked = !this.checked;
-    this.loadLineChartData(0, 3);
+    this.loadLineChartData(this.selected.value, (this.selectedTab.value + 1) * 3);
   }
 
   getBankStatistics() {
@@ -405,7 +414,6 @@ export class UserProfileComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.bankStatistics = response;
-          console.log(this.bankStatistics);
         });
   }
 

@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {DialogComponent} from '../dialog/dialog.component';
 import {MatDialogRef} from '@angular/material';
 
 @Component({

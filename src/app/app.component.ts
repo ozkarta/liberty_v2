@@ -28,12 +28,10 @@ export class AppComponent implements OnInit {
         () => {
           this.checkLoginStatus();
         });
-    if (this.auth.isAuthorized()) {
+    if (this.isAuthorized) {
       this.auth.getLoggedUser();
-      this.auth.getLoggedUserOperations();
-      this.auth.getLoogedUserBonuses();
+      this.setUser();
     }
-    this.setUser();
   }
 
   setUser() {
@@ -53,8 +51,9 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    this.auth.setCookie('access_token', '', 0, -1);
-    this.auth.setCookie('refresh_token', '', 0, -1);
+    // this.auth.setCookie('access_token', '', 0, -1);
+    // this.auth.setCookie('refresh_token', '', 0, -1);
+    localStorage.clear();
     this.router.navigate(['login']);
   }
 }

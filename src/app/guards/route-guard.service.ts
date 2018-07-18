@@ -1,8 +1,8 @@
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {Injectable} from '@angular/core';
-import {AuthService} from './auth.service';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class RouteGuardService implements CanActivate {
@@ -16,6 +16,7 @@ export class RouteGuardService implements CanActivate {
           return true;
         }
         this.router.navigate(['login']);
+        return false;
       }));
   }
 }

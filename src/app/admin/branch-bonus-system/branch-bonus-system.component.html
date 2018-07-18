@@ -1,0 +1,18 @@
+<div class="padded">
+  <table class="table-padded">
+    <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let system of bonusSystems">{{system.name}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let branch of bankBranches">
+      <th>{{branch.name}}</th>
+      <td *ngFor="let bonus of bonusSystems">
+        {{doesBranchContainsSystem(bonus.id, branch.id)}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

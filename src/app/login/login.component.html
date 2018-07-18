@@ -8,11 +8,12 @@
       <mat-error *ngIf="user.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="usernameExists" class="full-width">
-      <input matInput placeholder="პაროლი" #password [type]="hide ? 'password' : 'text'">
+      <input matInput placeholder="პაროლი" #password [formControl]="passwordValOriginal" [type]="hide ? 'password' : 'text'">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <mat-error *ngIf="passwordValOriginal.invalid">{{getPassOriginalErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="!passwordExists" class="full-width">
-      <input matInput placeholder="გაიმეორეთ პაროლი" #repeatPassword [formControl]="passwordVal" [type]="hide ? 'password' : 'text'">
+      <input matInput placeholder="გაიმეორეთ პაროლი" #repeatPassword [formControl]="passwordVal" [type]="hideRepeat ? 'password' : 'text'">
       <mat-icon matSuffix (click)="hideRepeat = !hideRepeat">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>
       <mat-error *ngIf="passwordVal.invalid">{{getPassErrorMessage()}}</mat-error>
     </mat-form-field>
@@ -26,3 +27,11 @@
     </button>
   </mat-card-actions>
 </mat-card>
+<div class="login-backdrop" *ngIf="dataIsLoading">
+  <mat-progress-spinner
+    class="login-spinner"
+    [color]="color"
+    [mode]="mode"
+    [value]="value">
+  </mat-progress-spinner>
+</div>

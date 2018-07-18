@@ -1,0 +1,11 @@
+<mat-form-field class="full-width">
+  <input matInput placeholder="სახელი" #systemName [formControl]="name">
+  <mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+</mat-form-field>
+<mat-form-field class="full-width" *ngIf="data !== 'bonus'">
+  <input type="number" matInput placeholder="პოზიცია" #systemNumber [formControl]="number">
+  <mat-error *ngIf="number.invalid">{{getNumberErrorMessage()}}</mat-error>
+</mat-form-field>
+<div>
+  <button mat-raised-button (click)="addSystem()">დამატება</button>
+</div>
