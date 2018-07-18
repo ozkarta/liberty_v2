@@ -57,6 +57,8 @@ import { BonusSystemEditComponent } from './dialogs/bonus-system-edit/bonus-syst
 import { ProductsComponent } from './admin/products/products.component';
 import { BranchBonusSystemComponent } from './admin/branch-bonus-system/branch-bonus-system.component';
 import { StaffLevelBonusesComponent } from './admin/staff-level-bonuses/staff-level-bonuses.component';
+import { TableModule } from 'primeng/table';
+import { ProductDocumentationComponent } from './admin/product-documentation/product-documentation.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,7 @@ import { StaffLevelBonusesComponent } from './admin/staff-level-bonuses/staff-le
     ProductsComponent,
     BranchBonusSystemComponent,
     StaffLevelBonusesComponent,
+    ProductDocumentationComponent,
   ],
   imports: [
     HttpClientModule,
@@ -107,6 +110,7 @@ import { StaffLevelBonusesComponent } from './admin/staff-level-bonuses/staff-le
     PdfViewerModule,
     MatProgressSpinnerModule,
     DragulaModule,
+    TableModule,
   ],
   providers: [
     AuthService,

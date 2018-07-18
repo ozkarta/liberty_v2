@@ -16,3 +16,32 @@
     </tbody>
   </table>
 </div>
+
+
+<div class="padded">
+  <p-table [value]="bankBranches">
+    <ng-template pTemplate="header">
+      <tr>
+        <th></th>
+        <th *ngFor="let system of bonusSystems">{{system.name}}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-branches>
+      <tr>
+        <th>
+          {{branches.name}}
+        </th>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input type="text" [value]="doesBranchContainsSystem(system.id, branches.id)">
+            </ng-template>
+            <ng-template pTemplate="output">
+              <!--{{doesBranchContainsSystem(bonus.id, branch.id)}}-->
+            </ng-template>
+          </p-cellEditor>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
