@@ -54,7 +54,7 @@ import { BonusSystemsComponent } from './admin/bonus-systems/bonus-systems.compo
 import { AddBonusSystemComponent } from './dialogs/add-bonus-system/add-bonus-system.component';
 import { EvaluationGroupComponent } from './admin/evaluation-group/evaluation-group.component';
 import { BonusSystemEditComponent } from './dialogs/bonus-system-edit/bonus-system-edit.component';
-import { ProductsComponent} from './admin/products/products.component';
+import { ProductsComponent } from './admin/products/products.component';
 import { BranchBonusSystemComponent } from './admin/branch-bonus-system/branch-bonus-system.component';
 import { StaffLevelBonusesComponent } from './admin/staff-level-bonuses/staff-level-bonuses.component';
 import { TableModule } from 'primeng/table';
@@ -63,6 +63,8 @@ import { GroupIdDirective } from './directives/group-id.directive';
 import { PickListModule } from 'primeng/picklist';
 import { ProductReorderingComponent } from './admin/product-reordering/product-reordering.component';
 import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { DragDropModule } from 'primeng/dragdrop';
 
 @NgModule({
   declarations: [
@@ -119,6 +121,8 @@ import { ProductCompetenceLevelComponent } from './admin/product-competence-leve
     DragulaModule,
     TableModule,
     PickListModule,
+    DragDropModule,
+    ContextMenuModule,
   ],
   providers: [
     AuthService,

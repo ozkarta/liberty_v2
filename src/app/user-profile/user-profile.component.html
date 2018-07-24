@@ -1,6 +1,6 @@
 <div class="padded" style="align-items: center;">
   <mat-form-field style="width: 500px">
-    <mat-select [(value)]="selectedOption" >
+    <mat-select [(value)]="selectedOption">
       <mat-option [value]="-1">ყველა პროდუქტი და მომსახურება</mat-option>
       <mat-option *ngFor="let product of (checked ? userBonuses : userSales); let i = index" [value]="i">
         {{product?.product.name}}
@@ -108,10 +108,6 @@
           <div *ngIf="!checked" class="triangle-up" style="border-top: 10px solid red"
                [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
                [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
-               matTooltipPosition="above"></div>
-          <div *ngIf="!checked" class="triangle-up" style="border-top: 10px solid red"
-               [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
-               [matTooltip]="'მინიმალური ზღვარი: ' + data.competenceLevel.productMinSales + ' ცალი'"
                matTooltipPosition="above"></div>
           <mat-icon class="triangle"
                     [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"

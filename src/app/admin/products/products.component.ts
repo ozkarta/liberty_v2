@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { ProductModel } from '../../models/product.model';
-import { DragulaService } from 'ng2-dragula';
-import { Subscription } from 'rxjs';
+import {AuthService} from '../../services/auth.service';
+import {ProductModel} from '../../models/product.model';
+import {DragulaService} from 'ng2-dragula';
+import {Subscription} from 'rxjs';
 import {MatDialog} from '@angular/material';
-import {AddBonusSystemComponent} from '../../dialogs/add-bonus-system/add-bonus-system.component';
 import {ProductAddDialogComponent} from '../../product-add-dialog/product-add-dialog.component';
 
 @Component({
@@ -16,6 +15,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   productGroups: ProductModel[] = [];
   initialProducts: InitialProduct[] = [];
   private subscription: Subscription;
+  draggedProduct: InitialProduct;
+  unMapGroup: ProductModel;
 
   constructor(private auth: AuthService, private dragulaService: DragulaService, public dialog: MatDialog) {
     this.subscription = dragulaService.drag.subscribe((value) => {
@@ -36,13 +37,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.getInitialProducts();
     this.getProductGroups();
   }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
   getInitialProducts() {
     this.auth.getRequest('/products/getAllInitialProducts')
       .subscribe(
         (products: InitialProduct[]) => {
+          products.sort((a, b) => {
+            const textA = a.name.toUpperCase();
+            const textB = b.name.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+          });
           products.forEach((p) => {
             this.initialProducts.push(p);
           });
@@ -58,6 +66,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
           });
         });
   }
+
   mapProduct(productId: any, initialId: any) {
     this.auth.putRequest(parseInt(productId), `/products/initialProduct/${initialId}/mapToProduct`)
       .subscribe(
@@ -80,6 +89,39 @@ export class ProductsComponent implements OnInit, OnDestroy {
       // }
     });
   }
+
+  dragStart(event, product: InitialProduct) {
+    this.draggedProduct = product;
+  }
+
+  dragEnd() {
+    this.draggedProduct = null;
+    this.unMapGroup = null;
+  }
+
+  drop(groupId: number) {
+    this.mapProduct(groupId, this.draggedProduct.id);
+    this.initialProducts = this.initialProducts.filter(val => val !== this.draggedProduct);
+  }
+
+  unDragStart(product: InitialProduct, group: ProductModel) {
+    this.draggedProduct = product;
+    this.unMapGroup = group;
+  }
+
+  unDrop() {
+    this.auth.putRequest(null, `/products/initialProducts/${this.draggedProduct.id}/removeMapping`)
+    .subscribe(
+      () => {});
+    this.productGroups.find(p => p === this.unMapGroup).initialProducts = this.productGroups.find(p => p === this.unMapGroup).initialProducts.filter(val => val !== this.draggedProduct);
+    this.initialProducts.push(this.draggedProduct);
+    this.initialProducts.sort((a, b) => {
+      const textA = a.name.toUpperCase();
+      const textB = b.name.toUpperCase();
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+  }
+
 }
 
 export interface InitialProduct {

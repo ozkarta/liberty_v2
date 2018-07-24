@@ -1,25 +1,62 @@
+<!--<div class="padded" style="display: block; width: 100%">-->
+<!--<button mat-raised-button (click)="openDialog()">დამატება</button>-->
+<!--</div>-->
+<!--<mat-divider></mat-divider>-->
+<!--<div class="padded" style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll">-->
+<!--<div class="panel-row" *ngFor="let group of productGroups">-->
+<!--<mat-expansion-panel [dragula]='"bag-one"' [dragulaModel]='initialProducts' [appGroupId]="group.id.toString()">-->
+<!--<mat-expansion-panel-header>-->
+<!--<mat-panel-title>-->
+<!--{{group.name}}-->
+<!--</mat-panel-title>-->
+<!--</mat-expansion-panel-header>-->
+<!--<p class="product" *ngFor="let initial of group.initialProducts">-->
+<!--{{initial.name}}-->
+<!--</p>-->
+<!--</mat-expansion-panel>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="padded" style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll" [dragula]='"bag-one"'-->
+<!--[dragulaModel]='initialProducts'>-->
+<!--<p class="product" *ngFor="let product of initialProducts" [appGroupId]="product.id">-->
+<!--{{product.name}}-->
+<!--</p>-->
+<!--</div>-->
 <div class="padded" style="display: block; width: 100%">
   <button mat-raised-button (click)="openDialog()">დამატება</button>
 </div>
 <mat-divider></mat-divider>
 <div class="padded" style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll">
-  <div class="panel-row" *ngFor="let group of productGroups">
-    <mat-expansion-panel [dragula]='"bag-one"' [dragulaModel]='initialProducts' [appGroupId]="group.id.toString()">
+  <div class="panel-row" *ngFor="let group of productGroups"
+       pDroppable="product"
+       (onDrop)="drop(group.id)">
+    <mat-expansion-panel [appGroupId]="group.id.toString()">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{group.name}}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <p class="product" *ngFor="let initial of group.initialProducts">
-        {{initial.name}}
-      </p>
+      <div>
+        <p class="product" *ngFor="let initial of group.initialProducts"
+           pDraggable="product"
+           (onDragStart)="unDragStart(initial, group)"
+           (onDragEnd)="dragEnd($event)">
+          {{initial.name}}
+        </p>
+      </div>
     </mat-expansion-panel>
   </div>
 </div>
 
-<div class="padded" style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll" [dragula]='"bag-one"'
-     [dragulaModel]='initialProducts'>
-  <p class="product" *ngFor="let product of initialProducts" [appGroupId]="product.id">
+<div class="padded"
+     style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll"
+     pDroppable="product"
+     (onDrop)="unDrop()">
+  <p class="product" *ngFor="let product of initialProducts"
+     [appGroupId]="product.id"
+     pDraggable="product"
+     (onDragStart)="dragStart($event, product)" (onDragEnd)="dragEnd($event)">
     {{product.name}}
   </p>
 </div>
