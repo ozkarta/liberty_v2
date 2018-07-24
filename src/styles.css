@@ -185,3 +185,6 @@ h5 {
 .tooltip__bigger-text {
   font-size: 0.75rem;
 }
+.ui-table {
+  width: 100%
+}

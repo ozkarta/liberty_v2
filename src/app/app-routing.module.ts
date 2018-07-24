@@ -20,6 +20,8 @@ import { ProductsComponent } from './admin/products/products.component';
 import { BranchBonusSystemComponent } from './admin/branch-bonus-system/branch-bonus-system.component';
 import { StaffLevelBonusesComponent } from './admin/staff-level-bonuses/staff-level-bonuses.component';
 import { ProductDocumentationComponent } from './admin/product-documentation/product-documentation.component';
+import { ProductReorderingComponent } from './admin/product-reordering/product-reordering.component';
+import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -40,6 +42,8 @@ const appRoutes: Routes = [
   { path: 'admin/branch-bonus-system', component: BranchBonusSystemComponent, canActivate: [AdminGuard] },
   { path: 'admin/staff-level-bonuses', component: StaffLevelBonusesComponent, canActivate: [AdminGuard] },
   { path: 'admin/product-documentation', component: ProductDocumentationComponent, canActivate: [AdminGuard] },
+  { path: 'admin/product-reordering', component: ProductReorderingComponent, canActivate: [AdminGuard] },
+  { path: 'admin/product-competence-level', component: ProductCompetenceLevelComponent, canActivate: [AdminGuard] },
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
-<div class="padded" style="overflow: scroll">
-  <table class="table-padded">
+<div class="padded" style="overflow: scroll; width: 100vw">
+  <table class="table-padded" style="max-width: 200%;">
     <thead>
     <tr>
       <th></th>
@@ -10,7 +10,11 @@
     <tr *ngFor="let level of staffLevels">
       <th>{{level.name}}</th>
       <td *ngFor="let bonus of bonusSystems">
-        {{doesBranchContainsSystem(bonus.id, level.id)}}
+        <mat-select [value]="doesBranchContainsSystem(bonus.id, level.id)" (selectionChange)="changeStaffLevel(bonus.id, level.id, $event)">
+          <mat-option [value]="1">შემსრულებელი</mat-option>
+          <mat-option [value]="2">შუა დონის მენეჯერი</mat-option>
+          <mat-option [value]="3">ზედა დონის მენეჯერი</mat-option>
+        </mat-select>
       </td>
     </tr>
     </tbody>

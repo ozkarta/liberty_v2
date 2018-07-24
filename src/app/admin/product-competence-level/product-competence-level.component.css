@@ -16,9 +16,6 @@ td {
 .table-padded tr:nth-of-type(odd) {
   background-color: #d5dade;
 }
-.table-input {
-  width: 100%;
-  border: none;
-  padding-left: 5px;
-  outline: none;
+table {
+  width: 100%
 }

@@ -1,0 +1,45 @@
+<div class="padded" *ngIf="tableShown">
+  <p-table [value]="products" class="table-padded">
+    <ng-template pTemplate="header">
+      <tr>
+        <th></th>
+        <th colspan="2" *ngFor="let group of groups">{{group.name}}</th>
+      </tr>
+      <tr>
+        <th></th>
+        <ng-container *ngFor="let group of groups">
+          <th>ათვლის წერტილი</th>
+          <th>მინიმალური ზღვარი</th>
+        </ng-container>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <th>{{product.name}}</th>
+        <ng-container *ngFor="let group of groups" >
+          <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input type="text" [value]="getStartPoint(group.id, product.id)" class="table-input"
+                       (keydown.enter)="updateStartPoint(product.id, group.id, $event)">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{getStartPoint(group.id, product.id)}}
+              </ng-template>
+            </p-cellEditor>          </td>
+          <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input type="text" [value]="getMinSale(group.id, product.id)" class="table-input"
+                       (keydown.enter)="updateMinSale(product.id, group.id, $event)">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{getMinSale(group.id, product.id)}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

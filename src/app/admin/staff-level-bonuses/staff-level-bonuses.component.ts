@@ -19,7 +19,7 @@ export class StaffLevelBonusesComponent implements OnInit {
   }
 
   getStaffLevels() {
-    this.auth.getRequest('/users/allUserPositions')
+    this.auth.getRequest('/userPositions/allUserPositions')
       .subscribe(
         (staffLevels: StaffLevel[]) => {
           staffLevels.forEach((s) => {
@@ -40,10 +40,30 @@ export class StaffLevelBonusesComponent implements OnInit {
     const level = this.staffLevels.find(b => b.id === levelId);
     for (let i = 0; i < level.userPositionBonusSystems.length; i++) {
       if (level.userPositionBonusSystems[i].bonusSystem.id === systemId) {
-        return level.userPositionBonusSystems[i].staffLevel.toString();
+        const retVal = level.userPositionBonusSystems[i].staffLevel;
+        if (retVal === 'PERFORMER') {
+          return 1;
+        }
+        if (retVal === 'MIDDLE_MANAGER') {
+          return 2;
+        }
+        if (retVal === 'UPPER_MANAGER') {
+          return 3;
+        }
       }
     }
-    return '0';
+    return 0;
+  }
+  changeStaffLevel(systemId: number, levelId: number, userPositionId: any) {
+    const data = {
+      bonusSystemId: systemId,
+      staffLevelId: userPositionId.value,
+    };
+    this.auth.putRequest(data, `/userPositions/${levelId}/assignBonusSystemAndStaffLevel`)
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+        });
   }
 }
 

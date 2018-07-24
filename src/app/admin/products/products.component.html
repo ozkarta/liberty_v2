@@ -1,21 +1,25 @@
+<div class="padded" style="display: block; width: 100%">
+  <button mat-raised-button (click)="openDialog()">დამატება</button>
+</div>
+<mat-divider></mat-divider>
 <div class="padded" style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll">
   <div class="panel-row" *ngFor="let group of productGroups">
-    <mat-expansion-panel>
+    <mat-expansion-panel [dragula]='"bag-one"' [dragulaModel]='initialProducts' [appGroupId]="group.id.toString()">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{group.name}}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <ng-container [dragula]='"bag-one"'>
-        <p class="product">bag</p>
-      </ng-container>
+      <p class="product" *ngFor="let initial of group.initialProducts">
+        {{initial.name}}
+      </p>
     </mat-expansion-panel>
   </div>
 </div>
 
 <div class="padded" style="display: inline-block; width: 45%; height: 90vh; overflow-y: scroll" [dragula]='"bag-one"'
      [dragulaModel]='initialProducts'>
-  <p class="product" *ngFor="let product of initialProducts">
+  <p class="product" *ngFor="let product of initialProducts" [appGroupId]="product.id">
     {{product.name}}
   </p>
 </div>

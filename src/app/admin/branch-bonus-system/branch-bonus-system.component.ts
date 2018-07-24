@@ -11,6 +11,7 @@ import { EvaluationGroup } from '../evaluation-group/evaluation-group.component'
 export class BranchBonusSystemComponent implements OnInit {
   bankBranches: Branch[] = [];
   bonusSystems: BonusSystem[] = [];
+  tableShown = true;
 
   constructor(private auth: AuthService) {
     this.getBranches();
@@ -47,6 +48,23 @@ export class BranchBonusSystemComponent implements OnInit {
       }
     }
     return '0';
+  }
+
+  updateEvaluationGroup(bonusId: number, evalId: any, brancId: number) {
+    this.bankBranches.length = 0;
+    this.bonusSystems.length = 0;
+    const data = {
+      bonusSystemId: bonusId,
+      evaluationGroupId: evalId.target.value,
+    };
+    this.auth.putRequest(data, `/branches/${brancId}/assignEvaluationGroup`)
+      .subscribe(
+        () => {
+          this.tableShown = false;
+          this.getBranches();
+          this.getBonusSystems();
+          this.tableShown = true;
+        });
   }
 }
 

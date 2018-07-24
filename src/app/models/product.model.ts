@@ -1,4 +1,5 @@
 import { BonusSystem } from '../admin/bonus-systems/bonus-systems.component';
+import { EvalGroup } from '../admin/product-competence-level/product-competence-level.component';
 
 export class ProductModel {
   constructor(public bonusPoints: number,
@@ -13,6 +14,8 @@ export class ProductModel {
               public status: string,
               public bonusSystemId?: number,
               public documentUId?: number,
-              public productCode?: number) {
+              public productCode?: number,
+              public initialProducts?: any,
+              public competenceLevels?: EvalGroup[]) {
   }
 }

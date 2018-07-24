@@ -1,0 +1,9 @@
+.product {
+  padding: 10px;
+  margin: 0 0 10px;
+  background-color: gainsboro;
+  cursor: pointer;
+}
+.product:active {
+  cursor: grabbing;
+}

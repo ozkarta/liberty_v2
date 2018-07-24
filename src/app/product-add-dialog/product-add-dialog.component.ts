@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {MatDialogRef} from '@angular/material';
+import {MatDialogRef, MatSelect} from '@angular/material';
 
 @Component({
   selector: 'app-product-add-dialog',
@@ -14,6 +14,7 @@ export class ProductAddDialogComponent implements OnInit {
   @ViewChild('startPoint') startPoint: ElementRef;
   selectedOption = 0;
   bonusSystems: BonusSystem[] = [];
+  @ViewChild('motivationBlock') motivationBlock: MatSelect;
 
   constructor(private auth: AuthService,
               private dialogRef: MatDialogRef<ProductAddDialogComponent>) {
@@ -37,8 +38,7 @@ export class ProductAddDialogComponent implements OnInit {
       name: this.productName.nativeElement.value,
       bonusSystemId: this.selectedOption,
       bonusPoints: this.bonusValue.nativeElement.value,
-      minSales: this.minSaleQuantity.nativeElement.value,
-      bonusStartPoint: this.startPoint.nativeElement.value,
+      productMotivationalBlockTypeId: this.motivationBlock.value,
     };
     this.auth.postRequest(data, '/products/add')
       .subscribe(

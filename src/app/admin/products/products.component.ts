@@ -1,60 +1,44 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
-import {ProductModel} from '../../models/product.model';
-import {DragulaService} from 'ng2-dragula';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { ProductModel } from '../../models/product.model';
+import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
+import {MatDialog} from '@angular/material';
+import {AddBonusSystemComponent} from '../../dialogs/add-bonus-system/add-bonus-system.component';
+import {ProductAddDialogComponent} from '../../product-add-dialog/product-add-dialog.component';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   productGroups: ProductModel[] = [];
   initialProducts: InitialProduct[] = [];
+  private subscription: Subscription;
 
-  constructor(private auth: AuthService, private dragulaService: DragulaService) {
-    dragulaService.drag.subscribe((value) => {
-      console.log(`drag: ${value[0]}`);
-      this.onDrag(value.slice(1));
+  constructor(private auth: AuthService, private dragulaService: DragulaService, public dialog: MatDialog) {
+    this.subscription = dragulaService.drag.subscribe((value) => {
     });
-    dragulaService.drop.subscribe((value) => {
-      console.log(`drop: ${value[0]}`);
-      this.onDrop(value.slice(1));
+    const dropSub = dragulaService.drop.subscribe((value) => {
+      this.mapProduct(value[2].getAttribute('groupid'), value[1].getAttribute('groupid'));
     });
-    dragulaService.over.subscribe((value) => {
-      console.log(`over: ${value[0]}`);
-      this.onOver(value.slice(1));
+    this.subscription.add(dropSub);
+    const overSub = dragulaService.over.subscribe((value) => {
     });
-    dragulaService.out.subscribe((value) => {
-      console.log(`out: ${value[0]}`);
-      this.onOut(value.slice(1));
+    this.subscription.add(overSub);
+    const outSub = dragulaService.out.subscribe((value) => {
     });
+    this.subscription.add(outSub);
   }
 
   ngOnInit() {
     this.getInitialProducts();
     this.getProductGroups();
   }
-  private onDrag(args) {
-    let [e, el] = args;
-    // do something
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
-
-  private onDrop(args) {
-    let [e, el] = args;
-    // do something
-  }
-
-  private onOver(args) {
-    let [e, el, container] = args;
-    // do something
-  }
-
-  private onOut(args) {
-    let [e, el, container] = args;
-    // do something
-  }
-
   getInitialProducts() {
     this.auth.getRequest('/products/getAllInitialProducts')
       .subscribe(
@@ -74,12 +58,27 @@ export class ProductsComponent implements OnInit {
           });
         });
   }
-
-  dragStarted(event: any) {
-    console.log(event);
+  mapProduct(productId: any, initialId: any) {
+    this.auth.putRequest(parseInt(productId), `/products/initialProduct/${initialId}/mapToProduct`)
+      .subscribe(
+        (response: any) => {
+          const prod = this.productGroups.find(p => p.id === parseInt(productId));
+          prod.initialProducts.push(response);
+        });
   }
-  drugEnd(event: any) {
-    console.log(event);
+
+  openDialog() {
+    const dialogRef = this.dialog.open(ProductAddDialogComponent, {
+      width: '500px',
+      data: 'product',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      // if (result) {
+      //   this.getBonusSystems();
+      //   this.editBonusSystem(result);
+      // }
+    });
   }
 }
 

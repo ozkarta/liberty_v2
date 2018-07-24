@@ -1,0 +1,87 @@
+<div class="padded" style="display: block">
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        ძირითადი პროდუქტები და მომსახურება
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-accordion>
+      <mat-expansion-panel >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            მოზიდვა
+          </mat-panel-title>
+          <mat-panel-description>
+
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div [dragula]='"bag-one"' [dragulaModel]="products">
+          <div *ngFor="let data of products; let i = index;" [appGroupId]="i">
+            <p class="product"
+               *ngIf="data.primary && data.productMotivationalBlockType === 'ACQUISITION'"
+               [appGroupId]="data.id">
+              {{data.name}}
+            </p>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            დაკრედიტება
+          </mat-panel-title>
+          <mat-panel-description>
+
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div [dragula]='"bag-two"' [dragulaModel]="products">
+          <div *ngFor="let data of products" >
+            <p class="product"
+                 *ngIf="data.primary && data.productMotivationalBlockType === 'CREDIT_ISSUANCE'">
+              {{data.name}}
+            </p>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            მომსახურება
+          </mat-panel-title>
+          <mat-panel-description>
+
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div [dragula]='"bag-three"' [dragulaModel]="products">
+          <div *ngFor="let data of products">
+            <div class="product"
+                 *ngIf="data.primary && data.productMotivationalBlockType === 'SERVICE'">
+              {{data.name}}
+            </div>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        სხვა პროდუქტები და მომსახურება
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div [dragula]='"bag-four"' [dragulaModel]="products">
+      <div *ngFor="let data of products">
+        <div class="product"
+             *ngIf="!data.primary">
+          {{data.name}}
+        </div>
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+</div>

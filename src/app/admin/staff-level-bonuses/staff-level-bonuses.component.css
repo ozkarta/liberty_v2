@@ -8,6 +8,11 @@ td {
   border: none;
   border-right: 1px solid rgba(0, 0, 0, 0.03);
   border-bottom: none !important;
+  width: 13% !important;
+  font-size: 0.7rem;
+}
+th {
+  font-size: 0.7rem;
 }
 .table-padded tbody td:first-child {
   border-radius: 4px 0px 0px 4px;
