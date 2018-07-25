@@ -5,6 +5,7 @@
   border-collapse: separate;
   border-spacing: 0 5px;
   background-color: transparent;
+  width: 100%;
 }
 td {
   padding: 0.9rem 1.1rem !important;
@@ -14,4 +15,7 @@ td {
 }
 .table-padded tbody td:first-child {
   border-radius: 4px 0px 0px 4px;
+}
+tr.mat-footer-row, tr.mat-row {
+  height: 30px
 }

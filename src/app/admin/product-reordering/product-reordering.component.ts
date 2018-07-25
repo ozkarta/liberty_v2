@@ -17,7 +17,7 @@ export class ProductReorderingComponent implements OnInit, OnDestroy {
     this.subscription = dragulaService.drag.subscribe((value) => {
     });
     const dropSub = dragulaService.drop.subscribe((value) => {
-      this.reorderProduct(value);
+      // this.reorderProduct(value);
     });
     this.subscription.add(dropSub);
     const overSub = dragulaService.over.subscribe((value) => {
@@ -47,15 +47,8 @@ export class ProductReorderingComponent implements OnInit, OnDestroy {
           });
         });
   }
-  reorderProduct(data: any) {
-    let newOrder;
-    const prodId = data[1].children[0].getAttribute('groupid');
-    if (data[1].previousElementSibling) {
-      newOrder = data[1].previousElementSibling.getAttribute('groupid');
-    } else {
-      newOrder = 0;
-    }
-    this.auth.putRequest(parseInt(newOrder), `/products/${prodId}/reOrder`)
+  reorderProduct(newOrder: any, id: number) {
+    this.auth.putRequest(parseInt(newOrder), `/products/${id}/reOrder`)
       .subscribe(
         (response: any) => {
           this.products.length = 0;

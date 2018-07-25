@@ -9,7 +9,7 @@ import { ProductAddDialogComponent } from '../product-add-dialog/product-add-dia
   styleUrls: ['./bonus-points.component.css'],
 })
 export class BonusPointsComponent implements OnInit {
-  displayedColumns = ['name', 'bonusSystem', 'productMinSales', 'productBonusPointStart', 'bonusPoints'];
+  displayedColumns = ['motivation', 'name', 'bonusSystem', 'productMinSales', 'productBonusPointStart', 'bonusPoints'];
   products: BonusPoints[] = [];
   dataSource = new MatTableDataSource(this.products);
   @ViewChild(MatSort) sort: MatSort;

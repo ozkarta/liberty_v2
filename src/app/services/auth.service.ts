@@ -113,19 +113,6 @@ export class AuthService {
   }
 
   getCookie(cName): any {
-    // let i;
-    // let x;
-    // let y;
-    // const arRcookies = document.cookie.split(';');
-    // for (i = 0; i < arRcookies.length; i++) {
-    //   x = arRcookies[i].substr(0, arRcookies[i].indexOf('='));
-    //   y = arRcookies[i].substr(arRcookies[i].indexOf('=') + 1);
-    //   x = x.replace(/^\s+|\s+$/g, '');
-    //   if (x === cName) {
-    //     return decodeURI(y);
-    //   }
-    // }
-    // return null;
     if (localStorage.getItem(cName)) {
       return decodeURI(localStorage.getItem(cName));
     }

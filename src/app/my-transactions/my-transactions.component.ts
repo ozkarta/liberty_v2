@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { MyOperationsModel } from '../models/my-operations.model';
-import { Transactions } from '../transactions/transactions.component';
 import { AuthorizedUserService } from '../services/authorized-user.service';
 
 @Component({
@@ -12,6 +11,7 @@ import { AuthorizedUserService } from '../services/authorized-user.service';
 })
 export class MyTransactionsComponent implements OnInit {
   displayedColumns = [
+    'motivation',
     'productName',
     'myOwn',
     'groupRating',
@@ -26,13 +26,13 @@ export class MyTransactionsComponent implements OnInit {
   myBonuses: MyOperationsModel[] = [];
 
   saleQuantities: MyOperationsModel[] = [];
-  @ViewChild(MatSort) sort: MatSort;
   checked = false;
 
-  dataSourceSales = new MatTableDataSource(this.saleQuantities);
-  dataSourceBonuses = new MatTableDataSource(this.myBonuses);
+  dataSourceSales: MatTableDataSource<MyOperationsModel>;
+  dataSourceBonuses: MatTableDataSource<MyOperationsModel>;
 
   @ViewChild('downloadFile') private downloadExcel: ElementRef;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
   }
@@ -51,7 +51,9 @@ export class MyTransactionsComponent implements OnInit {
               b.productName = b.product.name;
               this.myBonuses.push(b);
             });
+            this.dataSourceBonuses = new MatTableDataSource(this.myBonuses);
             this.dataSourceBonuses.sort = this.sort;
+            console.log(this.sort);
           }
         });
   }
@@ -65,6 +67,7 @@ export class MyTransactionsComponent implements OnInit {
                 b.productName = b.product.name;
                 this.saleQuantities.push(b);
               });
+              this.dataSourceSales = new MatTableDataSource(this.saleQuantities);
               this.dataSourceSales.sort = this.sort;
             }
           });

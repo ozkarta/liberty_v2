@@ -16,3 +16,6 @@ td {
 .table-padded tr:nth-of-type(odd) {
   background-color: #d5dade;
 }
+tr.mat-footer-row, tr.mat-row {
+  height: 30px;
+}

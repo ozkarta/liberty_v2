@@ -65,6 +65,7 @@ import { ProductReorderingComponent } from './admin/product-reordering/product-r
 import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
+import {MatSortModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { DragDropModule } from 'primeng/dragdrop';
     PickListModule,
     DragDropModule,
     ContextMenuModule,
+    MatSortModule,
   ],
   providers: [
     AuthService,

@@ -323,6 +323,22 @@
 .mat-expansion-panel-header-description {
   flex-grow: .5;
 }
+
+.login-spinner {
+  position: absolute;
+  top: 39%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+.login-backdrop {
+  position: fixed;
+  z-index: 9998;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(38, 38, 38, 0.22);
+}
+
 @media only screen and (max-width: 1690px) {
   .card-number {
     font-size: 1.9rem;

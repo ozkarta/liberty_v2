@@ -14,6 +14,10 @@ import { Router } from '@angular/router';
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
   selectedTab = new FormControl(0);
+  dataIsLoading = true;
+  color = 'warn';
+  mode = 'indeterminate';
+  value = 50;
 
   selectedOption = -1;
   selected = new FormControl(-1);
@@ -223,7 +227,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
               this.salesTotalQuantityPrimary += o.product.primary ? o.userResult : 0;
               this.salesTotalQuantityOther += !o.product.primary ? o.userResult : 0;
               this.salesTotalQuantity += o.userResult;
-
               this.bankAvgOperations += o.bankAverage;
               this.bankMaxOperations += o.bankmax;
             });
@@ -388,10 +391,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.lineChartLabels.push(monthLiteral);
       tmpMonth = (tmpMonth === 1) ? 12 : tmpMonth - 1;
     }
-
     this.lineChartLabels.reverse();
     this.lineChartData = _lineChartData;
     this.lineChartDataAvailable = true;
+    this.dataIsLoading = false;
   }
 
   mergeArrays() {
