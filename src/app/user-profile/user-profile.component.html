@@ -22,7 +22,7 @@
         </mat-card-header>
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.currentBranchSales.toLocaleString() : selectedOption > -1 ? userSales[selectedOption].userResult.toLocaleString() + ' ც' : salesTotalQuantityPrimary?.toLocaleString() + ' ც'}}</p>
-          <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.currentBranchSales.toLocaleString() : selectedOption > -1 ? (userBonuses[selectedOption].userResult/100).toLocaleString()+' ლ' : (myBonusInGel/100)?.toLocaleString()+' ლ'}}</p>
+          <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.currentBranchSales.toLocaleString() : selectedOption > -1 ? (userBonuses[selectedOption].userResult).toLocaleString()+' ლ' : (myBonusInGel)?.toLocaleString()+' ლ'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -33,9 +33,9 @@
         </mat-card-header>
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? userSales[selectedOption].bankAverage + ' ც' : bankStatistics?.saleRatingDto.mean.toLocaleString() + ' ც'}}</p>
-          <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? (userBonuses[selectedOption].bankAverage/100)+' ლ' : (bankStatistics?.bonusRatingDto.mean/100).toLocaleString()+' ლ'}}</p>
+          <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? (userBonuses[selectedOption].bankAverage)+' ლ' : (bankStatistics?.bonusRatingDto.mean).toLocaleString()+' ლ'}}</p>
           <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ბანკში ოპერაციების მიხედვით' : 'ჩემი რეიტინგი ბანკში ბონუსის მიხედვით'">{{selectedOption === -1 && !checked ? bankStatistics?.saleRatingDto.rating  + ' |' : selectedOption === -1 && checked ? bankStatistics?.bonusRatingDto.rating  + ' |' : !checked ? userSales[selectedOption].bankrating + ' |' : userBonuses[selectedOption].bankrating + ' |'}}</p>
-          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ბანკის საშუალო ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ბანკის საშუალო თანხასთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.mean/100)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.mean/100)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankAverage/100)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankAverage/100)).toFixed(1) + '%'}}</p>
+          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ბანკის საშუალო ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ბანკის საშუალო ბონუსთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.mean)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.mean)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankAverage)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankAverage)).toFixed(1) + '%'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -46,9 +46,9 @@
         </mat-card-header>
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? userSales[selectedOption].bankmax + ' ც' : bankStatistics?.saleRatingDto.maxPoints.toLocaleString() + ' ც'}}</p>
-          <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? (userBonuses[selectedOption].bankmax/100)+' ლ' : (bankStatistics?.bonusRatingDto.maxPoints/100).toLocaleString()+' ლ'}}</p>
+          <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? (userBonuses[selectedOption].bankmax)+' ლ' : (bankStatistics?.bonusRatingDto.maxPoints).toLocaleString()+' ლ'}}</p>
           <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ბანკში ოპერაციების მიხედვით' : 'ჩემი რეიტინგი ბანკში ბონუსის მიხედვით'">{{selectedOption === -1 && !checked ? bankStatistics?.saleRatingDto.rating  + ' |' : selectedOption === -1 && checked ? bankStatistics?.bonusRatingDto.rating  + ' |' : !checked ? userSales[selectedOption].bankrating + ' |' : userBonuses[selectedOption].bankrating + ' |'}}</p>
-          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ბანკის მაქსიმალურ ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ბანკის მაქსიმალურ თანხასთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.maxPoints/100)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.maxPoints/100)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankmax/100)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankmax/100)).toFixed(1) + '%'}}</p>
+          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ბანკის მაქსიმალურ ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ბანკის მაქსიმალურ ბონუსთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.maxPoints)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.maxPoints)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankmax)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankmax)).toFixed(1) + '%'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -59,9 +59,9 @@
         </mat-card-header>
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{userSales[selectedOption].groupAverage.toLocaleString() + ' ც'}}</p>
-          <p class="card-number" *ngIf="checked">{{(userBonuses[selectedOption].groupAverage/100)+' ლ'}}</p>
+          <p class="card-number" *ngIf="checked">{{(userBonuses[selectedOption].groupAverage)+' ლ'}}</p>
           <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ჯგუფში ოპერაციების მიხედვით' : 'ჩემი რეიტინგი ჯგუფში ბონუსის მიხედვით'" *ngIf="selectedOption > -1">{{!checked ? userSales[selectedOption].groupRating + ' |' : userBonuses[selectedOption].groupRating + ' |'}}</p>
-          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ჯგუფის საშუალო ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ჯგუფის საშუალო თანხასთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupAverage/100)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].groupAverage/100)).toFixed(1) + '%'}}</p>
+          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ჯგუფის საშუალო ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ჯგუფის საშუალო ბონუსთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupAverage)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].groupAverage)).toFixed(1) + '%'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -72,9 +72,9 @@
         </mat-card-header>
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{userSales[selectedOption].groupMax.toLocaleString() + ' ც'}}</p>
-          <p class="card-number" *ngIf="checked">{{(userBonuses[selectedOption].groupMax/100).toLocaleString()+' ლ'}}</p>
+          <p class="card-number" *ngIf="checked">{{(userBonuses[selectedOption].groupMax).toLocaleString()+' ლ'}}</p>
           <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ჯგუფში ოპერაციების მიხედვით' : 'ჩემი რეიტინგი ჯგუფში ბონუსის მიხედვით'" *ngIf="selectedOption > -1">{{!checked ? userSales[selectedOption].groupRating + ' |' : userBonuses[selectedOption].groupRating + ' |'}}</p>
-          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ჯგუფის მაქსიმალურ ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ჯგუფის მაქსიმალურ თანხასთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupMax/100)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses [selectedOption].groupMax/100)).toFixed(1) + '%'}}</p>
+          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ჯგუფის მაქსიმალურ ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ჯგუფის მაქსიმალურ ბონუსთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupMax)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses [selectedOption].groupMax)).toFixed(1) + '%'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -86,7 +86,7 @@
           ძირითადი პროდუქტები და მომსახურება
         </mat-panel-title>
         <mat-panel-description>
-          {{checked ?  'ბონუსი: ' + (bonusTotalQuantityPrimary/100)?.toLocaleString() +' ლარი' : 'ოპერაცია: ' + salesTotalQuantityPrimary?.toLocaleString() + ' ცალი'}}
+          {{checked ?  'ბონუსი: ' + (bonusTotalQuantityPrimary)?.toLocaleString() +' ლარი' : 'ოპერაცია: ' + salesTotalQuantityPrimary?.toLocaleString() + ' ცალი'}}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-expansion-panel>
@@ -108,26 +108,26 @@
             </div>
             <div *ngIf="!checked" class="triangle-up" style="border-top: 10px solid red"
                  [ngStyle]="{left: (data.competenceLevel.productMinSales/data.bankmax * 100) + '%', display: data.competenceLevel.productMinSales === 0 ? 'none' : ''}"
-                 [matTooltip]="'მინიმალური ზღვარი ' + data.competenceLevel.productMinSales"
+                 [matTooltip]="'მინიმალური ზღვარი: ' + data.competenceLevel.productMinSales  + ' ცალი'"
                  matTooltipPosition="above"></div>
             <mat-icon class="triangle"
                       [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
-                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult/100 + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult + ' ლარი'"
                       matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
             <mat-icon class="triangle-down" style="color: blue"
                       [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                      [matTooltip]="!checked ? 'ჯგუფის საშუალო: ' + data.groupAverage + ' ცალი' : 'ჯგუფის საშუალო: ' + data.groupAverage/100 + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჯგუფის საშუალო: ' + data.groupAverage + ' ცალი' : 'ჯგუფის საშუალო: ' + data.groupAverage + ' ლარი'"
                       matTooltipPosition="above">group</mat-icon>
             <img src="../../images/groupMax.png" class="triangle"
                  [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-                 [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ცალი' : 'ჯგუფის მაქსიმუმი: ' + data.groupMax/100 + ' ლარი'"
+                 [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ცალი' : 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ლარი'"
                  matTooltipPosition="above">
             <i class="fa fa-users triangle-down" style="color: #f067ff; top:8px; font-size: 0.9rem"
                [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-               [matTooltip]="!checked ? 'ბანკის საშუალო: ' + data.bankAverage + ' ცალი' : 'ბანკის საშუალო: ' + data.bankAverage/100 + ' ლარი'"
+               [matTooltip]="!checked ? 'ბანკის საშუალო: ' + data.bankAverage + ' ცალი' : 'ბანკის საშუალო: ' + data.bankAverage + ' ლარი'"
                matTooltipPosition="above"></i>
             <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
-                 [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax/100 + ' ლარი'"
+                 [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ლარი'"
                  matTooltipPosition="above">
             <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
             </div>
@@ -158,22 +158,22 @@
                  matTooltipPosition="above"></div>
             <mat-icon class="triangle"
                       [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
-                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult/100 + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult + ' ლარი'"
                       matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
             <mat-icon class="triangle-down" style="color: blue"
                       [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                      [matTooltip]="!checked ? 'ჯგუფის საშუალო: ' + data.groupAverage + ' ცალი' : 'ჯგუფის საშუალო: ' + data.groupAverage/100 + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჯგუფის საშუალო: ' + data.groupAverage + ' ცალი' : 'ჯგუფის საშუალო: ' + data.groupAverage + ' ლარი'"
                       matTooltipPosition="above">group</mat-icon>
             <img src="../../images/groupMax.png" class="triangle"
                  [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-                 [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ცალი' : 'ჯგუფის მაქსიმუმი: ' + data.groupMax/100 + ' ლარი'"
+                 [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ცალი' : 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ლარი'"
                  matTooltipPosition="above">
             <i class="fa fa-users triangle-down" style="color: #f067ff; top:8px; font-size: 0.9rem"
                [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-               [matTooltip]="!checked ? 'ბანკის საშუალო: ' + data.bankAverage + ' ცალი' : 'ბანკის საშუალო: ' + data.bankAverage/100 + ' ლარი'"
+               [matTooltip]="!checked ? 'ბანკის საშუალო: ' + data.bankAverage + ' ცალი' : 'ბანკის საშუალო: ' + data.bankAverage + ' ლარი'"
                matTooltipPosition="above"></i>
             <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
-                 [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax/100 + ' ლარი'"
+                 [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ლარი'"
                  matTooltipPosition="above">
             <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
             </div>
@@ -204,22 +204,22 @@
                  matTooltipPosition="above"></div>
             <mat-icon class="triangle"
                       [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
-                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult/100 + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult + ' ლარი'"
                       matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
             <mat-icon class="triangle-down" style="color: blue"
                       [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                      [matTooltip]="!checked ? 'ჯგუფის საშუალო: ' + data.groupAverage + ' ცალი' : 'ჯგუფის საშუალო: ' + data.groupAverage/100 + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჯგუფის საშუალო: ' + data.groupAverage + ' ცალი' : 'ჯგუფის საშუალო: ' + data.groupAverage + ' ლარი'"
                       matTooltipPosition="above">group</mat-icon>
             <img src="../../images/groupMax.png" class="triangle"
                  [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-                 [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ცალი' : 'ჯგუფის მაქსიმუმი: ' + data.groupMax/100 + ' ლარი'"
+                 [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ცალი' : 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ლარი'"
                  matTooltipPosition="above">
             <i class="fa fa-users triangle-down" style="color: #f067ff; top:8px; font-size: 0.9rem"
                [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-               [matTooltip]="!checked ? 'ბანკის საშუალო: ' + data.bankAverage + ' ცალი' : 'ბანკის საშუალო: ' + data.bankAverage/100 + ' ლარი'"
+               [matTooltip]="!checked ? 'ბანკის საშუალო: ' + data.bankAverage + ' ცალი' : 'ბანკის საშუალო: ' + data.bankAverage + ' ლარი'"
                matTooltipPosition="above"></i>
             <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
-                 [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax/100 + ' ლარი'"
+                 [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ლარი'"
                  matTooltipPosition="above">
             <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
             </div>
@@ -234,7 +234,7 @@
           სხვა პროდუქტები და მომსახურება
         </mat-panel-title>
         <mat-panel-description>
-          {{checked ? 'ბონუსი: '+(bonusTotalQuantityOther/100)?.toLocaleString() + ' ლარი'  :  'ოპერაცია: ' + salesTotalQuantityOther?.toLocaleString() + ' ცალი' }}
+          {{checked ? 'ბონუსი: '+(bonusTotalQuantityOther)?.toLocaleString() + ' ლარი'  :  'ოპერაცია: ' + salesTotalQuantityOther?.toLocaleString() + ' ცალი' }}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-container *ngFor="let data of (!checked ? userSales : userBonuses)">
@@ -251,22 +251,22 @@
                matTooltipPosition="above"></div>
           <mat-icon class="triangle"
                     [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
-                    [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult/100 + ' ლარი'"
+                    [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult + ' ლარი'"
                     matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
           <mat-icon class="triangle-down" style="color: blue"
                     [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
-                    [matTooltip]="!checked ? 'ჯგუფის საშუალო: ' + data.groupAverage + ' ცალი' : 'ჯგუფის საშუალო: ' + data.groupAverage/100 + ' ლარი'"
+                    [matTooltip]="!checked ? 'ჯგუფის საშუალო: ' + data.groupAverage + ' ცალი' : 'ჯგუფის საშუალო: ' + data.groupAverage + ' ლარი'"
                     matTooltipPosition="above">group</mat-icon>
           <img src="../../images/groupMax.png" class="triangle"
                [ngStyle]="{left: (data.groupMax/data.bankmax * 100) > 95 ? '95%' : (data.groupMax/data.bankmax * 100) + '%'}"
-               [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ცალი' : 'ჯგუფის მაქსიმუმი: ' + data.groupMax/100 + ' ლარი'"
+               [matTooltip]="!checked ? 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ცალი' : 'ჯგუფის მაქსიმუმი: ' + data.groupMax + ' ლარი'"
                matTooltipPosition="above">
           <i class="fa fa-users triangle-down" style="color: #f067ff; top:8px; font-size: 0.9rem"
              [ngStyle]="{left: (data.bankAverage/data.bankmax * 100) > 95 ? '95%' : (data.bankAverage/data.bankmax * 100) + '%'}"
-             [matTooltip]="!checked ? 'ბანკის საშუალო: ' + data.bankAverage + ' ცალი' : 'ბანკის საშუალო: ' + data.bankAverage/100 + ' ლარი'"
+             [matTooltip]="!checked ? 'ბანკის საშუალო: ' + data.bankAverage + ' ცალი' : 'ბანკის საშუალო: ' + data.bankAverage + ' ლარი'"
              matTooltipPosition="above"></i>
           <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
-               [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax/100 + ' ლარი'"
+               [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ლარი'"
                matTooltipPosition="above">
           <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
           </div>
@@ -392,12 +392,12 @@
                                                                              [ngStyle]="{ backgroundColor: data.color }"></span>{{data.label}}</label>
       </div>
       <div class="doughnut-chart__label">
-        <label>ჩემი ბონუსი <b>{{myBonusInGel/100}} ლარი</b></label>
+        <label>ჩემი ბონუსი <b>{{myBonusInGel}} ლარი</b></label>
       </div>
       <div class="doughnut-chart__rating-data">
         <div class="doughnut-chart__rating-data--right-side">
           <p>რეიტინგი ბანკში ბონუსის მიხედვით <b>{{bankStatistics?.bonusRatingDto.rating}}</b></p>
-          <p>მაქსიმალური ბონუსი ბანკში <b>{{(bankStatistics?.bonusRatingDto.maxPoints/100)?.toLocaleString()}}</b> ლარი</p>
+          <p>მაქსიმალური ბონუსი ბანკში <b>{{(bankStatistics?.bonusRatingDto.maxPoints)?.toLocaleString()}} ლარი</b></p>
         </div>
       </div>
     </div>

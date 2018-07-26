@@ -113,7 +113,6 @@
 .progress-bar__container .progress-bar__labels {
   position: absolute;
   top: -36px;
-  width: 40%;
 }
 
 .progress-bar__level1 {

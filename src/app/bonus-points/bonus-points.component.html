@@ -1,13 +1,18 @@
 <div class="padded">
-  <button mat-raised-button (click)="export()">ექსპორტი</button>
-</div>
-
-<div class="padded">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ფილტრი">
   </mat-form-field>
+  <button mat-raised-button (click)="export()">ექსპორტი</button>
 </div>
 
+<mat-divider></mat-divider>
+<div class="padded">
+  <div class="title-header" style="margin: 0; padding: 0">
+    <h5 class="text-left">
+      სამოტივაციო პოლიტიკა
+    </h5>
+  </div>
+</div>
 <div class="padded">
 
   <table mat-table [dataSource]="dataSource" matSort class="full-width table-padded">
@@ -16,7 +21,7 @@
           The actual rendered columns are set as a property on the row definition" -->
     <ng-container matColumnDef="motivation">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> სამოტივაციო ბლოკი </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.product.productMotivationalBlockType === 'ACQUISITION' ? 'მოზიდვა' : operation.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ?  'დაკრედიტება' : 'მომსახურება'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.motivation}} </td>
     </ng-container>
     <!-- Position Column -->
     <ng-container matColumnDef="name">
