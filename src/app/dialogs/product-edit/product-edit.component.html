@@ -1,0 +1,28 @@
+<div class="padded" *ngIf="dataAvailable">
+  <mat-form-field>
+    <input matInput placeholder="სახელი" [(ngModel)]="product.name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="number" matInput placeholder="ქულა" [(ngModel)]="product.bonusPoints">
+  </mat-form-field>
+</div>
+<div class="padded" *ngIf="dataAvailable">
+  <mat-form-field>
+    <mat-select placeholder="ბონუს სისტემის სახელი" [(ngModel)]="product.bonusSystem.id">
+      <mat-option *ngFor="let system of bonusSystems" [value]="system.id">{{system.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="სამოტივაციო ბლოკი" [(ngModel)]="product.productMotivationalBlockTypeId">
+      <mat-option [value]="1">მოზიდვა</mat-option>
+      <mat-option [value]="2">დაკრედიტება</mat-option>
+      <mat-option [value]="3">მომსახურება</mat-option>
+      <mat-option [value]="4">სხვა</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="padded">
+  <button mat-raised-button (click)="saveEditing()">შენახვა</button>
+</div>

@@ -66,6 +66,9 @@ import { ProductCompetenceLevelComponent } from './admin/product-competence-leve
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
 import {MatSortModule} from '@angular/material';
+import { EvaluationGroupEditComponent } from './dialogs/evaluation-group-edit/evaluation-group-edit.component';
+import { ProductEditingComponent } from './admin/product-editing/product-editing.component';
+import { ProductEditComponent } from './dialogs/product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +96,9 @@ import {MatSortModule} from '@angular/material';
     GroupIdDirective,
     ProductReorderingComponent,
     ProductCompetenceLevelComponent,
+    EvaluationGroupEditComponent,
+    ProductEditingComponent,
+    ProductEditComponent,
   ],
   imports: [
     HttpClientModule,
@@ -134,7 +140,7 @@ import {MatSortModule} from '@angular/material';
     AuthorizedUserService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ProductAddDialogComponent, AddBonusSystemComponent, BonusSystemEditComponent],
+  entryComponents: [ProductAddDialogComponent, AddBonusSystemComponent, BonusSystemEditComponent, EvaluationGroupEditComponent, ProductEditComponent],
 })
 export class AppModule {
 }
