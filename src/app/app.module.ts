@@ -65,10 +65,13 @@ import { ProductReorderingComponent } from './admin/product-reordering/product-r
 import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
-import {MatSortModule} from '@angular/material';
+import { MatSortModule } from '@angular/material';
 import { EvaluationGroupEditComponent } from './dialogs/evaluation-group-edit/evaluation-group-edit.component';
 import { ProductEditingComponent } from './admin/product-editing/product-editing.component';
 import { ProductEditComponent } from './dialogs/product-edit/product-edit.component';
+import { AdditionalParametersComponent } from './admin/additional-parameters/additional-parameters.component';
+import { RecalculateBonusComponent } from './admin/recalculate-bonus/recalculate-bonus.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -99,6 +102,8 @@ import { ProductEditComponent } from './dialogs/product-edit/product-edit.compon
     EvaluationGroupEditComponent,
     ProductEditingComponent,
     ProductEditComponent,
+    AdditionalParametersComponent,
+    RecalculateBonusComponent,
   ],
   imports: [
     HttpClientModule,
@@ -131,6 +136,7 @@ import { ProductEditComponent } from './dialogs/product-edit/product-edit.compon
     DragDropModule,
     ContextMenuModule,
     MatSortModule,
+    MatProgressBarModule,
   ],
   providers: [
     AuthService,
@@ -140,7 +146,13 @@ import { ProductEditComponent } from './dialogs/product-edit/product-edit.compon
     AuthorizedUserService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ProductAddDialogComponent, AddBonusSystemComponent, BonusSystemEditComponent, EvaluationGroupEditComponent, ProductEditComponent],
+  entryComponents: [
+    ProductAddDialogComponent,
+    AddBonusSystemComponent,
+    BonusSystemEditComponent,
+    EvaluationGroupEditComponent,
+    ProductEditComponent,
+  ],
 })
 export class AppModule {
 }
