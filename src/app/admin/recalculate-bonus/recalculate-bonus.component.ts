@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 export class RecalculateBonusComponent implements OnInit {
   calculationInProgress = false;
   currentProgress = 0;
+  timer: any;
 
   constructor(private auth: AuthService) { }
 
@@ -26,13 +27,16 @@ export class RecalculateBonusComponent implements OnInit {
         });
   }
   getCurrentProgress() {
+    if (this.timer != null) {
+      clearTimeout(this.timer);
+    }
     this.auth.getRequest('/bonusRewards/getBonusRecalculationProgress')
       .subscribe(
         (progress: number) => {
           this.currentProgress = progress;
           if (progress !== 0) {
             this.calculationInProgress = true;
-            setTimeout(this.getCurrentProgress(), 10000);
+            this.timer = setTimeout(this.getCurrentProgress(), 10000);
           }
           if (progress === 0) {
             this.calculationInProgress = false;
