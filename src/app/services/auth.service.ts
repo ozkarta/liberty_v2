@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class AuthService {
   // url = 'http://home.gelashvili.net:8080';
   // url = 'http://31.146.153.23:8080';
-  url = 'http://192.168.100.100:9191';
+  // url = 'http://192.168.100.100:9191';
+  url = 'http://192.168.100.23:9191';
 
   constructor(private http: HttpClient, private currentUser: AuthorizedUserService, private router: Router) {
   }

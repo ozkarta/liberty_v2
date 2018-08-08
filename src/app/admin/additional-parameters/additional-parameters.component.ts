@@ -13,7 +13,7 @@ export class AdditionalParametersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.auth.getRequest('bonusRewards/additionalParameters')
+    this.auth.getRequest('/bonusRewards/additionalParameters')
       .subscribe(
         (parameters: Params) => {
           this.parameters = parameters;

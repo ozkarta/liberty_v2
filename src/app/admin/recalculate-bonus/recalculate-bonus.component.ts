@@ -22,24 +22,25 @@ export class RecalculateBonusComponent implements OnInit {
     this.auth.postRequest(null, '/bonusRewards/recalculateBonuses')
       .subscribe(
         (response: any) => {
-          this.calculationInProgress = false;
-          this.getCurrentProgress();
         });
+    setTimeout(() => {
+      this.getCurrentProgress();
+    },         5000);
   }
   getCurrentProgress() {
-    if (this.timer != null) {
-      clearTimeout(this.timer);
-    }
     this.auth.getRequest('/bonusRewards/getBonusRecalculationProgress')
       .subscribe(
         (progress: number) => {
           this.currentProgress = progress;
+          if (progress === 0 || progress === null) {
+            this.calculationInProgress = false;
+            return;
+          }
           if (progress !== 0) {
             this.calculationInProgress = true;
-            this.timer = setTimeout(this.getCurrentProgress(), 10000);
-          }
-          if (progress === 0) {
-            this.calculationInProgress = false;
+            setTimeout(() => {
+              this.getCurrentProgress();
+            },         10000);
           }
         });
   }
