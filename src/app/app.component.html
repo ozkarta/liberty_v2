@@ -34,7 +34,7 @@
         <a>
           ჩემი ოპერაციები
         </a></li>
-      <li *ngIf="userData?.userStaffLevel === 'MIDDLE_MANAGER'" class="menu-item" routerLink="/my-branch-transactions">
+      <li *ngIf="userData?.userStaffLevel === 'FIRST_LEVEL_MANAGER' || userData?.userStaffLevel === 'SECOND_LEVEL_MANAGER' || userData?.userStaffLevel === 'THIRD_LEVEL_MANAGER' || userData?.userStaffLevel === 'FOURTH_LEVEL_MANAGER'" class="menu-item" routerLink="/employees">
         <mat-icon>trending_up</mat-icon>
         <a>
           ჩემი გუნდის ოპერაციები

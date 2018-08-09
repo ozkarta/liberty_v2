@@ -22,25 +22,24 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.events
-      .subscribe(
-        () => {
-          this.checkLoginStatus().then(() => {
-            if (this.isAuthorized) {
-              this.auth.getLoggedUser().then(() => {
-                this.setUser();
-              });
-            }
-          });
+    this.checkLoginStatus().then(() => {
+      if (this.isAuthorized) {
+        this.auth.getLoggedUser().then(() => {
+          this.setUser();
         });
+      } else {
+        this.setUser();
+      }
+    });
   }
 
   setUser() {
-    console.log('get user fired');
     this.currentUser.getUser
       .subscribe(
         (userData: LibertyUserModel) => {
-          this.userData = userData;
+          this.checkLoginStatus().then(() => {
+            this.userData = userData;
+          });
         });
   }
 
@@ -53,9 +52,12 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    // this.auth.setCookie('access_token', '', 0, -1);
-    // this.auth.setCookie('refresh_token', '', 0, -1);
     localStorage.clear();
-    this.router.navigate(['login']);
+    this.checkLoginStatus().then(() => {
+      this.router.navigate(['login']).then(
+        (wtf) => {
+          console.log(wtf);
+        });
+    });
   }
 }

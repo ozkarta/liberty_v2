@@ -64,13 +64,13 @@ export class LoginComponent implements OnInit {
             (tokens: any) => {
               this.auth.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
               this.auth.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
-              this.auth.getLoggedUser();
-              this.router.navigate(['/'])
-                .then(
-                  () => {
-                    this.dataIsLoading = false;
-                    location.reload(true);
-                  });
+              this.auth.getLoggedUser().then(() => {
+                this.router.navigate(['/'])
+                  .then(
+                    () => {
+                      this.dataIsLoading = false;
+                    });
+              });
             },
           );
       } else {
@@ -88,12 +88,13 @@ export class LoginComponent implements OnInit {
           (tokens: any) => {
             this.auth.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
             this.auth.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
-            this.auth.getLoggedUser();
-            this.router.navigate(['/'])
-              .then(
-                () => {
-                  this.dataIsLoading = false;
-                });
+            this.auth.getLoggedUser().then(() => {
+              this.router.navigate(['/'])
+                .then(
+                  () => {
+                    this.dataIsLoading = false;
+                  });
+            });
           },
           (error) => {
             this.dataIsLoading = false;

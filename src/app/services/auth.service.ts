@@ -90,7 +90,6 @@ export class AuthService {
             this.currentUser.setUser(user);
             this.router.navigate(['admin/bonus-systems']);
           }
-          console.log('user exists');
         });
   }
 
