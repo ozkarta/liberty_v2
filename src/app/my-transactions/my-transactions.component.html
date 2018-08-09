@@ -13,59 +13,118 @@
 </div>
 <mat-divider></mat-divider>
 <div class="padded">
-  <table mat-table [dataSource]="checked ? dataSourceBonuses : dataSourceSales" class="full-width table-padded" style="padding: 0">
-
+  <div class="title-header" style="margin: 0; padding: 0">
+    <h5 class="text-left">
+      ჩემი ოპერაციები
+    </h5>
+  </div>
+</div>
+<div class="padded" style="overflow: auto">
+  <table mat-table [dataSource]="checked ? dataSourceBonuses : dataSourceSales" matSort class="full-width table-padded"
+         style="padding: 0" (matSortChange)="sortTable($event)">
+    <ng-container matColumnDef="motivation">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> სამოტივაციო ბლოკი</th>
+      <td mat-cell *matCellDef="let operation">{{operation.motivation}}</td>
+    </ng-container>
     <ng-container matColumnDef="productName">
-      <th mat-header-cell *matHeaderCellDef> პროდუქტი </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.product.name}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> პროდუქტი</th>
+      <td mat-cell *matCellDef="let operation">{{operation.product.name}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="myOwn">
-      <th mat-header-cell *matHeaderCellDef> ჩემი შედეგი </th>
-      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.userResult : (operation.userResult/100)+' ლ'}} </td>
+    <ng-container matColumnDef="userResult">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ჩემი შედეგი</th>
+      <td mat-cell *matCellDef="let operation">{{operation.userResult}}</td>
     </ng-container>
 
     <ng-container matColumnDef="groupRating">
-      <th mat-header-cell *matHeaderCellDef> რეიტინგი ჯგუფში </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.groupRating}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> რეიტინგი ჯგუფში</th>
+      <td mat-cell *matCellDef="let operation">{{operation.groupRating}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="bankRating">
-      <th mat-header-cell *matHeaderCellDef> რეიტინგი ბანკში </th>
-      <td mat-cell *matCellDef="let operation"> {{operation.bankrating}} </td>
+    <ng-container matColumnDef="bankrating">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> რეიტინგი ბანკში</th>
+      <td mat-cell *matCellDef="let operation">{{operation.bankrating}}</td>
     </ng-container>
 
     <ng-container matColumnDef="groupMin">
-      <th mat-header-cell *matHeaderCellDef> ჯგუფის მინიმუმი </th>
-      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.groupMin : (operation.groupMin/100)+' ლ'}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ჯგუფის მინიმუმი</th>
+      <td mat-cell *matCellDef="let operation">{{!checked ? operation.groupMin : (operation.groupMin)+' ლ'}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="groupAvg">
-      <th mat-header-cell *matHeaderCellDef> ჯგუფის საშუალო </th>
-      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.groupAverage : (operation.groupAverage/100)+' ლ'}} </td>
+    <ng-container matColumnDef="groupAverage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ჯგუფის საშუალო</th>
+      <td mat-cell *matCellDef="let operation">{{!checked ? operation.groupAverage : (operation.groupAverage)+' ლ'}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="groupMax">
-      <th mat-header-cell *matHeaderCellDef> ჯგუფის მაქსიმუმი </th>
-      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.groupMax : (operation.groupMax/100)+' ლ'}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ჯგუფის მაქსიმუმი</th>
+      <td mat-cell *matCellDef="let operation">{{!checked ? operation.groupMax : (operation.groupMax)+' ლ'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="bankMin">
-      <th mat-header-cell *matHeaderCellDef> ბანკის მინიმუმი </th>
-      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.bankMin : (operation.bankMin/100)+' ლ'}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ბანკის მინიმუმი</th>
+      <td mat-cell *matCellDef="let operation">{{!checked ? operation.bankMin : (operation.bankMin)+' ლ'}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="bankAvg">
-      <th mat-header-cell *matHeaderCellDef> ბანკის საშუალო </th>
-      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.bankAverage : (operation.bankAverage/100)+' ლ'}} </td>
+    <ng-container matColumnDef="bankAverage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ბანკის საშუალო</th>
+      <td mat-cell *matCellDef="let operation">{{!checked ? operation.bankAverage : (operation.bankAverage)+' ლ'}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="bankMax">
-      <th mat-header-cell *matHeaderCellDef> ბანკის მაქსიმუმი </th>
-      <td mat-cell *matCellDef="let operation"> {{!checked ? operation.bankmax : (operation.bankmax/100)+' ლ'}} </td>
+    <ng-container matColumnDef="bankmax">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ბანკის მაქსიმუმი</th>
+      <td mat-cell *matCellDef="let operation">{{!checked ? operation.bankmax : (operation.bankmax)+' ლ'}}</td>
     </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+
+<!--<p-table [columns]="cols" [value]="checked ? myBonuses : saleQuantities" *ngIf="dataLoaded">-->
+<!--<ng-template pTemplate="header" let-columns>-->
+<!--<tr>-->
+<!--<th *ngFor="let col of columns" [pSortableColumn]="col.field">-->
+<!--{{col.header}}-->
+<!--<p-sortIcon [field]="col.field"></p-sortIcon>-->
+<!--</th>-->
+<!--</tr>-->
+<!--</ng-template>-->
+<!--<ng-template pTemplate="body" let-data>-->
+<!--<tr>-->
+<!--<td>-->
+<!--{{data.motivation}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.product.name}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.userResult}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.groupRating}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.bankrating}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.groupMin}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.groupAverage}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.groupMax}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.bankMin}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.bankAverage}}-->
+<!--</td>-->
+<!--<td>-->
+<!--{{data.bankmax}}-->
+<!--</td>-->
+<!--</tr>-->
+<!--</ng-template>-->
+<!--</p-table>-->

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService } from './services/auth.service';
-import { Router } from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AuthService} from './services/auth.service';
+import {Router} from '@angular/router';
 import {AuthorizedUserService} from './services/authorized-user.service';
 import {LibertyUserModel} from './models/liberty-user.model';
 
@@ -22,27 +22,28 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkLoginStatus();
-    this.router.events
-      .subscribe(
-        () => {
-          this.checkLoginStatus();
+    this.checkLoginStatus().then(() => {
+      if (this.isAuthorized) {
+        this.auth.getLoggedUser().then(() => {
+          this.setUser();
         });
-    if (this.isAuthorized) {
-      this.auth.getLoggedUser();
-      this.setUser();
-    }
+      } else {
+        this.setUser();
+      }
+    });
   }
 
   setUser() {
     this.currentUser.getUser
       .subscribe(
         (userData: LibertyUserModel) => {
-          this.userData = userData;
+          this.checkLoginStatus().then(() => {
+            this.userData = userData;
+          });
         });
   }
 
-  checkLoginStatus() {
+  async checkLoginStatus() {
     this.auth.isAuthorized()
       .subscribe(
         (isLoggedIn: boolean) => {
@@ -51,9 +52,12 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    // this.auth.setCookie('access_token', '', 0, -1);
-    // this.auth.setCookie('refresh_token', '', 0, -1);
     localStorage.clear();
-    this.router.navigate(['login']);
+    this.checkLoginStatus().then(() => {
+      this.router.navigate(['login']).then(
+        (wtf) => {
+          console.log(wtf);
+        });
+    });
   }
 }

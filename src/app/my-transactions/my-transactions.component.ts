@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { MyOperationsModel } from '../models/my-operations.model';
-import { Transactions } from '../transactions/transactions.component';
 import { AuthorizedUserService } from '../services/authorized-user.service';
 
 @Component({
@@ -11,28 +10,44 @@ import { AuthorizedUserService } from '../services/authorized-user.service';
   styleUrls: ['./my-transactions.component.css'],
 })
 export class MyTransactionsComponent implements OnInit {
+  dataLoaded = false;
   displayedColumns = [
+    'motivation',
     'productName',
-    'myOwn',
+    'userResult',
     'groupRating',
-    'bankRating',
+    'bankrating',
     'groupMin',
-    'groupAvg',
+    'groupAverage',
     'groupMax',
     'bankMin',
-    'bankAvg',
-    'bankMax',
+    'bankAverage',
+    'bankmax',
   ];
+
+  // cols = [
+  //   { field: 'motivation', header: 'სამოტივაციო ბლოკი' },
+  //   { field: 'productName', header: 'პროდუქტი' },
+  //   { field: 'myOwn', header: 'ჩემი შედეგი' },
+  //   { field: 'groupRating', header: 'რეიტინგი ჯგუფში' },
+  //   { field: 'bankRating', header: 'რეიტინგი ბანკში' },
+  //   { field: 'groupMin', header: 'ჯგუფის მინიმუმი' },
+  //   { field: 'groupAvg', header: 'ჯგუფის საშუალო' },
+  //   { field: 'groupMax', header: 'ჯგუფის მაქსიმუმი' },
+  //   { field: 'bankMin', header: 'ბანკის მინიმუმი' },
+  //   { field: 'bankAvg', header: 'ბანკის საშუალო' },
+  //   { field: 'bankMax', header: 'ბანკის მაქსიმუმი' },
+  // ];
   myBonuses: MyOperationsModel[] = [];
 
   saleQuantities: MyOperationsModel[] = [];
-  @ViewChild(MatSort) sort: MatSort;
   checked = false;
 
-  dataSourceSales = new MatTableDataSource(this.saleQuantities);
-  dataSourceBonuses = new MatTableDataSource(this.myBonuses);
+  dataSourceSales: MatTableDataSource<MyOperationsModel>;
+  dataSourceBonuses: MatTableDataSource<MyOperationsModel>;
 
   @ViewChild('downloadFile') private downloadExcel: ElementRef;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
   }
@@ -47,11 +62,16 @@ export class MyTransactionsComponent implements OnInit {
       .subscribe(
         (bonuses: MyOperationsModel[]) => {
           if (bonuses) {
+            bonuses = bonuses.filter(b => b.product.productMotivationalBlockType !== 'OTHER');
             bonuses.forEach((b) => {
               b.productName = b.product.name;
+              b.motivation = b.product.productMotivationalBlockType === 'ACQUISITION' ?
+                'მოზიდვა' : b.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ?  'დაკრედიტება' : 'მომსახურება';
               this.myBonuses.push(b);
             });
+            this.dataSourceBonuses = new MatTableDataSource(this.myBonuses);
             this.dataSourceBonuses.sort = this.sort;
+            this.dataLoaded = true;
           }
         });
   }
@@ -61,11 +81,16 @@ export class MyTransactionsComponent implements OnInit {
         .subscribe(
           (operations: MyOperationsModel[]) => {
             if (operations) {
+              operations = operations.filter(b => b.product.productMotivationalBlockType !== 'OTHER');
               operations.forEach((b) => {
                 b.productName = b.product.name;
+                b.motivation = b.product.productMotivationalBlockType === 'ACQUISITION' ?
+                  'მოზიდვა' : b.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ?  'დაკრედიტება' : 'მომსახურება';
                 this.saleQuantities.push(b);
               });
+              this.dataSourceSales = new MatTableDataSource(this.saleQuantities);
               this.dataSourceSales.sort = this.sort;
+              this.dataLoaded = true;
             }
           });
   }
@@ -110,46 +135,8 @@ export class MyTransactionsComponent implements OnInit {
     this.dataSourceSales.filter = filterValue.trim().toLowerCase();
     this.dataSourceBonuses.filter = filterValue.trim().toLowerCase();
   }
-}
 
-// export interface Product {
-//   bonusPoints: number;
-//   externalId: number;
-//   id: number;
-//   name: string;
-//   productCode: number;
-//   status: string;
-// }
-//
-// export interface SaleDate {
-//   chronology: { id: string, calendarType: string };
-//   dayOfMonth: number;
-//   dayOfWeek: string;
-//   dayOfYear: number;
-//   era: string;
-//   leapYear: boolean;
-//   month: string;
-//   monthValue: number;
-//   year: number;
-// }
-//
-// export interface User {
-//   address: string;
-//   authIds?: any;
-//   authorities?: any;
-//   email: string;
-//   emailActive?: any;
-//   enabled: boolean;
-//   externalId?: any;
-//   firstName: string;
-//   id: number;
-//   lastName: string;
-//   lastPasswordResetDate?: any;
-//   passwordDto?: any;
-//   personalNumber?: any;
-//   phoneNumber?: any;
-//   pictureId?: any;
-//   smsActive?: any;
-//   status?: any;
-//   username?: any;
-// }
+  sortTable(event: any) {
+
+  }
+}

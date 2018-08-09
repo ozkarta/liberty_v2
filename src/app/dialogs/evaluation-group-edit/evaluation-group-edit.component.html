@@ -1,0 +1,8 @@
+<div class="padded" *ngIf="dataAvaible">
+  <mat-form-field>
+    <input matInput placeholder="ჯგუფის სახელი" [(ngModel)]="group.name" (keydown.enter)="changeGroupName();false">
+  </mat-form-field>
+</div>
+<div class="padded">
+  <button mat-raised-button (click)="changeGroupName()">შენახვა</button>
+</div>

@@ -1,0 +1,9 @@
+<div class="padded" style="width: 50%; display: block">
+  <mat-form-field class="full-width">
+    <input [(ngModel)]="parameters.commercialParticipation.value" matInput placeholder="კომერციული ჩართულობის დონე" (keydown.enter)="updateCommercialParticipation()">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input [(ngModel)]="parameters.roundingIndex.value" matInput placeholder="დამრგვალების ინდექსი" (keydown.enter)="updateRoundingIndex()">
+  </mat-form-field>
+</div>
+

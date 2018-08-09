@@ -1,50 +1,57 @@
 <div class="padded">
-  <button mat-raised-button (click)="export()">ექსპორტი</button>
-</div>
-
-<div class="padded">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ფილტრი">
   </mat-form-field>
+  <button mat-raised-button (click)="export()">ექსპორტი</button>
 </div>
 
+<mat-divider></mat-divider>
+<div class="padded">
+  <div class="title-header" style="margin: 0; padding: 0">
+    <h5 class="text-left">
+      სამოტივაციო პოლიტიკა
+    </h5>
+  </div>
+</div>
 <div class="padded">
 
-  <table mat-table [dataSource]="dataSource" class="full-width table-padded">
+  <table mat-table [dataSource]="dataSource" matSort class="full-width table-padded">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-
+    <ng-container matColumnDef="motivation">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> სამოტივაციო ბლოკი </th>
+      <td mat-cell *matCellDef="let element"> {{element.motivation}} </td>
+    </ng-container>
     <!-- Position Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> პროდუქტის სახელი </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> პროდუქტის სახელი </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="bonusSystem">
-      <th mat-header-cell *matHeaderCellDef> შეფასებითი ჯგუფი </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> შეფასებითი ჯგუფი </th>
       <td mat-cell *matCellDef="let element"> {{element.evaluationGroup}} </td>
     </ng-container>
 
     <ng-container matColumnDef="bonusPoints">
-      <th mat-header-cell *matHeaderCellDef> ბონუსის ოდენობა </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ბონუსის ოდენობა </th>
       <td mat-cell *matCellDef="let element"> {{element.bonusPoints}} </td>
     </ng-container>
 
     <ng-container matColumnDef="productMinSales">
-      <th mat-header-cell *matHeaderCellDef> კომერციული კომპეტენციის მინიმალური ზღვარი </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> კომერციული კომპეტენციის მინიმალური ზღვარი </th>
       <td mat-cell *matCellDef="let element"> {{element.productMinSales}} </td>
     </ng-container>
 
     <ng-container matColumnDef="productBonusPointStart">
-      <th mat-header-cell *matHeaderCellDef> ბონუსის გადახდის ათვლის წერტილი </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ბონუსის გადახდის ათვლის წერტილი </th>
       <td mat-cell *matCellDef="let element"> {{element.productBonusPointStart}} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
 </div>
 

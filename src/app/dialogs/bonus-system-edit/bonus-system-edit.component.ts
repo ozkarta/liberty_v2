@@ -26,7 +26,7 @@ export class BonusSystemEditComponent implements OnInit {
 
   editTitle = false;
 
-  constructor(public dialogRef: MatDialogRef<AddBonusSystemComponent>,
+  constructor(public dialogRef: MatDialogRef<BonusSystemEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: number, private auth: AuthService) {
   }
 

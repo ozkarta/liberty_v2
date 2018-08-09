@@ -65,6 +65,13 @@ import { ProductReorderingComponent } from './admin/product-reordering/product-r
 import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
+import { MatSortModule } from '@angular/material';
+import { EvaluationGroupEditComponent } from './dialogs/evaluation-group-edit/evaluation-group-edit.component';
+import { ProductEditingComponent } from './admin/product-editing/product-editing.component';
+import { ProductEditComponent } from './dialogs/product-edit/product-edit.component';
+import { AdditionalParametersComponent } from './admin/additional-parameters/additional-parameters.component';
+import { RecalculateBonusComponent } from './admin/recalculate-bonus/recalculate-bonus.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 // import { KnowledgeBaseComponentAdmin } from './admin/knowledge-base/knowledge-base.component';
 import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
 import { MatListModule } from '@angular/material';
@@ -95,6 +102,11 @@ import { MatListModule } from '@angular/material';
     GroupIdDirective,
     ProductReorderingComponent,
     ProductCompetenceLevelComponent,
+    EvaluationGroupEditComponent,
+    ProductEditingComponent,
+    ProductEditComponent,
+    AdditionalParametersComponent,
+    RecalculateBonusComponent,
     KnowledgeBaseComponent,
     // KnowledgeBaseComponentAdmin,
   ],
@@ -128,6 +140,8 @@ import { MatListModule } from '@angular/material';
     PickListModule,
     DragDropModule,
     ContextMenuModule,
+    MatSortModule,
+    MatProgressBarModule,
     MatListModule,
   ],
   providers: [
@@ -138,7 +152,13 @@ import { MatListModule } from '@angular/material';
     AuthorizedUserService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ProductAddDialogComponent, AddBonusSystemComponent, BonusSystemEditComponent],
+  entryComponents: [
+    ProductAddDialogComponent,
+    AddBonusSystemComponent,
+    BonusSystemEditComponent,
+    EvaluationGroupEditComponent,
+    ProductEditComponent,
+  ],
 })
 export class AppModule {
 }

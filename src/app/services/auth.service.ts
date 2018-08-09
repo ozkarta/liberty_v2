@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class AuthService {
   // url = 'http://home.gelashvili.net:8080';
   // url = 'http://31.146.153.23:8080';
-  url = 'http://192.168.100.100:9191';
+  // url = 'http://192.168.100.100:9191';
+  url = 'http://192.168.100.23:9191';
 
   constructor(private http: HttpClient, private currentUser: AuthorizedUserService, private router: Router) {
   }
@@ -69,7 +70,7 @@ export class AuthService {
         }));
   }
 
-  getLoggedUser() {
+  async getLoggedUser() {
     this.getRequest('/users/me')
       .subscribe(
         (user: LibertyUserModel) => {
@@ -113,19 +114,6 @@ export class AuthService {
   }
 
   getCookie(cName): any {
-    // let i;
-    // let x;
-    // let y;
-    // const arRcookies = document.cookie.split(';');
-    // for (i = 0; i < arRcookies.length; i++) {
-    //   x = arRcookies[i].substr(0, arRcookies[i].indexOf('='));
-    //   y = arRcookies[i].substr(arRcookies[i].indexOf('=') + 1);
-    //   x = x.replace(/^\s+|\s+$/g, '');
-    //   if (x === cName) {
-    //     return decodeURI(y);
-    //   }
-    // }
-    // return null;
     if (localStorage.getItem(cName)) {
       return decodeURI(localStorage.getItem(cName));
     }

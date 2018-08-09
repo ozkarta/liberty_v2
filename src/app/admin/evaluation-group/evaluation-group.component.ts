@@ -6,6 +6,7 @@ import { AddBonusSystemComponent } from '../../dialogs/add-bonus-system/add-bonu
 import { AuthorizedUserService } from '../../services/authorized-user.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import {EvaluationGroupEditComponent} from '../../dialogs/evaluation-group-edit/evaluation-group-edit.component';
 
 @Component({
   selector: 'app-evaluation-group',
@@ -56,6 +57,17 @@ export class EvaluationGroupComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getEvaluationGroups();
+      }
+    });
+  }
+  editEvaluationGroup(id: number) {
+    const dialog = this.dialog.open(EvaluationGroupEditComponent, {
+      width: '500px',
+      data: id,
+    });
+    dialog.afterClosed().subscribe((result) => {
       if (result) {
         this.getEvaluationGroups();
       }

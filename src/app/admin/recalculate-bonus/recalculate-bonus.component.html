@@ -1,0 +1,6 @@
+<div class="padded">
+  <button mat-raised-button color="warn" [disabled]="calculationInProgress" (click)="recalculateBonuses()">ბონუსების გადათვლა</button>
+</div>
+<div class="padded" *ngIf="calculationInProgress">
+  <mat-progress-bar mode="determinate" [value]="currentProgress" color="warn"></mat-progress-bar>
+</div>

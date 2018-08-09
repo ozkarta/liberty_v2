@@ -1,8 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AuthService} from '../services/auth.service';
-import {AbstractControl, FormControl, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {e} from '@angular/core/src/render3';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
             this.passwordExists = response.passwordExists;
             this.dataIsLoading = false;
           } else {
-            this.user.setErrors({notExists: true});
+            this.user.setErrors({ notExists: true });
           }
           this.dataIsLoading = false;
         },
@@ -65,13 +64,13 @@ export class LoginComponent implements OnInit {
             (tokens: any) => {
               this.auth.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
               this.auth.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
-              this.auth.getLoggedUser();
-              this.router.navigate(['/'])
-                .then(
-                  () => {
-                    this.dataIsLoading = false;
-                    location.reload(true);
-                  });
+              this.auth.getLoggedUser().then(() => {
+                this.router.navigate(['/'])
+                  .then(
+                    () => {
+                      this.dataIsLoading = false;
+                    });
+              });
             },
           );
       } else {
@@ -89,12 +88,13 @@ export class LoginComponent implements OnInit {
           (tokens: any) => {
             this.auth.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
             this.auth.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
-            this.auth.getLoggedUser();
-            this.router.navigate(['/'])
-              .then(
-                () => {
-                  this.dataIsLoading = false;
-                });
+            this.auth.getLoggedUser().then(() => {
+              this.router.navigate(['/'])
+                .then(
+                  () => {
+                    this.dataIsLoading = false;
+                  });
+            });
           },
           (error) => {
             this.dataIsLoading = false;

@@ -9,7 +9,7 @@ import { ProductAddDialogComponent } from '../product-add-dialog/product-add-dia
   styleUrls: ['./bonus-points.component.css'],
 })
 export class BonusPointsComponent implements OnInit {
-  displayedColumns = ['name', 'bonusSystem', 'productMinSales', 'productBonusPointStart', 'bonusPoints'];
+  displayedColumns = ['motivation', 'name', 'bonusSystem', 'productMinSales', 'productBonusPointStart', 'bonusPoints'];
   products: BonusPoints[] = [];
   dataSource = new MatTableDataSource(this.products);
   @ViewChild(MatSort) sort: MatSort;
@@ -33,6 +33,7 @@ export class BonusPointsComponent implements OnInit {
               productBonusPointStart: t.competenceLevel.productBonusPointStart,
               evaluationGroup: t.evaluationGroup.name,
               product: t.product,
+              motivation: t.product.productMotivationalBlockType === 'ACQUISITION' ? 'მოზიდვა' : t.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ?  'დაკრედიტება' : 'მომსახურება',
             });
           });
           this.products.sort((a, b) => a.product.productMotivationalBlockTypeId - b.product.productMotivationalBlockTypeId || a.product.sortOrder - b.product.sortOrder);
@@ -91,4 +92,5 @@ export interface BonusPoints {
   productBonusPointStart: number;
   evaluationGroup: any;
   product?: any;
+  motivation?: string;
 }

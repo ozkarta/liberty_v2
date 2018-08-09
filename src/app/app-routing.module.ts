@@ -22,6 +22,9 @@ import { StaffLevelBonusesComponent } from './admin/staff-level-bonuses/staff-le
 import { ProductDocumentationComponent } from './admin/product-documentation/product-documentation.component';
 import { ProductReorderingComponent } from './admin/product-reordering/product-reordering.component';
 import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
+import { ProductEditingComponent } from './admin/product-editing/product-editing.component';
+import { AdditionalParametersComponent } from './admin/additional-parameters/additional-parameters.component';
+import { RecalculateBonusComponent } from './admin/recalculate-bonus/recalculate-bonus.component';
 // import { KnowledgeBaseComponentAdmin } from './admin/knowledge-base/knowledge-base.component';
 import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
 
@@ -48,6 +51,9 @@ const appRoutes: Routes = [
   { path: 'admin/product-competence-level', component: ProductCompetenceLevelComponent, canActivate: [AdminGuard] },
   { path: 'knowledge-base', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
   // { path: 'admin/knowledge-base', component: KnowledgeBaseComponentAdmin, canActivate: [AdminGuard] },
+  { path: 'admin/product-product-edit', component: ProductEditingComponent, canActivate: [AdminGuard] },
+  { path: 'admin/additional-parameters', component: AdditionalParametersComponent, canActivate: [AdminGuard] },
+  { path: 'admin/recalculate', component: RecalculateBonusComponent, canActivate: [AdminGuard] },
 ];
 
 @NgModule({

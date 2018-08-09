@@ -8,7 +8,7 @@
     <div class="logged-user">
       <div class="logged-user-info">
         <div class="user-avatar">
-          <img [src]="'data:image/png;base64,'+userData?.profilePicture">
+          <img [src]="'data:image/png;base64,'+ userData?.profilePicture">
         </div>
         <div class="logged-user-ident">
           <div class="logged-user-name">
@@ -34,8 +34,7 @@
         <a>
           ჩემი ოპერაციები
         </a></li>
-      <li *ngIf="userData?.userStaffLevel === 'MIDDLE_MANAGER'" class="menu-item"
-          routerLink="/my-branch-transactions">
+      <li *ngIf="userData?.userStaffLevel === 'FIRST_LEVEL_MANAGER' || userData?.userStaffLevel === 'SECOND_LEVEL_MANAGER' || userData?.userStaffLevel === 'THIRD_LEVEL_MANAGER' || userData?.userStaffLevel === 'FOURTH_LEVEL_MANAGER'" class="menu-item" routerLink="/employees">
         <mat-icon>trending_up</mat-icon>
         <a>
           ჩემი გუნდის ოპერაციები
@@ -96,6 +95,21 @@
         <mat-icon>trending_up</mat-icon>
         <a>
           კომპეტენციის დონე
+        </a></li>
+      <li class="menu-item" routerLink="admin/product-product-edit">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          პროდუქტების ედიტირება
+        </a></li>
+      <li class="menu-item" routerLink="admin/additional-parameters">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          დამატებითი პარამეტრები
+        </a></li>
+      <li class="menu-item" routerLink="admin/recalculate">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          ბონუსის გადათვლა
         </a></li>
       <li class="menu-item" routerLink="admin/knowledge-base">
         <mat-icon>trending_up</mat-icon>

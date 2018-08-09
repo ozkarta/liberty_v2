@@ -16,12 +16,13 @@
 
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <div [dragula]='"bag-one"' [dragulaModel]="products">
+        <div>
           <div *ngFor="let data of products; let i = index;" [appGroupId]="i">
             <p class="product"
                *ngIf="data.primary && data.productMotivationalBlockType === 'ACQUISITION'"
                [appGroupId]="data.id">
               {{data.name}}
+              <input type="text" [(ngModel)]="data.sortOrder" (keyup.enter)="reorderProduct(data.sortOrder, data.id)">
             </p>
           </div>
         </div>
@@ -36,11 +37,13 @@
 
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <div [dragula]='"bag-two"' [dragulaModel]="products">
-          <div *ngFor="let data of products" >
+        <div>
+          <div *ngFor="let data of products; let i = index;" [appGroupId]="i">
             <p class="product"
-                 *ngIf="data.primary && data.productMotivationalBlockType === 'CREDIT_ISSUANCE'">
+                 *ngIf="data.primary && data.productMotivationalBlockType === 'CREDIT_ISSUANCE'"
+               [appGroupId]="data.id">
               {{data.name}}
+              <input type="text" [(ngModel)]="data.sortOrder" (keyup.enter)="reorderProduct(data.sortOrder, data.id)">
             </p>
           </div>
         </div>
@@ -55,11 +58,13 @@
 
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <div [dragula]='"bag-three"' [dragulaModel]="products">
-          <div *ngFor="let data of products">
+        <div>
+          <div *ngFor="let data of products; let i = index;" [appGroupId]="i">
             <div class="product"
-                 *ngIf="data.primary && data.productMotivationalBlockType === 'SERVICE'">
+                 *ngIf="data.primary && data.productMotivationalBlockType === 'SERVICE'"
+                 [appGroupId]="data.id">
               {{data.name}}
+              <input type="text" [(ngModel)]="data.sortOrder" (keyup.enter)="reorderProduct(data.sortOrder, data.id)">
             </div>
           </div>
         </div>
@@ -73,15 +78,16 @@
         სხვა პროდუქტები და მომსახურება
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <div [dragula]='"bag-four"' [dragulaModel]="products">
-      <div *ngFor="let data of products">
+    <div>
+      <div *ngFor="let data of products; let i = index;" [appGroupId]="i">
         <div class="product"
-             *ngIf="!data.primary">
+             *ngIf="!data.primary"
+             [appGroupId]="data.id">
           {{data.name}}
+          <input type="text" [(ngModel)]="data.sortOrder" (keyup.enter)="reorderProduct(data.sortOrder, data.id)">
         </div>
       </div>
     </div>
-
   </mat-expansion-panel>
 </mat-accordion>
 </div>

@@ -1,0 +1,32 @@
+<div class="padded" >
+
+  <table mat-table [dataSource]="dataSource" class="full-width table-padded">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> სახელი </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="bonusPoints">
+      <th mat-header-cell *matHeaderCellDef> ქუკა </th>
+      <td mat-cell *matCellDef="let element"> {{element.bonusPoints}} </td>
+    </ng-container>
+    <ng-container matColumnDef="bonusSystem">
+      <th mat-header-cell *matHeaderCellDef> ბონუს სისტემის სახელი </th>
+      <td mat-cell *matCellDef="let element"> {{element.bonusSystem.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="productMotivationalBlockType">
+      <th mat-header-cell *matHeaderCellDef> სამოტივაციო ბლოკი </th>
+      <td mat-cell *matCellDef="let element"> {{element.productMotivationalBlockType}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;" (click)="editProduct(element.id)"></tr>
+  </table>
+
+</div>
