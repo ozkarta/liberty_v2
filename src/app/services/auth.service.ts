@@ -70,7 +70,7 @@ export class AuthService {
         }));
   }
 
-  getLoggedUser() {
+  async getLoggedUser() {
     this.getRequest('/users/me')
       .subscribe(
         (user: LibertyUserModel) => {
@@ -90,6 +90,7 @@ export class AuthService {
             this.currentUser.setUser(user);
             this.router.navigate(['admin/bonus-systems']);
           }
+          console.log('user exists');
         });
   }
 

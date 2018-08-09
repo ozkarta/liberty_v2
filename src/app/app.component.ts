@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService } from './services/auth.service';
-import { Router } from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {AuthService} from './services/auth.service';
+import {Router} from '@angular/router';
 import {AuthorizedUserService} from './services/authorized-user.service';
 import {LibertyUserModel} from './models/liberty-user.model';
 
@@ -22,19 +22,21 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkLoginStatus();
     this.router.events
       .subscribe(
         () => {
-          this.checkLoginStatus();
+          this.checkLoginStatus().then(() => {
+            if (this.isAuthorized) {
+              this.auth.getLoggedUser().then(() => {
+                this.setUser();
+              });
+            }
+          });
         });
-    if (this.isAuthorized) {
-      this.auth.getLoggedUser();
-      this.setUser();
-    }
   }
 
   setUser() {
+    console.log('get user fired');
     this.currentUser.getUser
       .subscribe(
         (userData: LibertyUserModel) => {
@@ -42,7 +44,7 @@ export class AppComponent implements OnInit {
         });
   }
 
-  checkLoginStatus() {
+  async checkLoginStatus() {
     this.auth.isAuthorized()
       .subscribe(
         (isLoggedIn: boolean) => {
