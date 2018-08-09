@@ -12,12 +12,16 @@ import { MatDialog } from '@angular/material';
 })
 export class KnowledgeBaseComponent implements OnInit {
   user: LibertyUserModel;
+  isFullComents = false;
+  commentExpandText: string;
   // displayedColumns = ['name'];
   // bonusSystems: BonusSystem[] = [];
   // dataSource = new MatTableDataSource(this.bonusSystems);
   // @ViewChild(MatSort) sort: MatSort;
 
   constructor(private currentUser: AuthorizedUserService, private router: Router, private auth: AuthService, public dialog: MatDialog) {
+    this.isFullComents = false;
+    // this.commentExpandText = 'ყველა კომენტარის ნახვა';
   }
 
   ngOnInit() {
@@ -30,6 +34,10 @@ export class KnowledgeBaseComponent implements OnInit {
           this.user = user;
           // this.getBonusSystems();
         });
+  }
+
+  expandComments() {
+    this.isFullComents = !this.isFullComents;
   }
 
 }
