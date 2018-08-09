@@ -26,6 +26,11 @@ import { ChartsModule } from 'ng2-charts';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { DragulaModule } from 'ng2-dragula';
 
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
+
 // Service Imports
 import { AuthService } from './services/auth.service';
 import { RouteGuardService } from './guards/route-guard.service';
@@ -143,6 +148,11 @@ import { MatListModule } from '@angular/material';
     MatSortModule,
     MatProgressBarModule,
     MatListModule,
+    BrowserModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
   ],
   providers: [
     AuthService,
