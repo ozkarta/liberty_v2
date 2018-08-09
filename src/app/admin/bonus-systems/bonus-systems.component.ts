@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { AddBonusSystemComponent } from '../../dialogs/add-bonus-system/add-bonus-system.component';
-import {BonusSystemEditComponent} from '../../dialogs/bonus-system-edit/bonus-system-edit.component';
+import { BonusSystemEditComponent } from '../../dialogs/bonus-system-edit/bonus-system-edit.component';
 
 @Component({
   selector: 'app-bonus-systems',

@@ -34,7 +34,8 @@
         <a>
           ჩემი ოპერაციები
         </a></li>
-      <li *ngIf="userData?.userStaffLevel === 'MIDDLE_MANAGER'" class="menu-item" routerLink="/my-branch-transactions">
+      <li *ngIf="userData?.userStaffLevel === 'MIDDLE_MANAGER'" class="menu-item"
+          routerLink="/my-branch-transactions">
         <mat-icon>trending_up</mat-icon>
         <a>
           ჩემი გუნდის ოპერაციები
@@ -48,6 +49,11 @@
         <mat-icon>device_hub</mat-icon>
         <a>
           ორგანიზაციული სტრუქტურა
+        </a></li>
+      <li class="menu-item" routerLink="/knowledge-base">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          ცოდნის ბაზა
         </a></li>
     </ul>
     <ul class="main-menu" *ngIf="userData?.isAdmin">
@@ -90,6 +96,11 @@
         <mat-icon>trending_up</mat-icon>
         <a>
           კომპეტენციის დონე
+        </a></li>
+      <li class="menu-item" routerLink="admin/knowledge-base">
+        <mat-icon>trending_up</mat-icon>
+        <a>
+          ცოდნის ბაზა
         </a></li>
     </ul>
     <button mat-raised-button (click)="logout()" class="logout">გამოსვლა</button>

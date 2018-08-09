@@ -65,6 +65,9 @@ import { ProductReorderingComponent } from './admin/product-reordering/product-r
 import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
+// import { KnowledgeBaseComponentAdmin } from './admin/knowledge-base/knowledge-base.component';
+import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
+import { MatListModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -92,6 +95,8 @@ import { DragDropModule } from 'primeng/dragdrop';
     GroupIdDirective,
     ProductReorderingComponent,
     ProductCompetenceLevelComponent,
+    KnowledgeBaseComponent,
+    // KnowledgeBaseComponentAdmin,
   ],
   imports: [
     HttpClientModule,
@@ -123,6 +128,7 @@ import { DragDropModule } from 'primeng/dragdrop';
     PickListModule,
     DragDropModule,
     ContextMenuModule,
+    MatListModule,
   ],
   providers: [
     AuthService,

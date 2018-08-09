@@ -22,6 +22,8 @@ import { StaffLevelBonusesComponent } from './admin/staff-level-bonuses/staff-le
 import { ProductDocumentationComponent } from './admin/product-documentation/product-documentation.component';
 import { ProductReorderingComponent } from './admin/product-reordering/product-reordering.component';
 import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
+// import { KnowledgeBaseComponentAdmin } from './admin/knowledge-base/knowledge-base.component';
+import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -44,6 +46,8 @@ const appRoutes: Routes = [
   { path: 'admin/product-documentation', component: ProductDocumentationComponent, canActivate: [AdminGuard] },
   { path: 'admin/product-reordering', component: ProductReorderingComponent, canActivate: [AdminGuard] },
   { path: 'admin/product-competence-level', component: ProductCompetenceLevelComponent, canActivate: [AdminGuard] },
+  { path: 'knowledge-base', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
+  // { path: 'admin/knowledge-base', component: KnowledgeBaseComponentAdmin, canActivate: [AdminGuard] },
 ];
 
 @NgModule({
