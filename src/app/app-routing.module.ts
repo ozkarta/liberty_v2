@@ -29,7 +29,7 @@ import { RecalculateBonusComponent } from './admin/recalculate-bonus/recalculate
 import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/profile', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate: [RouteGuardService] },
   { path: 'login', component: LoginComponent, canActivate: [LoggedOutGuardService] },
   { path: 'profile', component: UserProfileComponent, canActivate: [RouteGuardService] },

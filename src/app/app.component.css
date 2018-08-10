@@ -19,3 +19,30 @@ li {
   bottom: 30px;
   left:50px;
 }
+.background-image {
+  background: url("../images/lbBackground.png") no-repeat center;
+  background-size: cover;
+}
+.logo__logged-out {
+  padding: 14px 1rem 14px 1.7rem;
+  position: relative;
+  z-index: 99999;
+  top: 60px;
+  left: 60px;
+}
+.side-text {
+  position: relative;
+  z-index: 99999;
+  left: 80px;
+  top: 280px;
+  color: white;
+  display: inline-flex;
+  flex-direction: column;
+}
+.main-text {
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 10px black;
+}
+.side-text p {
+  margin-bottom: 30px;
+}

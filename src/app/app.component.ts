@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   isAuthorized = false;
   userData: LibertyUserModel;
 
-  constructor(public auth: AuthService, fb: FormBuilder, private router: Router, private currentUser: AuthorizedUserService) {
+  constructor(public auth: AuthService, fb: FormBuilder, public router: Router, private currentUser: AuthorizedUserService) {
     this.options = fb.group({
       fixed: true,
     });

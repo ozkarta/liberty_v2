@@ -1,0 +1,32 @@
+.main-container {
+  background: url("../../images/lbBackground.png") no-repeat center;
+  background-size: cover;
+  height: 100%;
+}
+.menu-button__group {
+  display: inline-flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  height: 20vh;
+  justify-content: space-around;
+  top: 30vh;
+}
+.profile-info {
+  position: absolute;
+  right: 10vw;
+  top: 20vh;
+}
+.my-bonus {
+  position: relative;
+  left: 40%;
+  top: 12vh;
+}
+.profile-info img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}
+.mat-raised-button {
+  padding: 0 60px;
+}

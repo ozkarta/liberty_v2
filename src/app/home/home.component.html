@@ -1,0 +1,14 @@
+<div class="main-container">
+  <button mat-raised-button color="warn" class="my-bonus" routerLink="/profile">ჩემი ბონუსი {{myBonus}} ლარი</button>
+  <div class="menu-button__group">
+    <button mat-raised-button>მოთხოვნების მენეჯმენტი</button>
+    <button mat-raised-button routerLink="/knowledge-base">Knowledge Base</button>
+    <button mat-raised-button>კომუნიკაცია</button>
+  </div>
+  <div class="profile-info">
+    <img [src]="'data:image/png;base64,'+ userData?.profilePicture">
+    <p>{{userData?.firstName + ' ' + userData?.lastName}}</p>
+    <p>{{userData?.email}}</p>
+    <p>{{userData?.phone}}</p>
+  </div>
+</div>

@@ -1,8 +1,18 @@
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" opened="true" class="side-navbar"
+<div class="logo__logged-out" *ngIf="!isAuthorized">
+  <img src="../images/logo.png">
+</div>
+<div class="side-text" *ngIf="!isAuthorized">
+  <p class="main-text">ჩემი ბონუსი</p>
+  <p>მოთხოვნების მენეჯმენტი</p>
+  <p>Knowledge Base</p>
+  <p>კომუნიკაცია</p>
+</div>
+<mat-sidenav-container class="example-container"
+[ngClass]="{'background-image': !isAuthorized}">
+  <mat-sidenav #sidenav mode="side" [opened]="true" class="side-navbar"
                [fixedInViewport]="options.value.fixed"
-               *ngIf="isAuthorized">
-    <div class="logo">
+               *ngIf="isAuthorized && router.url !== '/home'">
+    <div class="logo" *ngIf="!isAuthorized">
       <img src="../images/logo.png">
     </div>
     <div class="logged-user">
@@ -16,8 +26,8 @@
           </div>
           <div class="logged-user-position"
                [matTooltip]="userData?.email"
-               matTooltipPosition="above"
-               matTooltipClass="tooltip__bigger-text">
+               [matTooltipPosition]="'above'"
+               [matTooltipClass]="'tooltip__bigger-text'">
             {{userData?.email}}
           </div>
         </div>
