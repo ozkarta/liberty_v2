@@ -1,6 +1,66 @@
 <div class="ng-15-p">
-  <div class="padded" style="border: 1px black solid">
-    <p>This is Header</p>
+  <div class="ng-padded">
+    <button mat-button [matMenuTriggerFor]="menu1">ანგარიშები & ბარათები</button>
+    <mat-menu #menu1="matMenu" class="nga-menu-dropdown">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="menu2">ანაბრები</button>
+    <mat-menu #menu2="matMenu" class="nga-menu-dropdown">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="menu3">სესხები</button>
+    <mat-menu #menu3="matMenu" class="nga-menu-dropdown">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="menu4">საკრედიტო ბარათები</button>
+    <mat-menu #menu4="matMenu" class="nga-menu-dropdown">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="menu5">დისტანციური მომსახურება</button>
+    <mat-menu #menu5="matMenu" class="nga-menu-dropdown">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="menu6">ფულადი გზავნილები</button>
+    <mat-menu #menu6="matMenu" class="nga-menu-dropdown">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  
+    <button mat-button [matMenuTriggerFor]="animals">სხვა</button>
+  
+    <mat-menu #animals="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="vertebrates">Item 1</button>
+      <button mat-menu-item [matMenuTriggerFor]="invertebrates">Item 1</button>
+    </mat-menu>
+  
+    <mat-menu #vertebrates="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+    </mat-menu>
+  
+    <mat-menu #invertebrates="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 1</button>
+    </mat-menu>
+    
   </div>
   <mat-divider></mat-divider>
   <div class=""></div>

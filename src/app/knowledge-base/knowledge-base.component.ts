@@ -13,6 +13,14 @@ import { MatDialog } from '@angular/material';
 export class KnowledgeBaseComponent implements OnInit {
   user: LibertyUserModel;
   isFullComents = false;
+  // menuJson = [
+  //   {
+  //     title: 'ანგარიშები & ბარათები',
+  //     children: [
+  //       {},
+  //     ],
+  //   },
+  // ];
   commentExpandText: string;
   // displayedColumns = ['name'];
   // bonusSystems: BonusSystem[] = [];

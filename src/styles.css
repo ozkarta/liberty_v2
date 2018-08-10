@@ -188,3 +188,10 @@ h5 {
 .ui-table {
   width: 100%
 }
+
+
+
+.nga-menu-dropdown {
+  position: absolute;
+  top: 36px;
+}

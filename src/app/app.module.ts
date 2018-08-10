@@ -70,7 +70,7 @@ import { ProductReorderingComponent } from './admin/product-reordering/product-r
 import { ProductCompetenceLevelComponent } from './admin/product-competence-level/product-competence-level.component';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
-import { MatSortModule } from '@angular/material';
+import { MatMenuModule, MatSortModule, MatListModule } from '@angular/material';
 import { EvaluationGroupEditComponent } from './dialogs/evaluation-group-edit/evaluation-group-edit.component';
 import { ProductEditingComponent } from './admin/product-editing/product-editing.component';
 import { ProductEditComponent } from './dialogs/product-edit/product-edit.component';
@@ -79,7 +79,6 @@ import { RecalculateBonusComponent } from './admin/recalculate-bonus/recalculate
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 // import { KnowledgeBaseComponentAdmin } from './admin/knowledge-base/knowledge-base.component';
 import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
-import { MatListModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -153,6 +152,7 @@ import { MatListModule } from '@angular/material';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    MatMenuModule,
   ],
   providers: [
     AuthService,
