@@ -96,7 +96,7 @@
         </video>
       </vg-player>
     </mat-card>
-    <div class="ng-list-container">
+    <mat-card class="ng-list-container">
       <h3>Files</h3>
       <mat-list>
         <mat-list-item>
@@ -121,7 +121,7 @@
           </button>
         </mat-list-item>
       </mat-list>
-    </div>
+    </mat-card>
   </div>
 
   <mat-card class="ng-half-card">
@@ -155,9 +155,7 @@
   <mat-divider class="small-divider"></mat-divider>
 
 
-  <mat-divider class="small-divider"></mat-divider>
-
-  <mat-card class="ng-half-card">
+  <mat-card class="ng-half-card m-t-10">
     <div class="ng-comment-info-container">
       <span>კომენტარები (3)</span>
       <button mat-button (click)="expandComments()">
@@ -170,7 +168,7 @@
 
   <mat-card
     [ngClass]="{'ng-full-comment-card': isFullComents, 'ng-half-comment-card': !isFullComents}">
-    <mat-form-field class="ng-comment-input-wrapper">
+    <mat-form-field class="ng-comment-input-wrapper" id="ngCommentInput" style="line-height:8px">
       <input class="ng-comment-input" matInput placeholder="Enter Comment">
       <button class="ng-comment-submit" mat-button>Comment</button>
     </mat-form-field>
