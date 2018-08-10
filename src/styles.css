@@ -195,3 +195,7 @@ h5 {
   position: absolute;
   top: 36px;
 }
+
+#ngCommentInput label {
+  font-size: 13px;
+}
