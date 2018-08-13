@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class UserProfileComponent implements OnInit {
   selectedTab = new FormControl(0);
   dataIsLoading = true;
   color = 'warn';
@@ -173,9 +173,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.setUser();
   }
 
-  ngOnDestroy() {
-
-  }
+  // ngOnDestroy() {
+  //
+  // }
 
   setUser() {
     this.currentUser.getUser

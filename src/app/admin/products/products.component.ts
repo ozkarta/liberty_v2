@@ -38,6 +38,10 @@ export class ProductsComponent implements OnInit {
     this.getProductGroups();
   }
 
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
+
   getInitialProducts() {
     this.auth.getRequest('/products/getAllInitialProducts')
       .subscribe(

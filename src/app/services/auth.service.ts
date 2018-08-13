@@ -88,7 +88,7 @@ export class AuthService {
           } else {
             user.isAdmin = true;
             this.currentUser.setUser(user);
-            // this.router.navigate(['admin/bonus-systems']);
+            this.router.navigate(['admin/bonus-systems']);
           }
         });
   }
