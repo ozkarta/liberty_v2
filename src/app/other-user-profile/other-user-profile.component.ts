@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './other-user-profile.component.html',
   styleUrls: ['./other-user-profile.component.css'],
 })
-export class OtherUserProfileComponent implements OnInit, OnDestroy {
+export class OtherUserProfileComponent implements OnInit {
   selected = new FormControl(0);
   isDataAvailable = false;
   summedProductBonuses: SummerProductData[] = [];
@@ -119,9 +119,9 @@ export class OtherUserProfileComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
 
   getUserData(id: number) {
     this.auth.getRequest(`/bonusRewards/getUserData/${id}`)
