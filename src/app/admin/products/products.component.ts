@@ -11,7 +11,7 @@ import {ProductAddDialogComponent} from '../../product-add-dialog/product-add-di
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
 })
-export class ProductsComponent implements OnInit, OnDestroy {
+export class ProductsComponent implements OnInit {
   productGroups: ProductModel[] = [];
   initialProducts: InitialProduct[] = [];
   private subscription: Subscription;
@@ -36,10 +36,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getInitialProducts();
     this.getProductGroups();
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   getInitialProducts() {
