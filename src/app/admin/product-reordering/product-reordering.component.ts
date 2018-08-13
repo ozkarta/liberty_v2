@@ -1,38 +1,23 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ProductModel } from '../../models/product.model';
-import {DragulaService} from 'ng2-dragula';
-import {Subscription} from 'rxjs';
+import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-prduct-reordering',
   templateUrl: './product-reordering.component.html',
   styleUrls: ['./product-reordering.component.css'],
 })
-export class ProductReorderingComponent implements OnInit, OnDestroy {
+export class ProductReorderingComponent implements OnInit {
   products: ProductModel[] = [];
   private subscription: Subscription;
 
   constructor(private auth: AuthService, private dragulaService: DragulaService) {
-    this.subscription = dragulaService.drag.subscribe((value) => {
-    });
-    const dropSub = dragulaService.drop.subscribe((value) => {
-      // this.reorderProduct(value);
-    });
-    this.subscription.add(dropSub);
-    const overSub = dragulaService.over.subscribe((value) => {
-    });
-    this.subscription.add(overSub);
-    const outSub = dragulaService.out.subscribe((value) => {
-    });
-    this.subscription.add(outSub);
   }
 
   ngOnInit() {
     this.getProducts();
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   getProducts() {
