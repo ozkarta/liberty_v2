@@ -133,10 +133,57 @@
 }
 
 .ng-files-container {
-  width: 30%;
-  margin-left: 30px;
+  max-height: 207px;
+  overflow: scroll;
 }
 
 mat-card {
   width: 80%;
+}
+
+
+.ng-full-card-faq {
+  width: 80%;
+  max-height: 700px;
+}
+
+.ng-flex {
+  display: flex;
+}
+
+.ng-hide {
+  display: none;
+}
+
+.ng-faq-wrapper {
+  flex-direction: row;
+  width: 80%;
+}
+
+.ng-faq-right{
+  width: 30%;
+}
+
+.ng-faq-left{
+  width: 70%;
+}
+
+.ng-cursor-pointer {
+  cursor: pointer;
+}
+
+
+.m-t-0 {
+  margin-top: 0;
+}
+
+.ng-files-text-container {
+  max-height: 200px;
+  overflow: scroll;
+}
+
+.ng-video-file-right-container {
+  margin-left: 3%;
+  width: 50%;
+  height: 350px;
 }

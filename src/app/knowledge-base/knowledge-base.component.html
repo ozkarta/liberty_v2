@@ -66,7 +66,7 @@
   <div class=""></div>
   <h3 class="ng-page-title">სესხები / საპენსიო სესხი</h3>
   <div class="ng-flex-row">
-    <mat-card >
+    <mat-card>
       <div class="ng-video-files-container">
         <div class="ng-video-container">
           <!--<iframe width="100%" height="600px"-->
@@ -99,31 +99,50 @@
             </video>
           </vg-player>
         </div>
-        <div class="ng-files-container">
-          <h3>Files</h3>
-          <mat-list>
-            <mat-list-item>
-              <button mat-button>
-                
-                <mat-icon>attach_file</mat-icon>
-                წინსრებით ნაწილობრიც დაფ. განცხადება
-              </button>
-            </mat-list-item>
-            <mat-list-item>
-              <button mat-button>
-                
-                <mat-icon>attach_file</mat-icon>
-                წინსრებით ნაწილობრიც დაფ. განცხადება
-              </button>
-            </mat-list-item>
-            <mat-list-item>
-              <button mat-button>
-                
-                <mat-icon>attach_file</mat-icon>
-                წინსრებით ნაწილობრიც დაფ. განცხადება
-              </button>
-            </mat-list-item>
-          </mat-list>
+        <div class="ng-video-file-right-container">
+          <div class="ng-files-container">
+            <h3 class="m-t-0">Files</h3>
+            <mat-list>
+              <mat-list-item>
+                <button mat-button>
+                  
+                  <mat-icon>attach_file</mat-icon>
+                  პროდუქტის პასპორტი
+                </button>
+              </mat-list-item>
+              <mat-list-item>
+                <button mat-button>
+                  
+                  <mat-icon>attach_file</mat-icon>
+                  პრეზენტაცია
+                </button>
+              </mat-list-item>
+              <mat-list-item>
+                <button mat-button>
+                  
+                  <mat-icon>attach_file</mat-icon>
+                  წინსრებით ნაწილობრიც დაფ. განცხადება
+                </button>
+              </mat-list-item>
+            </mat-list>
+          </div>
+          <div class="ng-files-text-container">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industry's standard dummy text ever since the 1500s, when an unknown
+            printer took a galley of type and scrambled it to make a type specimen book. It has
+            survived not only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+            publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem
+            Ipsum
+            is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+            the
+            industry's standard dummy text ever since the 1500s, when an unknown printer took a
+            galley of type and scrambled it to make a type specimen book. It has survived not only
+            five centuries, but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of Letraset sheets
+            containing Lorem Ipsum passages
+          </div>
         </div>
       </div>
       
@@ -146,44 +165,29 @@
         </div>
       </div>
     </mat-card>
-    <!--<mat-card class="ng-list-container">-->
-    <!--<h3>Files</h3>-->
-    <!--<mat-list>-->
-    <!--<mat-list-item>-->
-    <!--<button mat-button>-->
-    
-    <!--<mat-icon>attach_file</mat-icon>-->
-    <!--წინსრებით ნაწილობრიც დაფ. განცხადება-->
-    <!--</button>-->
-    <!--</mat-list-item>-->
-    <!--<mat-list-item>-->
-    <!--<button mat-button>-->
-    
-    <!--<mat-icon>attach_file</mat-icon>-->
-    <!--წინსრებით ნაწილობრიც დაფ. განცხადება-->
-    <!--</button>-->
-    <!--</mat-list-item>-->
-    <!--<mat-list-item>-->
-    <!--<button mat-button>-->
-    
-    <!--<mat-icon>attach_file</mat-icon>-->
-    <!--წინსრებით ნაწილობრიც დაფ. განცხადება-->
-    <!--</button>-->
-    <!--</mat-list-item>-->
-    <!--</mat-list>-->
-    <!--</mat-card>-->
   </div>
   
-  <!--<mat-card class="ng-half-card">-->
-  <!---->
-  <!--</mat-card>-->
-  
-  
-  <mat-card class="ng-center ng-half-card m-t-10">
-    <button mat-button>
+  <mat-card class="ng-center m-t-10"
+            [ngClass]="{'ng-full-card-faq': FAQOpen, 'ng-half-card': !FAQOpen}">
+    <button mat-button (click)="expandFAQ()">
       ხშირად დასმული შეკითხვები
     </button>
   </mat-card>
+  
+  <div class="ng-faq-wrapper" [ngClass]="{'ng-flex': FAQOpen, 'ng-hide': !FAQOpen}">
+    <mat-card class="ng-faq-right">
+      <mat-list>
+        <mat-list-item class="ng-cursor-pointer" *ngFor="let key of getFaqKeys();">
+          <span (click)="showFAQAnswer(key)">{{FAQQuestions[key]}}</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+    <mat-card class="ng-faq-left">
+      <mat-list>
+        <div>{{FAQAnswer}}</div>
+      </mat-list>
+    </mat-card>
+  </div>
   
   <mat-divider class="small-divider"></mat-divider>
   
