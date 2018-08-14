@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  if (window.self === window.top) {
+    var storageKey = 'auth', hashKey = 'hash';
+    var data = {};
+    var json = localStorage.getItem(storageKey);
+    if (json) {
+      data = JSON.parse(json);
+    }
+    data[hashKey] = window.location.hash;
+    localStorage.setItem(storageKey, JSON.stringify(data));
+    window.location = '/';
+  } else {
+    window.parent.postMessage(window.location.hash, window.location.origin);
+  }
+</script>
+</body>
+</html>

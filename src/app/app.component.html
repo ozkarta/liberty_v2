@@ -1,18 +1,18 @@
-<div class="logo__logged-out" *ngIf="!isAuthorized">
+<div class="logo__logged-out" *ngIf="!isnetworkorized">
   <img src="../images/logo.png">
 </div>
-<div class="side-text" *ngIf="!isAuthorized">
+<div class="side-text" *ngIf="!isnetworkorized">
   <p class="main-text">ჩემი ბონუსი</p>
   <p>მოთხოვნების მენეჯმენტი</p>
   <p>Knowledge Base</p>
   <p>კომუნიკაცია</p>
 </div>
 <mat-sidenav-container class="example-container"
-[ngClass]="{'background-image': !isAuthorized}">
+[ngClass]="{'background-image': !isnetworkorized}">
   <mat-sidenav #sidenav mode="side" [opened]="true" class="side-navbar"
                [fixedInViewport]="options.value.fixed"
-               *ngIf="isAuthorized && router.url !== '/home'">
-    <div class="logo" *ngIf="!isAuthorized">
+               *ngIf="isnetworkorized && router.url !== '/home'">
+    <div class="logo" *ngIf="!isnetworkorized">
       <img src="../images/logo.png">
     </div>
     <div class="logged-user">

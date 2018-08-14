@@ -6,7 +6,7 @@ export class LibertyUserModel {
               public userPosition: string,
               public userStaffLevel: string,
               public profilePicture?: string,
-              public authorities?: any,
+              public networkorities?: any,
               public isAdmin?: boolean,
               public phone?: string) {
   }

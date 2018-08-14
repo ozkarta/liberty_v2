@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { NetworkingService } from '../../services/networking.service';
 import { BonusSystem } from '../bonus-systems/bonus-systems.component';
 import { EvaluationGroup } from '../evaluation-group/evaluation-group.component';
 
@@ -13,7 +13,7 @@ export class BranchBonusSystemComponent implements OnInit {
   bonusSystems: BonusSystem[] = [];
   tableShown = true;
 
-  constructor(private auth: AuthService) {
+  constructor(private network: NetworkingService) {
     this.getBranches();
     this.getBonusSystems();
   }
@@ -22,7 +22,7 @@ export class BranchBonusSystemComponent implements OnInit {
   }
 
   getBranches() {
-    this.auth.getRequest('/branches/all')
+    this.network.getRequest('/branches/all')
       .subscribe(
         (branches: Branch[]) => {
           branches.forEach((b) => {
@@ -32,7 +32,7 @@ export class BranchBonusSystemComponent implements OnInit {
   }
 
   getBonusSystems() {
-    this.auth.getRequest('/bonusSystems/all')
+    this.network.getRequest('/bonusSystems/all')
       .subscribe(
         (response: BonusSystem[]) => {
           response.forEach((b) => {
@@ -57,7 +57,7 @@ export class BranchBonusSystemComponent implements OnInit {
       bonusSystemId: bonusId,
       evaluationGroupId: evalId.target.value,
     };
-    this.auth.putRequest(data, `/branches/${brancId}/assignEvaluationGroup`)
+    this.network.putRequest(data, `/branches/${brancId}/assignEvaluationGroup`)
       .subscribe(
         () => {
           this.tableShown = false;

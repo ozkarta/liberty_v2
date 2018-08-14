@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LibertyUserModel } from '../models/liberty-user.model';
-import { AuthorizedUserService } from '../services/authorized-user.service';
+import { networkorizedUserService } from '../services/authorized-user.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { NetworkingService } from '../services/networking.service';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -27,7 +27,7 @@ export class KnowledgeBaseComponent implements OnInit {
   // dataSource = new MatTableDataSource(this.bonusSystems);
   // @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private currentUser: AuthorizedUserService, private router: Router, private auth: AuthService, public dialog: MatDialog) {
+  constructor(private currentUser: networkorizedUserService, private router: Router, private network: NetworkingService, public dialog: MatDialog) {
     this.isFullComents = false;
     // this.commentExpandText = 'ყველა კომენტარის ნახვა';
   }

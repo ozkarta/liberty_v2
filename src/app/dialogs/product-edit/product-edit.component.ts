@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {NetworkingService} from '../../services/networking.service';
 import {BonusSystemEditComponent} from '../bonus-system-edit/bonus-system-edit.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ProductModel} from '../../models/product.model';
@@ -16,10 +16,10 @@ export class ProductEditComponent implements OnInit {
   bonusSystems: BonusSystem[] = [];
 
   constructor(public dialogRef: MatDialogRef<ProductEditComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: number, private auth: AuthService) { }
+              @Inject(MAT_DIALOG_DATA) public data: number, private network: NetworkingService) { }
 
   ngOnInit() {
-    this.auth.getRequest(`/products/${this.data}`)
+    this.network.getRequest(`/products/${this.data}`)
       .subscribe(
         (product: ProductModel) => {
           this.product = product;
@@ -28,7 +28,7 @@ export class ProductEditComponent implements OnInit {
     this.getBonusSystems();
   }
   getBonusSystems() {
-    this.auth.getRequest('/bonusSystems/all')
+    this.network.getRequest('/bonusSystems/all')
       .subscribe(
         (systems: BonusSystem[]) => {
           systems.forEach((b) => {
@@ -45,7 +45,7 @@ export class ProductEditComponent implements OnInit {
       productMotivationalBlockTypeId: this.product.productMotivationalBlockTypeId,
     };
 
-    this.auth.putRequest(data, `/products/edit`)
+    this.network.putRequest(data, `/products/edit`)
       .subscribe(
         () => {
           this.dialogRef.close(true);

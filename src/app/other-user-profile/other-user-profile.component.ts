@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { NetworkingService } from '../services/networking.service';
 import { FormControl } from '@angular/forms';
 import { OtherUserService } from '../services/other-user.service';
 import { Subscription } from 'rxjs';
@@ -103,7 +103,7 @@ export class OtherUserProfileComponent implements OnInit {
 
   userID: number;
 
-  constructor(private auth: AuthService, private other: OtherUserService, private router: Router) {
+  constructor(private network: NetworkingService, private other: OtherUserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -124,7 +124,7 @@ export class OtherUserProfileComponent implements OnInit {
   // }
 
   getUserData(id: number) {
-    this.auth.getRequest(`/bonusRewards/getUserData/${id}`)
+    this.network.getRequest(`/bonusRewards/getUserData/${id}`)
       .subscribe(
         (response: UserProfileData) => {
           this.userData = response;
@@ -147,7 +147,7 @@ export class OtherUserProfileComponent implements OnInit {
   }
 
   getDispersion(id: number) {
-    this.auth.getRequest(`/bonusRewards/getUserVariance?id=${id}`).subscribe(
+    this.network.getRequest(`/bonusRewards/getUserVariance?id=${id}`).subscribe(
       (response: number) => {
         this.dispersion = Math.round(response);
       });

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {NetworkingService} from '../../services/networking.service';
 import {ProductModel} from '../../models/product.model';
 import {EvaluationGroup} from '../evaluation-group/evaluation-group.component';
 
@@ -13,7 +13,7 @@ export class ProductCompetenceLevelComponent implements OnInit {
   groups: EvaluationGroup[] = [];
   tableShown = true;
 
-  constructor(private auth: AuthService) {
+  constructor(private network: NetworkingService) {
   }
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class ProductCompetenceLevelComponent implements OnInit {
   }
 
   getProducts() {
-    this.auth.getRequest('/products/all')
+    this.network.getRequest('/products/all')
       .subscribe(
         (groups: ProductModel[]) => {
           groups.sort((a, b) => {
@@ -35,7 +35,7 @@ export class ProductCompetenceLevelComponent implements OnInit {
   }
 
   getEvaluationGroups() {
-    this.auth.getRequest('/evaluationGroups/all')
+    this.network.getRequest('/evaluationGroups/all')
       .subscribe(
         (response: EvaluationGroup[]) => {
           response.forEach((b) => {
@@ -73,7 +73,7 @@ export class ProductCompetenceLevelComponent implements OnInit {
       productMinSales: event.target.value,
       productBonusPointStart: null,
     };
-    this.auth.putRequest(data, '/products/editCompetenceLevel')
+    this.network.putRequest(data, '/products/editCompetenceLevel')
       .subscribe(
         () => {
           this.tableShown = false;
@@ -92,7 +92,7 @@ export class ProductCompetenceLevelComponent implements OnInit {
       productMinSales: null,
       productBonusPointStart: event.target.value,
     };
-    this.auth.putRequest(data, '/products/editCompetenceLevel')
+    this.network.putRequest(data, '/products/editCompetenceLevel')
       .subscribe(
         () => {
           this.tableShown = false;

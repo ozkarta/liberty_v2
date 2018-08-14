@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AuthService} from './services/auth.service';
+import {NetworkingService} from './services/networking.service';
 import {Router} from '@angular/router';
-import {AuthorizedUserService} from './services/authorized-user.service';
+import {networkorizedUserService} from './services/authorized-user.service';
 import {LibertyUserModel} from './models/liberty-user.model';
 
 @Component({
@@ -12,10 +12,10 @@ import {LibertyUserModel} from './models/liberty-user.model';
 })
 export class AppComponent implements OnInit {
   options: FormGroup;
-  isAuthorized = false;
+  isnetworkorized = false;
   userData: LibertyUserModel;
 
-  constructor(public auth: AuthService, fb: FormBuilder, public router: Router, private currentUser: AuthorizedUserService) {
+  constructor(public network: NetworkingService, fb: FormBuilder, public router: Router, private currentUser: networkorizedUserService) {
     this.options = fb.group({
       fixed: true,
     });
@@ -23,8 +23,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.checkLoginStatus().then(() => {
-      if (this.isAuthorized) {
-        this.auth.getLoggedUser().then(() => {
+      if (this.isnetworkorized) {
+        this.network.getLoggedUser().then(() => {
           this.setUser();
         });
       } else {
@@ -44,10 +44,10 @@ export class AppComponent implements OnInit {
   }
 
   async checkLoginStatus() {
-    this.auth.isAuthorized()
+    this.network.isnetworkorized()
       .subscribe(
         (isLoggedIn: boolean) => {
-          this.isAuthorized = isLoggedIn;
+          this.isnetworkorized = isLoggedIn;
         });
   }
 

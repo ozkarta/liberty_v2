@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AuthService} from '../services/auth.service';
+import {NetworkingService} from '../services/networking.service';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {MyOperationsModel} from '../models/my-operations.model';
 import {FormControl} from '@angular/forms';
@@ -35,11 +35,11 @@ export class BranchTransactionsComponent implements OnInit {
   branchEmployees: LibertyUserModel[] = [];
   selectedOption = 0;
 
-  constructor(private auth: AuthService) {
+  constructor(private network: NetworkingService) {
   }
 
   ngOnInit() {
-    this.auth.getRequest('/sales/BranchCurrentMonthSales')
+    this.network.getRequest('/sales/BranchCurrentMonthSales')
       .subscribe(
         (branchOperations: any) => {
           branchOperations.forEach((o) => {
@@ -52,7 +52,7 @@ export class BranchTransactionsComponent implements OnInit {
   }
 
   getBranchBonusPoints() {
-    this.auth.getRequest('/bonusRewards/branchCurrentMonthBonuses')
+    this.network.getRequest('/bonusRewards/branchCurrentMonthBonuses')
       .subscribe(
         (response: any) => {
           response.forEach((o) => {
@@ -67,7 +67,7 @@ export class BranchTransactionsComponent implements OnInit {
   }
 
   getBranchEmployees() {
-    this.auth.getRequest('/branches/branchEmployeesList')
+    this.network.getRequest('/branches/branchEmployeesList')
       .subscribe(
         (employees: LibertyUserModel[]) => {
           employees.forEach((e) => {

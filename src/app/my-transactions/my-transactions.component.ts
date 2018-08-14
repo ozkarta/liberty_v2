@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
-import { AuthService } from '../services/auth.service';
+import { NetworkingService } from '../services/networking.service';
 import { MyOperationsModel } from '../models/my-operations.model';
-import { AuthorizedUserService } from '../services/authorized-user.service';
+import { networkorizedUserService } from '../services/authorized-user.service';
 
 @Component({
   selector: 'app-my-transactions',
@@ -49,7 +49,7 @@ export class MyTransactionsComponent implements OnInit {
   @ViewChild('downloadFile') private downloadExcel: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private auth: AuthService, private currentUser: AuthorizedUserService) {
+  constructor(private network: NetworkingService, private currentUser: networkorizedUserService) {
   }
 
   ngOnInit() {
@@ -106,7 +106,7 @@ export class MyTransactionsComponent implements OnInit {
     } else {
       url = '/sales/exportCurrentMonthSales';
     }
-    this.auth.getRequestDownload(url)
+    this.network.getRequestDownload(url)
       .subscribe(
         (response: any) => {
           this.downloadFile(response, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'export.xlsx');

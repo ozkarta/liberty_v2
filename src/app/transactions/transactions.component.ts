@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AuthService} from '../services/auth.service';
+import {NetworkingService} from '../services/networking.service';
 import {MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
@@ -13,11 +13,11 @@ export class TransactionsComponent implements OnInit {
   dataSource = new MatTableDataSource(this.transactions);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private auth: AuthService) {
+  constructor(private network: NetworkingService) {
   }
 
   ngOnInit() {
-    this.auth.getRequest('/sales/currentMonthSalesGrouped')
+    this.network.getRequest('/sales/currentMonthSalesGrouped')
       .subscribe(
         (transactions: Transactions[]) => {
           transactions.forEach((t) => {
@@ -60,8 +60,8 @@ export interface SaleDate {
 
 export interface User {
   address: string;
-  authIds?: any;
-  authorities?: any;
+  networkIds?: any;
+  networkorities?: any;
   email: string;
   emailActive?: any;
   enabled: boolean;

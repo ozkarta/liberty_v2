@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductModel} from '../../models/product.model';
-import {AuthService} from '../../services/auth.service';
+import {NetworkingService} from '../../services/networking.service';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {ProductEditComponent} from '../../dialogs/product-edit/product-edit.component';
 
@@ -14,7 +14,7 @@ export class ProductEditingComponent implements OnInit {
   displayedColumns = ['name', 'bonusPoints', 'bonusSystem', 'productMotivationalBlockType'];
   dataSource = new MatTableDataSource();
 
-  constructor(private auth: AuthService, public dialog: MatDialog) {
+  constructor(private network: NetworkingService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -23,7 +23,7 @@ export class ProductEditingComponent implements OnInit {
 
   getProductGroups() {
     this.products.length = 0;
-    this.auth.getRequest('/products/all')
+    this.network.getRequest('/products/all')
       .subscribe(
         (product: ProductModel[]) => {
           product.forEach((p) => {

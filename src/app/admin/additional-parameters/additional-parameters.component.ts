@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { NetworkingService } from '../../services/networking.service';
 
 @Component({
   selector: 'app-additional-parameters',
@@ -9,11 +9,11 @@ import { AuthService } from '../../services/auth.service';
 export class AdditionalParametersComponent implements OnInit {
   parameters: Params;
 
-  constructor(private auth: AuthService) {
+  constructor(private network: NetworkingService) {
   }
 
   ngOnInit() {
-    this.auth.getRequest('/bonusRewards/additionalParameters')
+    this.network.getRequest('/bonusRewards/additionalParameters')
       .subscribe(
         (parameters: Params) => {
           this.parameters = parameters;
@@ -25,7 +25,7 @@ export class AdditionalParametersComponent implements OnInit {
       typeId: this.parameters.commercialParticipation.typeId,
       value: this.parameters.commercialParticipation.value,
     };
-    this.auth.putRequest(data , '/bonusRewards/updateAdditionalParameter')
+    this.network.putRequest(data , '/bonusRewards/updateAdditionalParameter')
       .subscribe((response: any) => {
         console.log(response);
       });
@@ -37,7 +37,7 @@ export class AdditionalParametersComponent implements OnInit {
       typeId: this.parameters.roundingIndex.typeId,
       value: this.parameters.roundingIndex.value,
     };
-    this.auth.putRequest(data , '/bonusRewards/updateAdditionalParameter')
+    this.network.putRequest(data , '/bonusRewards/updateAdditionalParameter')
       .subscribe((response: any) => {
         console.log(response);
       });

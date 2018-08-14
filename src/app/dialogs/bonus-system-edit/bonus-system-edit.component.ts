@@ -1,6 +1,6 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSelect } from '@angular/material';
-import { AuthService } from '../../services/auth.service';
+import { NetworkingService } from '../../services/networking.service';
 import { AddBonusSystemComponent } from '../add-bonus-system/add-bonus-system.component';
 import { BonusSystem } from '../../product-add-dialog/product-add-dialog.component';
 import { FormControl } from '@angular/forms';
@@ -27,7 +27,7 @@ export class BonusSystemEditComponent implements OnInit {
   editTitle = false;
 
   constructor(public dialogRef: MatDialogRef<BonusSystemEditComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: number, private auth: AuthService) {
+              @Inject(MAT_DIALOG_DATA) public data: number, private network: NetworkingService) {
   }
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class BonusSystemEditComponent implements OnInit {
   }
 
   getBonusSystem() {
-    this.auth.getRequest(`/bonusSystems/getStaffLevelBonusSystems?bonusSystemId=${this.data}`)
+    this.network.getRequest(`/bonusSystems/getStaffLevelBonusSystems?bonusSystemId=${this.data}`)
       .subscribe(
         (response: ManagerBonusSystem[]) => {
           response.forEach((s) => {
@@ -94,7 +94,7 @@ export class BonusSystemEditComponent implements OnInit {
         status: 'ACTIVE',
       },
     ];
-    this.auth.putRequest(data, '/bonusSystems/editStaffLevelBonusSystems')
+    this.network.putRequest(data, '/bonusSystems/editStaffLevelBonusSystems')
       .subscribe(
         () => {
           this.dialogRef.close();
@@ -106,7 +106,7 @@ export class BonusSystemEditComponent implements OnInit {
       id: this.bonusSystemForEdit[0].bonusSystem.id,
       name: this.systemName.nativeElement.textContent,
     };
-    this.auth.putRequest(data, '/bonusSystems/editBonusSystem')
+    this.network.putRequest(data, '/bonusSystems/editBonusSystem')
       .subscribe(
         (response: BonusSystem) => {
           this.bonusSystemForEdit[0].bonusSystem.name = response.name;
