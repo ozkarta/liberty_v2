@@ -15,7 +15,7 @@ export class AdminGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean | Promise<boolean> {
-    return this.network.isnetworkorized().pipe(map(
+    return this.network.isAuthorized().pipe(map(
       (isLoggedIn: any) => {
         if (isLoggedIn) {
           return true;

@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NetworkingService } from '../services/networking.service';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import { AuthService } from '@lbge/auth';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,10 @@ export class LoginComponent implements OnInit {
 
   dataIsLoading = false;
 
-  constructor(private network: NetworkingService, private router: Router) {
+  constructor(private network: NetworkingService,
+              private router: Router,
+              private auth: AuthService,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -114,5 +118,7 @@ export class LoginComponent implements OnInit {
   getPassOriginalErrorMessage() {
     return this.passwordValOriginal.hasError('wrongPassword') ? 'პაროლი არასწორია' : '';
   }
+
+
 
 }

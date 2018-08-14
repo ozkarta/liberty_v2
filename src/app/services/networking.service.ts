@@ -10,16 +10,19 @@ import { Router } from '@angular/router';
 @Injectable()
 export class NetworkingService {
   // url = 'http://home.gelashvili.net:8080';
-  // url = 'http://31.146.153.23:8080';
+  // url = 'http://31.146.153.23:9191';
   // url = 'http://192.168.100.100:9191';
-  url = 'http://192.168.100.23:9191';
+  // url = 'http://192.168.60.10:9191';
+   url = 'http://192.168.57.181:9191';
+  // url = 'http://192.168.100.23:9191';
 
   constructor(private http: HttpClient, private currentUser: networkorizedUserService, private router: Router) {
   }
 
+
   postRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-      .set('networkorization', 'Bearer ' + this.getCookie('access_token'));
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.post(`${this.url}${url}`, data, { headers: header })
       .pipe(map(
         (response: Response) => {
@@ -32,7 +35,7 @@ export class NetworkingService {
 
   putRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-      .set('networkorization', 'Bearer ' + this.getCookie('access_token'));
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.put(`${this.url}${url}`, data, { headers: header })
       .pipe(map(
         (response: Response) => {
@@ -46,7 +49,7 @@ export class NetworkingService {
 
   getRequest(url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-      .set('networkorization', 'Bearer ' + this.getCookie('access_token'));
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.get(`${this.url}${url}`, { headers: header })
       .pipe(map(
         (response: Response) => {
@@ -59,7 +62,7 @@ export class NetworkingService {
 
   getRequestDownload(url: string): Observable<Blob> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-      .set('networkorization', 'Bearer ' + this.getCookie('access_token'));
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.get(`${this.url}${url}`, { headers: header, responseType: 'blob' })
       .pipe(map(
         (response: Response) => {
@@ -75,8 +78,8 @@ export class NetworkingService {
       .subscribe(
         (user: LibertyUserModel) => {
           let found = false;
-          for (let i = 0; i < user.networkorities.length; i++) {
-            if (user.networkorities[i].networkority === 'ADMIN') {
+          for (let i = 0; i < user.authorities.length; i++) {
+            if (user.authorities[i].networkority === 'ADMIN') {
               found = true;
               break;
             }
@@ -135,13 +138,13 @@ export class NetworkingService {
     localStorage.setItem(cName, value);
   }
 
-  isnetworkorized() {
+  isAuthorized() {
     if (this.getCookie('access_token') !== null) {
       return of(true);
     }
     if (this.getCookie('access_token') === null && this.getCookie('refresh_token') !== null) {
       const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-        .set('networkorization', 'Bearer ' + this.getCookie('refresh_token'));
+        .set('authorization', 'Bearer ' + this.getCookie('refresh_token'));
       this.http.post(`${this.url}/auth/refresh`, null, { headers: header })
         .pipe(map(
           (tokens: any) => {

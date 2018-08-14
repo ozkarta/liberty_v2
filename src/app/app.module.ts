@@ -81,7 +81,7 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
 import { ConfigModule, ConfigService } from '@lbge/config';
 import { AuthModule, AuthService, AuthGuard } from '@lbge/auth';
 import { AuthConfig } from '@lbge/auth/lib/models';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -179,10 +179,10 @@ export class AppModule {
   constructor(private auth: AuthService,
               private configService: ConfigService,
               private activatedRoute: ActivatedRoute,
-              private network: NetworkingService) {
+              private network: NetworkingService,
+              private router: Router) {
     this.configService.get('auth').subscribe((config: AuthConfig) => {
       this.auth.init(config);
-      this.auth.login();
       this.activatedRoute.fragment
         .subscribe(
           () => {
@@ -190,7 +190,8 @@ export class AppModule {
             if (hash.split('&').length > 2) {
               const access = hash.split('&')[1];
               if (access.split('=')[0] === 'access_token') {
-                network.setCookie('access_token', access.split('=')[1], 0, 0);
+                this.network.setCookie('access_token', access.split('=')[1], 0, 0);
+                this.router.navigate(['/home'])
               }
             }
           });

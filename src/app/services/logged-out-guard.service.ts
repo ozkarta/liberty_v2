@@ -10,7 +10,7 @@ export class LoggedOutGuardService implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean | Promise<boolean> {
-    return this.networkService.isnetworkorized().pipe(map(
+    return this.networkService.isAuthorized().pipe(map(
       (isLoggedIn: any) => {
         if (!isLoggedIn) {
           return true;

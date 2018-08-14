@@ -8,7 +8,7 @@
       <mat-error *ngIf="user.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field *ngIf="usernameExists" class="full-width">
-      <input matInput placeholder="პაროლი" #password [formControl]="passwordValOriginal" [type]="hide ? 'password' : 'text'">
+      <input matInput placeholder="პაროლი" #password [formControl]="passwordValOriginal" (keyup.enter)="passwordExists? login():''"  [type]="hide ? 'password' : 'text'">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       <mat-error *ngIf="passwordValOriginal.invalid">{{getPassOriginalErrorMessage()}}</mat-error>
     </mat-form-field>

@@ -1,8 +1,8 @@
 {
     "auth": {
-        "stsServer": "https://identity.dev.webservice.lb.ge/.well-known/openid-configuration",
+        "stsServer": "http://identity.dev.webservice.lb.ge/.well-known/openid-configuration",
         "redirect_url": "http://localhost:4200/identity-callback.html",
-        "unauthorized_route": "/login",
+        "unauthorized_route": "/home",
         "client_id": "js",
         "response_type": "id_token token",
         "scope": "openid profile"
