@@ -13,6 +13,16 @@ import { MatDialog } from '@angular/material';
 export class KnowledgeBaseComponent implements OnInit {
   user: LibertyUserModel;
   isFullComents = false;
+  FAQOpen = false;
+  FAQQuestions = {
+    '2x2': 'რამდენია 2ჯერ 2',
+    mars: 'არსებობს სიცოცხლე მარსზე?',
+  };
+  FAQAnswers = {
+    '2x2': '2ჯერ 2 არის 4',
+    mars: 'მეცნიერებს ამაზე პასუხი ჯერ არ აქვთ',
+  };
+  FAQAnswer = '';
   // menuJson = [
   //   {
   //     title: 'ანგარიშები & ბარათები',
@@ -46,6 +56,18 @@ export class KnowledgeBaseComponent implements OnInit {
 
   expandComments() {
     this.isFullComents = !this.isFullComents;
+  }
+
+  expandFAQ() {
+    this.FAQOpen = !this.FAQOpen;
+    this.FAQAnswer = '';
+  }
+
+  getFaqKeys() {
+    return Object.keys(this.FAQQuestions);
+  }
+  showFAQAnswer(key) {
+    this.FAQAnswer = this.FAQAnswers[key];
   }
 
 }
