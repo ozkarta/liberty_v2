@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {AuthService} from './services/auth.service';
-import {Router} from '@angular/router';
-import {AuthorizedUserService} from './services/authorized-user.service';
-import {LibertyUserModel} from './models/liberty-user.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NetworkingService } from './services/networking.service';
+import { Router } from '@angular/router';
+import { networkorizedUserService } from './services/authorized-user.service';
+import { LibertyUserModel } from './models/liberty-user.model';
+import { AuthService } from '@lbge/auth';
 
 @Component({
   selector: 'app-root',
@@ -15,22 +16,21 @@ export class AppComponent implements OnInit {
   isAuthorized = false;
   userData: LibertyUserModel;
 
-  constructor(public auth: AuthService, fb: FormBuilder, public router: Router, private currentUser: AuthorizedUserService) {
+  constructor(public network: NetworkingService, fb: FormBuilder, public router: Router, private currentUser: networkorizedUserService,
+              private auth: AuthService) {
     this.options = fb.group({
       fixed: true,
     });
   }
 
   ngOnInit() {
-    this.checkLoginStatus().then(() => {
-      if (this.isAuthorized) {
-        this.auth.getLoggedUser().then(() => {
-          this.setUser();
+    this.checkLoginStatus()
+      .then(
+        () => {
+          if (this.isAuthorized) {
+            this.setUser();
+          }
         });
-      } else {
-        this.setUser();
-      }
-    });
   }
 
   setUser() {
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
   }
 
   async checkLoginStatus() {
-    this.auth.isAuthorized()
+    this.network.isAuthorized()
       .subscribe(
         (isLoggedIn: boolean) => {
           this.isAuthorized = isLoggedIn;
@@ -59,5 +59,21 @@ export class AppComponent implements OnInit {
           console.log(wtf);
         });
     });
+  }
+
+  singleSignOn() {
+    if (!this.network.getCookie('access_token')) {
+      this.auth.login();
+    } else {
+      this.checkLoginStatus().then(() => {
+        if (this.isAuthorized) {
+          this.network.getLoggedUser().then(() => {
+            this.setUser();
+          });
+        } else {
+          this.setUser();
+        }
+      });
+    }
   }
 }

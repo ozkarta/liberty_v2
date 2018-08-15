@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { NetworkingService } from '../../services/networking.service';
 
 @Component({
   selector: 'app-recalculate-bonus',
@@ -11,7 +11,7 @@ export class RecalculateBonusComponent implements OnInit {
   currentProgress = 0;
   timer: any;
 
-  constructor(private auth: AuthService) { }
+  constructor(private network: NetworkingService) { }
 
   ngOnInit() {
     this.getCurrentProgress();
@@ -19,7 +19,7 @@ export class RecalculateBonusComponent implements OnInit {
 
   recalculateBonuses() {
     this.calculationInProgress = true;
-    this.auth.postRequest(null, '/bonusRewards/recalculateBonuses')
+    this.network.postRequest(null, '/bonusRewards/recalculateBonuses')
       .subscribe(
         (response: any) => {
         });
@@ -28,7 +28,7 @@ export class RecalculateBonusComponent implements OnInit {
     },         5000);
   }
   getCurrentProgress() {
-    this.auth.getRequest('/bonusRewards/getBonusRecalculationProgress')
+    this.network.getRequest('/bonusRewards/getBonusRecalculationProgress')
       .subscribe(
         (progress: number) => {
           this.currentProgress = progress;

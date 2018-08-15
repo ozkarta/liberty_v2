@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { NetworkingService } from '../services/networking.service';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import { AuthService } from '@lbge/auth';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,10 @@ export class LoginComponent implements OnInit {
 
   dataIsLoading = false;
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(private network: NetworkingService,
+              private router: Router,
+              private auth: AuthService,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -35,7 +39,7 @@ export class LoginComponent implements OnInit {
 
   checkUsername() {
     this.dataIsLoading = true;
-    this.auth.getRequest(`/users/checkUser?userName=${this.username.nativeElement.value}`)
+    this.network.getRequest(`/users/checkUser?userName=${this.username.nativeElement.value}`)
       .subscribe(
         (response: any) => {
           if (response.userExists) {
@@ -59,12 +63,12 @@ export class LoginComponent implements OnInit {
           username: this.usernameVal,
           password: this.password.nativeElement.value,
         };
-        this.auth.postRequest(data, '/auth/login')
+        this.network.postRequest(data, '/auth/login')
           .subscribe(
             (tokens: any) => {
-              this.auth.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
-              this.auth.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
-              this.auth.getLoggedUser().then(() => {
+              this.network.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
+              this.network.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
+              this.network.getLoggedUser().then(() => {
                 this.router.navigate(['/'])
                   .then(
                     () => {
@@ -83,12 +87,12 @@ export class LoginComponent implements OnInit {
         username: this.usernameVal,
         password: this.password.nativeElement.value,
       };
-      this.auth.postRequest(data, '/auth/login')
+      this.network.postRequest(data, '/auth/login')
         .subscribe(
           (tokens: any) => {
-            this.auth.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
-            this.auth.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
-            this.auth.getLoggedUser().then(() => {
+            this.network.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
+            this.network.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
+            this.network.getLoggedUser().then(() => {
               this.router.navigate(['/'])
                 .then(
                   () => {
@@ -114,5 +118,4 @@ export class LoginComponent implements OnInit {
   getPassOriginalErrorMessage() {
     return this.passwordValOriginal.hasError('wrongPassword') ? 'პაროლი არასწორია' : '';
   }
-
 }

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AddBonusSystemComponent} from '../add-bonus-system/add-bonus-system.component';
-import {AuthService} from '../../services/auth.service';
+import {NetworkingService} from '../../services/networking.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {EvaluationGroup} from '../../admin/evaluation-group/evaluation-group.component';
 
@@ -14,10 +14,10 @@ export class EvaluationGroupEditComponent implements OnInit {
   dataAvaible = false;
 
   constructor(public dialogRef: MatDialogRef<AddBonusSystemComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, private auth: AuthService) { }
+              @Inject(MAT_DIALOG_DATA) public data: any, private network: NetworkingService) { }
 
   ngOnInit() {
-    this.auth.getRequest(`/evaluationGroups/${this.data}`)
+    this.network.getRequest(`/evaluationGroups/${this.data}`)
       .subscribe(
         (group: EvaluationGroup) => {
           this.group = group;
@@ -26,7 +26,7 @@ export class EvaluationGroupEditComponent implements OnInit {
   }
 
   changeGroupName() {
-    this.auth.putRequest(this.group, `/evaluationGroups/editEvaluationGroup`)
+    this.network.putRequest(this.group, `/evaluationGroups/editEvaluationGroup`)
       .subscribe(
         (response: any) => {
           this.dialogRef.close(true);

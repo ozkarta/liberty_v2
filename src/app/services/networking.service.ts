@@ -2,24 +2,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AuthorizedUserService } from './authorized-user.service';
+import { networkorizedUserService } from './authorized-user.service';
 import { LibertyUserModel } from '../models/liberty-user.model';
 import { MyOperationsModel } from '../models/my-operations.model';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class AuthService {
+export class NetworkingService {
   // url = 'http://home.gelashvili.net:8080';
-  // url = 'http://31.146.153.23:8080';
-  // url = 'http://192.168.100.100:9191';
-  url = 'http://192.168.100.23:9191';
+  // url = 'http://31.146.153.23:9191';
+  url = 'http://192.168.100.100:9191';
+  // url = 'http://192.168.60.10:9191';
+  //  url = 'http://192.168.57.181:9191';
+  // url = 'http://192.168.100.23:9191';
 
-  constructor(private http: HttpClient, private currentUser: AuthorizedUserService, private router: Router) {
+  constructor(private http: HttpClient, private currentUser: networkorizedUserService, private router: Router) {
   }
 
   postRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-      .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.post(`${this.url}${url}`, data, { headers: header })
       .pipe(map(
         (response: Response) => {
@@ -32,7 +34,7 @@ export class AuthService {
 
   putRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-      .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.put(`${this.url}${url}`, data, { headers: header })
       .pipe(map(
         (response: Response) => {
@@ -46,7 +48,7 @@ export class AuthService {
 
   getRequest(url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-      .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.get(`${this.url}${url}`, { headers: header })
       .pipe(map(
         (response: Response) => {
@@ -59,7 +61,7 @@ export class AuthService {
 
   getRequestDownload(url: string): Observable<Blob> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-      .set('Authorization', 'Bearer ' + this.getCookie('access_token'));
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
     return this.http.get(`${this.url}${url}`, { headers: header, responseType: 'blob' })
       .pipe(map(
         (response: Response) => {
@@ -76,7 +78,7 @@ export class AuthService {
         (user: LibertyUserModel) => {
           let found = false;
           for (let i = 0; i < user.authorities.length; i++) {
-            if (user.authorities[i].authority === 'ADMIN') {
+            if (user.authorities[i].networkority === 'ADMIN') {
               found = true;
               break;
             }
@@ -84,7 +86,7 @@ export class AuthService {
           if (!found) {
             this.currentUser.setUser(user);
             this.getLoggedUserOperations();
-            this.getLoogedUserBonuses();
+            this.getLoggedUserBonuses();
           } else {
             user.isAdmin = true;
             this.currentUser.setUser(user);
@@ -105,7 +107,7 @@ export class AuthService {
         });
   }
 
-  getLoogedUserBonuses() {
+  getLoggedUserBonuses() {
     this.getRequest('/bonusRewards/currentMonthBonuses')
       .subscribe(
         (operations: MyOperationsModel[]) => {
@@ -141,7 +143,7 @@ export class AuthService {
     }
     if (this.getCookie('access_token') === null && this.getCookie('refresh_token') !== null) {
       const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
-        .set('Authorization', 'Bearer ' + this.getCookie('refresh_token'));
+        .set('authorization', 'Bearer ' + this.getCookie('refresh_token'));
       this.http.post(`${this.url}/auth/refresh`, null, { headers: header })
         .pipe(map(
           (tokens: any) => {

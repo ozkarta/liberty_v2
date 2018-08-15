@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { NetworkingService } from '../services/networking.service';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { ProductAddDialogComponent } from '../product-add-dialog/product-add-dialog.component';
 
@@ -14,14 +14,14 @@ export class BonusPointsComponent implements OnInit {
   dataSource = new MatTableDataSource(this.products);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private auth: AuthService, public dialog: MatDialog) { }
+  constructor(private network: NetworkingService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getBonusPoints();
   }
 
   getBonusPoints() {
-    this.auth.getRequest('/products')
+    this.network.getRequest('/products')
       .subscribe(
         (response: any[]) => {
           response.forEach((t) => {
@@ -42,7 +42,7 @@ export class BonusPointsComponent implements OnInit {
   }
 
   export() {
-    this.auth.getRequestDownload('/products/exportProducts')
+    this.network.getRequestDownload('/products/exportProducts')
       .subscribe(
         (response: any) => {
           this.downloadFile(response, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'export.xlsx');

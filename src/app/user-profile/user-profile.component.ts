@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { NetworkingService } from '../services/networking.service';
 import { FormControl } from '@angular/forms';
-import { AuthorizedUserService } from '../services/authorized-user.service';
+import { networkorizedUserService } from '../services/authorized-user.service';
 import { MyOperationsModel } from '../models/my-operations.model';
 import { LibertyUserModel } from '../models/liberty-user.model';
 import { BankStatisticsModel } from '../models/bank-statistics.model';
@@ -166,7 +166,7 @@ export class UserProfileComponent implements OnInit {
 
   totalBonuses: BankTotalStatistics[] = [];
 
-  constructor(private auth: AuthService, private currentUser: AuthorizedUserService, private router: Router) {
+  constructor(private network: NetworkingService, private currentUser: networkorizedUserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -192,7 +192,7 @@ export class UserProfileComponent implements OnInit {
             }
             this.user = userData;
             if (this.user.userStaffLevel === 'MIDDLE_MANAGER') {
-              this.auth.getRequest('/sales/branchTotalOperations')
+              this.network.getRequest('/sales/branchTotalOperations')
                 .subscribe(
                   (response: BranchStatistics) => {
                     this.branchTotalOperations = response;
@@ -203,11 +203,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   getBonusRewards() {
-    this.auth.getRequest('/bonusRewards/getUserData')
+    this.network.getRequest('/bonusRewards/getUserData')
       .subscribe(
         (response: any) => {
           this.lineChartArray = response;
-          this.auth.getRequest('/bonusRewards/totalStatisticsByMonths')
+          this.network.getRequest('/bonusRewards/totalStatisticsByMonths')
             .subscribe(
               (totals: BankTotalStatistics[]) => {
                 this.monthlyLineChartData = totals;
@@ -260,7 +260,7 @@ export class UserProfileComponent implements OnInit {
             this.doughnutChartData.push(otherCount);
             this.doughnutChartLabels.push('სხვა');
             this.mergeArrays();
-            this.auth.getRequest('/bonusRewards/getUserTotalBonus')
+            this.network.getRequest('/bonusRewards/getUserTotalBonus')
               .subscribe(
                 (response: any) => {
                   this.myBonusInGel = response;
@@ -413,7 +413,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getBankStatistics() {
-    this.auth.getRequest('/bonusRewards/getBankStatistics')
+    this.network.getRequest('/bonusRewards/getBankStatistics')
       .subscribe(
         (response: any) => {
           this.bankStatistics = response;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { NetworkingService } from '../../services/networking.service';
 import { ProductModel } from '../../models/product.model';
 import { DragulaService } from 'ng2-dragula';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ export class ProductReorderingComponent implements OnInit {
   products: ProductModel[] = [];
   private subscription: Subscription;
 
-  constructor(private auth: AuthService, private dragulaService: DragulaService) {
+  constructor(private network: NetworkingService, private dragulaService: DragulaService) {
   }
 
   ngOnInit() {
@@ -21,7 +21,7 @@ export class ProductReorderingComponent implements OnInit {
   }
 
   getProducts() {
-    this.auth.getRequest('/products/all')
+    this.network.getRequest('/products/all')
       .subscribe(
         (groups: ProductModel[]) => {
           groups.sort((a, b) => {
@@ -33,7 +33,7 @@ export class ProductReorderingComponent implements OnInit {
         });
   }
   reorderProduct(newOrder: any, id: number) {
-    this.auth.putRequest(parseInt(newOrder), `/products/${id}/reOrder`)
+    this.network.putRequest(parseInt(newOrder), `/products/${id}/reOrder`)
       .subscribe(
         (response: any) => {
           this.products.length = 0;

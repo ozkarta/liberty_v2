@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { NetworkingService } from '../../services/networking.service';
 import { BonusSystem } from '../../product-add-dialog/product-add-dialog.component';
 import { EvaluationGroup } from '../../admin/evaluation-group/evaluation-group.component';
 
@@ -17,7 +17,7 @@ export class AddBonusSystemComponent implements OnInit {
   number = new FormControl();
 
   constructor(public dialogRef: MatDialogRef<AddBonusSystemComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: string, private auth: AuthService) {
+              @Inject(MAT_DIALOG_DATA) public data: string, private network: NetworkingService) {
   }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class AddBonusSystemComponent implements OnInit {
         url = '/evaluationGroups/add';
       }
       if (this.data !== 'bonus') {
-        this.auth.getRequest('/evaluationGroups/all')
+        this.network.getRequest('/evaluationGroups/all')
           .subscribe(
             (response: EvaluationGroup[]) => {
               response.forEach((b) => {
@@ -54,7 +54,7 @@ export class AddBonusSystemComponent implements OnInit {
               });
             });
       }
-      this.auth.postRequest(data, url)
+      this.network.postRequest(data, url)
         .subscribe(
           (system: BonusSystem) => {
             this.dialogRef.close(system.id);

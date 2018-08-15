@@ -1,8 +1,8 @@
 // Angular Common Imports
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Component Imports
@@ -32,11 +32,11 @@ import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 
 // Service Imports
-import { AuthService } from './services/auth.service';
+import { NetworkingService } from './services/networking.service';
 import { RouteGuardService } from './guards/route-guard.service';
 import { LoggedOutGuardService } from './services/logged-out-guard.service';
 import { OtherUserService } from './services/other-user.service';
-import { AuthorizedUserService } from './services/authorized-user.service';
+import { networkorizedUserService } from './services/authorized-user.service';
 
 // Material Design Imports
 import { MatInputModule } from '@angular/material/input';
@@ -77,8 +77,13 @@ import { ProductEditComponent } from './dialogs/product-edit/product-edit.compon
 import { AdditionalParametersComponent } from './admin/additional-parameters/additional-parameters.component';
 import { RecalculateBonusComponent } from './admin/recalculate-bonus/recalculate-bonus.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-// import { KnowledgeBaseComponentAdmin } from './admin/knowledge-base/knowledge-base.component';
 import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
+import { ConfigModule, ConfigService } from '@lbge/config';
+import { AuthModule, AuthService, AuthGuard } from '@lbge/auth';
+import { AuthConfig } from '@lbge/auth/lib/models';
+import { ActivatedRoute, Router } from '@angular/router';
+// import {ErrorsHandler} from './handlers/errors-handler';
+// import {ServerErrorsInterceptor} from './handlers/server-errors.interceptor';
 
 @NgModule({
   declarations: [
@@ -153,13 +158,24 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
     VgOverlayPlayModule,
     VgBufferingModule,
     MatMenuModule,
+    ConfigModule.forRoot('assets/config.json'),
+    AuthModule,
   ],
   providers: [
-    AuthService,
+    NetworkingService,
     RouteGuardService,
     LoggedOutGuardService,
     OtherUserService,
-    AuthorizedUserService,
+    networkorizedUserService,
+    // {
+    //   provide: ErrorHandler,
+    //   useClass: ErrorsHandler,
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: ServerErrorsInterceptor,
+    //   multi: true,
+    // },
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -171,4 +187,25 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
   ],
 })
 export class AppModule {
+  constructor(private auth: AuthService,
+              private configService: ConfigService,
+              private activatedRoute: ActivatedRoute,
+              private network: NetworkingService,
+              private router: Router) {
+    // this.configService.get('auth').subscribe((config: AuthConfig) => {
+    //   this.auth.init(config);
+    //   this.activatedRoute.fragment
+    //     .subscribe(
+    //       () => {
+    //         const hash = window.location.hash;
+    //         if (hash.split('&').length > 2) {
+    //           const access = hash.split('&')[1];
+    //           if (access.split('=')[0] === 'access_token') {
+    //             this.network.setCookie('access_token', access.split('=')[1], 0, 0);
+    //             this.router.navigate(['/home']);
+    //           }
+    //         }
+    //       });
+    // });
+  }
 }

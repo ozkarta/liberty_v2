@@ -50,14 +50,13 @@ const appRoutes: Routes = [
   { path: 'admin/product-reordering', component: ProductReorderingComponent, canActivate: [AdminGuard] },
   { path: 'admin/product-competence-level', component: ProductCompetenceLevelComponent, canActivate: [AdminGuard] },
   { path: 'knowledge-base', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
-  // { path: 'admin/knowledge-base', component: KnowledgeBaseComponentAdmin, canActivate: [AdminGuard] },
   { path: 'admin/product-product-edit', component: ProductEditingComponent, canActivate: [AdminGuard] },
   { path: 'admin/additional-parameters', component: AdditionalParametersComponent, canActivate: [AdminGuard] },
   { path: 'admin/recalculate', component: RecalculateBonusComponent, canActivate: [AdminGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
   exports: [RouterModule],
 })
 export class RoutingModule {

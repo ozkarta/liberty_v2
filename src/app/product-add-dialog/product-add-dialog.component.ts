@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AuthService} from '../services/auth.service';
+import {NetworkingService} from '../services/networking.service';
 import {MatDialogRef, MatSelect} from '@angular/material';
 
 @Component({
@@ -16,7 +16,7 @@ export class ProductAddDialogComponent implements OnInit {
   bonusSystems: BonusSystem[] = [];
   @ViewChild('motivationBlock') motivationBlock: MatSelect;
 
-  constructor(private auth: AuthService,
+  constructor(private network: NetworkingService,
               private dialogRef: MatDialogRef<ProductAddDialogComponent>) {
   }
 
@@ -25,7 +25,7 @@ export class ProductAddDialogComponent implements OnInit {
   }
 
   getProducts() {
-    this.auth.getRequest('/bonusSystems')
+    this.network.getRequest('/bonusSystems')
       .subscribe(
         (response: BonusSystem[]) => {
           this.bonusSystems = response;
@@ -40,7 +40,7 @@ export class ProductAddDialogComponent implements OnInit {
       bonusPoints: this.bonusValue.nativeElement.value,
       productMotivationalBlockTypeId: this.motivationBlock.value,
     };
-    this.auth.postRequest(data, '/products/add')
+    this.network.postRequest(data, '/products/add')
       .subscribe(
         () => {
           this.dialogRef.close();

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
+import {NetworkingService} from '../../services/networking.service';
 import {ProductModel} from '../../models/product.model';
 import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
@@ -18,7 +18,7 @@ export class ProductsComponent implements OnInit {
   draggedProduct: InitialProduct;
   unMapGroup: ProductModel;
 
-  constructor(private auth: AuthService, private dragulaService: DragulaService, public dialog: MatDialog) {
+  constructor(private network: NetworkingService, private dragulaService: DragulaService, public dialog: MatDialog) {
     this.subscription = dragulaService.drag.subscribe((value) => {
     });
     const dropSub = dragulaService.drop.subscribe((value) => {
@@ -43,7 +43,7 @@ export class ProductsComponent implements OnInit {
   // }
 
   getInitialProducts() {
-    this.auth.getRequest('/products/getAllInitialProducts')
+    this.network.getRequest('/products/getAllInitialProducts')
       .subscribe(
         (products: InitialProduct[]) => {
           products.sort((a, b) => {
@@ -58,7 +58,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductGroups() {
-    this.auth.getRequest('/products/all')
+    this.network.getRequest('/products/all')
       .subscribe(
         (groups: ProductModel[]) => {
           groups.forEach((g) => {
@@ -68,7 +68,7 @@ export class ProductsComponent implements OnInit {
   }
 
   mapProduct(productId: any, initialId: any) {
-    this.auth.putRequest(parseInt(productId), `/products/initialProduct/${initialId}/mapToProduct`)
+    this.network.putRequest(parseInt(productId), `/products/initialProduct/${initialId}/mapToProduct`)
       .subscribe(
         (response: any) => {
           const prod = this.productGroups.find(p => p.id === parseInt(productId));
@@ -110,7 +110,7 @@ export class ProductsComponent implements OnInit {
   }
 
   unDrop() {
-    this.auth.putRequest(null, `/products/initialProducts/${this.draggedProduct.id}/removeMapping`)
+    this.network.putRequest(null, `/products/initialProducts/${this.draggedProduct.id}/removeMapping`)
     .subscribe(
       () => {});
     this.productGroups.find(p => p === this.unMapGroup).initialProducts = this.productGroups.find(p => p === this.unMapGroup).initialProducts.filter(val => val !== this.draggedProduct);

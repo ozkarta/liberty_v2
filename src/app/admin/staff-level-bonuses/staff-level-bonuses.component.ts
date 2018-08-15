@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { NetworkingService } from '../../services/networking.service';
 import {BonusSystem} from '../bonus-systems/bonus-systems.component';
 
 @Component({
@@ -11,7 +11,7 @@ export class StaffLevelBonusesComponent implements OnInit {
   staffLevels: StaffLevel[] = [];
   bonusSystems: BonusSystem[] = [];
 
-  constructor(private auth: AuthService) { }
+  constructor(private network: NetworkingService) { }
 
   ngOnInit() {
     this.getStaffLevels();
@@ -19,7 +19,7 @@ export class StaffLevelBonusesComponent implements OnInit {
   }
 
   getStaffLevels() {
-    this.auth.getRequest('/userPositions/allUserPositions')
+    this.network.getRequest('/userPositions/allUserPositions')
       .subscribe(
         (staffLevels: StaffLevel[]) => {
           staffLevels.forEach((s) => {
@@ -28,7 +28,7 @@ export class StaffLevelBonusesComponent implements OnInit {
         });
   }
   getBonusSystems() {
-    this.auth.getRequest('/bonusSystems/all')
+    this.network.getRequest('/bonusSystems/all')
       .subscribe(
         (response: BonusSystem[]) => {
           response.forEach((b) => {
@@ -59,7 +59,7 @@ export class StaffLevelBonusesComponent implements OnInit {
       bonusSystemId: systemId,
       staffLevelId: userPositionId.value,
     };
-    this.auth.putRequest(data, `/userPositions/${levelId}/assignBonusSystemAndStaffLevel`)
+    this.network.putRequest(data, `/userPositions/${levelId}/assignBonusSystemAndStaffLevel`)
       .subscribe(
         (response: any) => {
           console.log(response);

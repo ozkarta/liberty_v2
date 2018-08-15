@@ -3,8 +3,8 @@ import { LibertyUserModel } from '../../models/liberty-user.model';
 import { BonusSystem } from '../bonus-systems/bonus-systems.component';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { AddBonusSystemComponent } from '../../dialogs/add-bonus-system/add-bonus-system.component';
-import { AuthorizedUserService } from '../../services/authorized-user.service';
-import { AuthService } from '../../services/auth.service';
+import { networkorizedUserService } from '../../services/authorized-user.service';
+import { NetworkingService } from '../../services/networking.service';
 import { Router } from '@angular/router';
 import {EvaluationGroupEditComponent} from '../../dialogs/evaluation-group-edit/evaluation-group-edit.component';
 
@@ -20,7 +20,7 @@ export class EvaluationGroupComponent implements OnInit {
   dataSource = new MatTableDataSource(this.bonusSystems);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private currentUser: AuthorizedUserService, private router: Router, private auth: AuthService, public dialog: MatDialog) {
+  constructor(private currentUser: networkorizedUserService, private router: Router, private network: NetworkingService, public dialog: MatDialog) {
     this.checkUserIsAdmin();
   }
 
@@ -40,7 +40,7 @@ export class EvaluationGroupComponent implements OnInit {
         });
   }
   getEvaluationGroups() {
-    this.auth.getRequest('/evaluationGroups/all')
+    this.network.getRequest('/evaluationGroups/all')
       .subscribe(
         (response: EvaluationGroup[]) => {
           this.bonusSystems.length = 0;

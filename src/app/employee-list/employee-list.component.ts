@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { NetworkingService } from '../services/networking.service';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
@@ -18,7 +18,7 @@ export class EmployeeListComponent implements OnInit {
   totalBonus = 0;
   bankMaximum = 0;
 
-  constructor(private auth: AuthService, public dialog: MatDialog) {
+  constructor(private network: NetworkingService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getEmployees() {
-    this.auth.getRequest('/branches/branch-employees')
+    this.network.getRequest('/branches/branch-employees')
       .subscribe(
         (employees: any[]) => {
           employees.forEach((e) => {

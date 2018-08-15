@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LibertyUserModel} from '../models/liberty-user.model';
-import {AuthorizedUserService} from '../services/authorized-user.service';
-import {AuthService} from '../services/auth.service';
+import {networkorizedUserService} from '../services/authorized-user.service';
+import {NetworkingService} from '../services/networking.service';
 
 @Component({
   selector: 'app-home',
@@ -12,24 +12,28 @@ export class HomeComponent implements OnInit {
   userData: LibertyUserModel;
   myBonus: any;
 
-  constructor(private currentUser: AuthorizedUserService, private auth: AuthService) {
+  constructor(private currentUser: networkorizedUserService, private network: NetworkingService) {
   }
 
   ngOnInit() {
     this.setUser();
-    this.getMyBonus();
   }
 
   setUser() {
     this.currentUser.getUser
       .subscribe(
         (userData: LibertyUserModel) => {
-          this.userData = userData;
+          if (userData) {
+            this.userData = userData;
+            if (!this.userData.isAdmin) {
+              this.getMyBonus();
+            }
+          }
         });
   }
 
   getMyBonus() {
-    this.auth.getRequest('/bonusRewards/getUserTotalBonus')
+    this.network.getRequest('/bonusRewards/getUserTotalBonus')
       .subscribe(
         (response: any) => {
           this.myBonus = response;
