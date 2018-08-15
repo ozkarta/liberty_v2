@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {NetworkingService} from './services/networking.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {networkorizedUserService} from './services/authorized-user.service';
-import {LibertyUserModel} from './models/liberty-user.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NetworkingService } from './services/networking.service';
+import { Router } from '@angular/router';
+import { networkorizedUserService } from './services/authorized-user.service';
+import { LibertyUserModel } from './models/liberty-user.model';
 import { AuthService } from '@lbge/auth';
 
 @Component({
@@ -13,19 +13,24 @@ import { AuthService } from '@lbge/auth';
 })
 export class AppComponent implements OnInit {
   options: FormGroup;
-  isnetworkorized = false;
+  isAuthorized = false;
   userData: LibertyUserModel;
 
   constructor(public network: NetworkingService, fb: FormBuilder, public router: Router, private currentUser: networkorizedUserService,
-              private auth: AuthService,
-              private activatedRoute: ActivatedRoute) {
+              private auth: AuthService) {
     this.options = fb.group({
       fixed: true,
     });
   }
 
   ngOnInit() {
-   this.singleSignOn();
+    this.checkLoginStatus()
+      .then(
+        () => {
+          if (this.isAuthorized) {
+            this.setUser();
+          }
+        });
   }
 
   setUser() {
@@ -42,7 +47,7 @@ export class AppComponent implements OnInit {
     this.network.isAuthorized()
       .subscribe(
         (isLoggedIn: boolean) => {
-          this.isnetworkorized = isLoggedIn;
+          this.isAuthorized = isLoggedIn;
         });
   }
 
@@ -61,7 +66,7 @@ export class AppComponent implements OnInit {
       this.auth.login();
     } else {
       this.checkLoginStatus().then(() => {
-        if (this.isnetworkorized) {
+        if (this.isAuthorized) {
           this.network.getLoggedUser().then(() => {
             this.setUser();
           });

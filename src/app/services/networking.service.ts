@@ -11,14 +11,13 @@ import { Router } from '@angular/router';
 export class NetworkingService {
   // url = 'http://home.gelashvili.net:8080';
   // url = 'http://31.146.153.23:9191';
-  // url = 'http://192.168.100.100:9191';
+  url = 'http://192.168.100.100:9191';
   // url = 'http://192.168.60.10:9191';
-   url = 'http://192.168.57.181:9191';
+  //  url = 'http://192.168.57.181:9191';
   // url = 'http://192.168.100.23:9191';
 
   constructor(private http: HttpClient, private currentUser: networkorizedUserService, private router: Router) {
   }
-
 
   postRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
@@ -87,7 +86,7 @@ export class NetworkingService {
           if (!found) {
             this.currentUser.setUser(user);
             this.getLoggedUserOperations();
-            this.getLoogedUserBonuses();
+            this.getLoggedUserBonuses();
           } else {
             user.isAdmin = true;
             this.currentUser.setUser(user);
@@ -108,7 +107,7 @@ export class NetworkingService {
         });
   }
 
-  getLoogedUserBonuses() {
+  getLoggedUserBonuses() {
     this.getRequest('/bonusRewards/currentMonthBonuses')
       .subscribe(
         (operations: MyOperationsModel[]) => {

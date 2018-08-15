@@ -17,14 +17,18 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.setUser();
-    this.getMyBonus();
   }
 
   setUser() {
     this.currentUser.getUser
       .subscribe(
         (userData: LibertyUserModel) => {
-          this.userData = userData;
+          if (userData) {
+            this.userData = userData;
+            if (!this.userData.isAdmin) {
+              this.getMyBonus();
+            }
+          }
         });
   }
 

@@ -1,5 +1,5 @@
 <div class="main-container">
-  <button mat-raised-button color="warn" class="my-bonus" routerLink="/profile">ჩემი ბონუსი {{myBonus}} ლარი</button>
+  <button mat-raised-button color="warn" class="my-bonus" [routerLink]="!userData?.isAdmin ? '/profile' : 'admin/bonus-systems'">{{userData?.isAdmin ? 'ჩემი ბონუსი ' + myBonus + ' ლარი' : 'ადმინისტრატორის პანელი'}}</button>
   <div class="menu-button__group">
     <button mat-raised-button>მოთხოვნების მენეჯმენტი</button>
     <button mat-raised-button routerLink="/knowledge-base">Knowledge Base</button>

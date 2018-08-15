@@ -1,8 +1,8 @@
 // Angular Common Imports
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Component Imports
@@ -81,7 +81,9 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
 import { ConfigModule, ConfigService } from '@lbge/config';
 import { AuthModule, AuthService, AuthGuard } from '@lbge/auth';
 import { AuthConfig } from '@lbge/auth/lib/models';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+// import {ErrorsHandler} from './handlers/errors-handler';
+// import {ServerErrorsInterceptor} from './handlers/server-errors.interceptor';
 
 @NgModule({
   declarations: [
@@ -165,6 +167,15 @@ import {ActivatedRoute, Router} from '@angular/router';
     LoggedOutGuardService,
     OtherUserService,
     networkorizedUserService,
+    // {
+    //   provide: ErrorHandler,
+    //   useClass: ErrorsHandler,
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: ServerErrorsInterceptor,
+    //   multi: true,
+    // },
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -181,20 +192,20 @@ export class AppModule {
               private activatedRoute: ActivatedRoute,
               private network: NetworkingService,
               private router: Router) {
-    this.configService.get('auth').subscribe((config: AuthConfig) => {
-      this.auth.init(config);
-      this.activatedRoute.fragment
-        .subscribe(
-          () => {
-            const hash = window.location.hash;
-            if (hash.split('&').length > 2) {
-              const access = hash.split('&')[1];
-              if (access.split('=')[0] === 'access_token') {
-                this.network.setCookie('access_token', access.split('=')[1], 0, 0);
-                this.router.navigate(['/home'])
-              }
-            }
-          });
-    });
+    // this.configService.get('auth').subscribe((config: AuthConfig) => {
+    //   this.auth.init(config);
+    //   this.activatedRoute.fragment
+    //     .subscribe(
+    //       () => {
+    //         const hash = window.location.hash;
+    //         if (hash.split('&').length > 2) {
+    //           const access = hash.split('&')[1];
+    //           if (access.split('=')[0] === 'access_token') {
+    //             this.network.setCookie('access_token', access.split('=')[1], 0, 0);
+    //             this.router.navigate(['/home']);
+    //           }
+    //         }
+    //       });
+    // });
   }
 }

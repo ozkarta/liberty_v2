@@ -118,7 +118,4 @@ export class LoginComponent implements OnInit {
   getPassOriginalErrorMessage() {
     return this.passwordValOriginal.hasError('wrongPassword') ? 'პაროლი არასწორია' : '';
   }
-
-
-
 }
