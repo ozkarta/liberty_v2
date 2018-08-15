@@ -28,7 +28,9 @@ export class AppComponent implements OnInit {
       .then(
         () => {
           if (this.isAuthorized) {
-            this.setUser();
+            this.network.getLoggedUser().then(() => {
+              this.setUser();
+            });
           }
         });
   }

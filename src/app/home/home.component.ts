@@ -10,7 +10,7 @@ import { NetworkingService } from '../services/networking.service';
 })
 export class HomeComponent implements OnInit {
   userData: LibertyUserModel;
-  myBonus: any;
+  myBonus = 0;
 
   constructor(private currentUser: AuthorizedUserService, private network: NetworkingService) {
   }
