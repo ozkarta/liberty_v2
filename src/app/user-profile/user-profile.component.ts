@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NetworkingService } from '../services/networking.service';
 import { FormControl } from '@angular/forms';
-import { networkorizedUserService } from '../services/authorized-user.service';
+import { AuthorizedUserService } from '../services/authorized-user.service';
 import { MyOperationsModel } from '../models/my-operations.model';
 import { LibertyUserModel } from '../models/liberty-user.model';
 import { BankStatisticsModel } from '../models/bank-statistics.model';
@@ -166,7 +166,7 @@ export class UserProfileComponent implements OnInit {
 
   totalBonuses: BankTotalStatistics[] = [];
 
-  constructor(private network: NetworkingService, private currentUser: networkorizedUserService, private router: Router) {
+  constructor(private network: NetworkingService, private currentUser: AuthorizedUserService, private router: Router) {
   }
 
   ngOnInit() {

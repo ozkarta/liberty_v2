@@ -36,7 +36,7 @@ import { NetworkingService } from './services/networking.service';
 import { RouteGuardService } from './guards/route-guard.service';
 import { LoggedOutGuardService } from './services/logged-out-guard.service';
 import { OtherUserService } from './services/other-user.service';
-import { networkorizedUserService } from './services/authorized-user.service';
+import { AuthorizedUserService } from './services/authorized-user.service';
 
 // Material Design Imports
 import { MatInputModule } from '@angular/material/input';
@@ -166,7 +166,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     RouteGuardService,
     LoggedOutGuardService,
     OtherUserService,
-    networkorizedUserService,
+    AuthorizedUserService,
     // {
     //   provide: ErrorHandler,
     //   useClass: ErrorsHandler,

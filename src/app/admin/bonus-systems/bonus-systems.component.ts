@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { networkorizedUserService } from '../../services/authorized-user.service';
+import { AuthorizedUserService } from '../../services/authorized-user.service';
 import { LibertyUserModel } from '../../models/liberty-user.model';
 import { Router } from '@angular/router';
 import { NetworkingService } from '../../services/networking.service';
@@ -19,7 +19,7 @@ export class BonusSystemsComponent implements OnInit {
   dataSource = new MatTableDataSource(this.bonusSystems);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private currentUser: networkorizedUserService, private router: Router, private network: NetworkingService, public dialog: MatDialog) {
+  constructor(private currentUser: AuthorizedUserService, private router: Router, private network: NetworkingService, public dialog: MatDialog) {
     this.checkUserIsAdmin();
   }
 

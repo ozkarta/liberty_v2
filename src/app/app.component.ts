@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NetworkingService } from './services/networking.service';
 import { Router } from '@angular/router';
-import { networkorizedUserService } from './services/authorized-user.service';
+import { AuthorizedUserService } from './services/authorized-user.service';
 import { LibertyUserModel } from './models/liberty-user.model';
 import { AuthService } from '@lbge/auth';
 
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   isAuthorized = false;
   userData: LibertyUserModel;
 
-  constructor(public network: NetworkingService, fb: FormBuilder, public router: Router, private currentUser: networkorizedUserService,
+  constructor(public network: NetworkingService, fb: FormBuilder, public router: Router, private currentUser: AuthorizedUserService,
               private auth: AuthService) {
     this.options = fb.group({
       fixed: true,

@@ -1,8 +1,8 @@
-import {AsyncSubject, BehaviorSubject, ReplaySubject, Subject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LibertyUserModel } from '../models/liberty-user.model';
-import {MyOperationsModel} from '../models/my-operations.model';
+import { MyOperationsModel } from '../models/my-operations.model';
 
-export class networkorizedUserService {
+export class AuthorizedUserService {
   private user = new BehaviorSubject<LibertyUserModel>(null);
   getUser = this.user.asObservable();
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { networkorizedUserService } from '../services/authorized-user.service';
+import { AuthorizedUserService } from '../services/authorized-user.service';
 import { NetworkingService } from '../services/networking.service';
 import { map } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AdminGuard implements CanActivate {
-  constructor(private currentUser: networkorizedUserService,
+  constructor(private currentUser: AuthorizedUserService,
               private router: Router,
               private network: NetworkingService) {
   }

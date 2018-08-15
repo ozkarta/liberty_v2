@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { NetworkingService } from '../services/networking.service';
 import { MyOperationsModel } from '../models/my-operations.model';
-import { networkorizedUserService } from '../services/authorized-user.service';
+import { AuthorizedUserService } from '../services/authorized-user.service';
 
 @Component({
   selector: 'app-my-transactions',
@@ -49,7 +49,7 @@ export class MyTransactionsComponent implements OnInit {
   @ViewChild('downloadFile') private downloadExcel: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private network: NetworkingService, private currentUser: networkorizedUserService) {
+  constructor(private network: NetworkingService, private currentUser: AuthorizedUserService) {
   }
 
   ngOnInit() {

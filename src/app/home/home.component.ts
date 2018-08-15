@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {LibertyUserModel} from '../models/liberty-user.model';
-import {networkorizedUserService} from '../services/authorized-user.service';
-import {NetworkingService} from '../services/networking.service';
+import { Component, OnInit } from '@angular/core';
+import { LibertyUserModel } from '../models/liberty-user.model';
+import { AuthorizedUserService } from '../services/authorized-user.service';
+import { NetworkingService } from '../services/networking.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   userData: LibertyUserModel;
   myBonus: any;
 
-  constructor(private currentUser: networkorizedUserService, private network: NetworkingService) {
+  constructor(private currentUser: AuthorizedUserService, private network: NetworkingService) {
   }
 
   ngOnInit() {

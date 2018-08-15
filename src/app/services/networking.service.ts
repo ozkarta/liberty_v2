@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { networkorizedUserService } from './authorized-user.service';
+import { AuthorizedUserService } from './authorized-user.service';
 import { LibertyUserModel } from '../models/liberty-user.model';
 import { MyOperationsModel } from '../models/my-operations.model';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export class NetworkingService {
   //  url = 'http://192.168.57.181:9191';
   // url = 'http://192.168.100.23:9191';
 
-  constructor(private http: HttpClient, private currentUser: networkorizedUserService, private router: Router) {
+  constructor(private http: HttpClient, private currentUser: AuthorizedUserService, private router: Router) {
   }
 
   postRequest(data: any, url: string): Observable<any> {
