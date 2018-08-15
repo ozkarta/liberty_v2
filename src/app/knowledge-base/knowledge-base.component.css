@@ -96,8 +96,8 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  width: 50%;
   margin-top: 10px;
+  width: 48.5%;
 }
 
 .ng-comment-info-container {
