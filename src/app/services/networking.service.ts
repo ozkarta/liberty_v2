@@ -78,7 +78,6 @@ export class NetworkingService {
         (user: LibertyUserModel) => {
           let found = false;
           for (let i = 0; i < user.authorities.length; i++) {
-            debugger;
             if (user.authorities[i].authority === 'ADMIN') {
               found = true;
               break;

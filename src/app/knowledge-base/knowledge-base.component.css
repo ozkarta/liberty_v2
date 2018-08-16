@@ -178,12 +178,39 @@ mat-card {
 }
 
 .ng-files-text-container {
-  max-height: 200px;
+  max-height: 190px;
   overflow: scroll;
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 .ng-video-file-right-container {
   margin-left: 3%;
   width: 50%;
   height: 350px;
+}
+
+.mat-success {
+  background-color: #e03126;
+  color: white;
+}
+
+.ng-attachment-image {
+  background: url("../../images/attachment.png") no-repeat center;
+  background-size: cover;
+  height: 28px;
+  width: 20px;
+  position: absolute;
+  top: 7px;
+}
+
+.ng-attachment-text {
+  margin-left: 30px;
+}
+
+.mat-raised-button {
+  height: 40px;
+  display: block;
+  width: 100%;
+  text-align: left;
 }
