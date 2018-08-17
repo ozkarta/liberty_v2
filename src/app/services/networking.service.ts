@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { AuthorizedUserService } from './authorized-user.service';
-import { LibertyUserModel } from '../models/liberty-user.model';
-import { MyOperationsModel } from '../models/my-operations.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, throwError, of} from 'rxjs';
+import {map, catchError} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {AuthorizedUserService} from './authorized-user.service';
+import {LibertyUserModel} from '../models/liberty-user.model';
+import {MyOperationsModel} from '../models/my-operations.model';
 
 @Injectable()
 export class NetworkingService {
@@ -17,18 +17,19 @@ export class NetworkingService {
   url = '';
 
   constructor(private http: HttpClient, private currentUser: AuthorizedUserService) {
+  }
+
+  async getUrl() {
     const jsonFile = 'assets/url.config.json';
-    this.http.get(jsonFile).toPromise().then((response: Response) => {
+    await this.http.get(jsonFile).toPromise().then((response: Response) => {
       this.url = response.url;
-    }).catch((response: any) => {
-      console.log(response);
     });
   }
 
   postRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
       .set('authorization', 'Bearer ' + this.getCookie('access_token'));
-    return this.http.post(`${this.url}${url}`, data, { headers: header })
+    return this.http.post(`${this.url}${url}`, data, {headers: header})
       .pipe(map(
         (response: Response) => {
           return response;
@@ -41,12 +42,12 @@ export class NetworkingService {
   putRequest(data: any, url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
       .set('authorization', 'Bearer ' + this.getCookie('access_token'));
-    return this.http.put(`${this.url}${url}`, data, { headers: header })
+    return this.http.put(`${this.url}${url}`, data, {headers: header})
       .pipe(map(
         (response: Response) => {
           return response;
         }),
-            catchError(
+        catchError(
           (error: Response) => {
             return throwError(error);
           }));
@@ -55,7 +56,7 @@ export class NetworkingService {
   getRequest(url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
       .set('authorization', 'Bearer ' + this.getCookie('access_token'));
-    return this.http.get(`${this.url}${url}`, { headers: header })
+    return this.http.get(`${this.url}${url}`, {headers: header})
       .pipe(map(
         (response: Response) => {
           return response;
@@ -68,7 +69,7 @@ export class NetworkingService {
   getRequestDownload(url: string): Observable<Blob> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
       .set('authorization', 'Bearer ' + this.getCookie('access_token'));
-    return this.http.get(`${this.url}${url}`, { headers: header, responseType: 'blob' })
+    return this.http.get(`${this.url}${url}`, {headers: header, responseType: 'blob'})
       .pipe(map(
         (response: Response) => {
           return response;
@@ -149,7 +150,7 @@ export class NetworkingService {
     if (this.getCookie('access_token') === null && this.getCookie('refresh_token') !== null) {
       const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
         .set('authorization', 'Bearer ' + this.getCookie('refresh_token'));
-      this.http.post(`${this.url}/auth/refresh`, null, { headers: header })
+      this.http.post(`${this.url}/auth/refresh`, null, {headers: header})
         .pipe(map(
           (tokens: any) => {
             this.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
