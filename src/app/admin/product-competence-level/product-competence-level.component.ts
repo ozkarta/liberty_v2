@@ -65,8 +65,8 @@ export class ProductCompetenceLevelComponent implements OnInit {
   }
 
   updateMinSale(prodId: number, groupId: number, event: any) {
-    this.products.length = 0;
-    this.groups.length = 0;
+    // this.products.length = 0;
+    // this.groups.length = 0;
     const data = {
       productId: prodId,
       evaluationGroupId: groupId,
@@ -76,16 +76,22 @@ export class ProductCompetenceLevelComponent implements OnInit {
     this.network.putRequest(data, '/products/editCompetenceLevel')
       .subscribe(
         () => {
-          this.tableShown = false;
-          this.getProducts();
-          this.getEvaluationGroups();
-          this.tableShown = true;
+          // this.tableShown = false;
+          // this.getProducts();
+          // this.getEvaluationGroups();
+          // this.tableShown = true;
+          const product = this.products.find(p => p.id === prodId);
+          for (let i = 0; i < product.competenceLevels.length; i++) {
+            if (product.competenceLevels[i].evaluationGroup.id === groupId) {
+              product.competenceLevels[i].productMinSales = event.target.value;
+            }
+          }
         });
   }
 
   updateStartPoint(prodId: number, groupId: number, event: any) {
-    this.products.length = 0;
-    this.groups.length = 0;
+    // this.products.length = 0;
+    // this.groups.length = 0;
     const data = {
       productId: prodId,
       evaluationGroupId: groupId,
@@ -95,10 +101,16 @@ export class ProductCompetenceLevelComponent implements OnInit {
     this.network.putRequest(data, '/products/editCompetenceLevel')
       .subscribe(
         () => {
-          this.tableShown = false;
-          this.getProducts();
-          this.getEvaluationGroups();
-          this.tableShown = true;
+          // this.tableShown = false;
+          // this.getProducts();
+          // this.getEvaluationGroups();
+          // this.tableShown = true;
+          const product = this.products.find(p => p.id === prodId);
+          for (let i = 0; i < product.competenceLevels.length; i++) {
+            if (product.competenceLevels[i].evaluationGroup.id === groupId) {
+              product.competenceLevels[i].productBonusPointStart = event.target.value;
+            }
+          }
         });
   }
 

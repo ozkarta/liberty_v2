@@ -176,7 +176,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('fired');
     this.subscription.unsubscribe();
   }
 
