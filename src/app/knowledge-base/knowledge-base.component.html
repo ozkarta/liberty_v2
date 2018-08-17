@@ -2,69 +2,71 @@
   <div class="ng-padded">
     <button mat-button [matMenuTriggerFor]="menu1">ანგარიშები & ბარათები</button>
     <mat-menu #menu1="matMenu" class="nga-menu-dropdown">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item>ანგარიშის ტიპები</button>
+      <button mat-menu-item>კლიენტის იდენტიფიკაცია</button>
+      <button mat-menu-item>რეზიდენტი/არარეზიდენტი კლიენტები</button>
     </mat-menu>
     
     <button mat-button [matMenuTriggerFor]="menu2">ანაბრები</button>
     <mat-menu #menu2="matMenu" class="nga-menu-dropdown">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item>ვადიანი ანაბარი</button>
+      <button mat-menu-item>საპენსიო ანაბარი</button>
+      <button mat-menu-item>დაგროვებითი ანაბარი</button>
     </mat-menu>
     
     <button mat-button [matMenuTriggerFor]="menu3">სესხები</button>
     <mat-menu #menu3="matMenu" class="nga-menu-dropdown">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item>სამომხმარებლო სესხი</button>
+      <button mat-menu-item>იპოთეკა</button>
+      <button mat-menu-item>LX სესხი</button>
     </mat-menu>
     
     <button mat-button [matMenuTriggerFor]="menu4">საკრედიტო ბარათები</button>
     <mat-menu #menu4="matMenu" class="nga-menu-dropdown">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item>Visa ბარათი</button>
+      <button mat-menu-item>Mastercard ბარათი</button>
+      <button mat-menu-item>სახელფასო ბარათი</button>
     </mat-menu>
     
     <button mat-button [matMenuTriggerFor]="menu5">დისტანციური მომსახურება</button>
     <mat-menu #menu5="matMenu" class="nga-menu-dropdown">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item>ინტერნეტ ბანკი</button>
+      <button mat-menu-item>კორპ. ინტერნეტ ბანკი</button>
+      <button mat-menu-item>სხვა დისტანციური მომსახურებები</button>
     </mat-menu>
     
     <button mat-button [matMenuTriggerFor]="menu6">ფულადი გზავნილები</button>
     <mat-menu #menu6="matMenu" class="nga-menu-dropdown">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item>MoneyGram</button>
+      <button mat-menu-item>Western Union</button>
+      <button mat-menu-item>Contact</button>
+      <button mat-menu-item>IntelExpress</button>
+      <button mat-menu-item>Zolotaya Korona</button>
     </mat-menu>
     
     <button mat-button [matMenuTriggerFor]="other">სხვა</button>
     
     <mat-menu #other="matMenu" class="nga-menu-dropdown">
-      <button mat-menu-item [matMenuTriggerFor]="vertebrates">Item 1</button>
-      <button mat-menu-item [matMenuTriggerFor]="invertebrates">Item 1</button>
+      <button mat-menu-item [matMenuTriggerFor]="vertebrates">შიდა განაწესი</button>
+      <button mat-menu-item [matMenuTriggerFor]="invertebrates">ბანკის ფინანსური მაჩვენებლები
+      </button>
     </mat-menu>
     
     <mat-menu #vertebrates="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>კორპ. ეთიკის კოდექსი</button>
+      <button mat-menu-item>შრომის კოდექსი</button>
     </mat-menu>
     
     <mat-menu #invertebrates="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Q1 2018</button>
+      <button mat-menu-item>2017</button>
     </mat-menu>
   
   </div>
   <mat-divider></mat-divider>
   <div class=""></div>
   <h3 class="ng-page-title">სესხები / საპენსიო სესხი</h3>
+  <p class="ng-video-updated-date">ვიდეოს განახლების თარიღი: 17/08/2018</p>
   <div class="ng-flex-row">
     <mat-card>
       <div class="ng-video-files-container">
@@ -96,7 +98,7 @@
         </div>
         <div class="ng-video-file-right-container">
           <div class="ng-files-container">
-            <h3 class="m-t-0">Files</h3>
+            <h3 class="m-t-0">ფაილები</h3>
             <mat-list>
               <mat-list-item>
                 <button mat-raised-button>
@@ -137,19 +139,19 @@
             </mat-list>
           </div>
           <div class="ng-files-text-container">
-            <p>ლორემ იპსუმ აღძრავს მემატიანე დააჩქარა შებმა გადავიდნენ გამზადებულ უხაროდათ. უთქვამს
-              შეიცვალა გაფაციცებული უკლებლივ გადაუგდიათ ლოიალობა, მოკლულს ბებერია ფრანცისკოდან.
-              უკლებლივ ლოიალობა დაფატვასო მრუშო გამზადებულ, ქედმაღლობისგან მსუბუქ სტუმრობის პაატამ
-              გადავიდნენ გადაუგდიათ, როდემდის, დაგწერდეს მოუსმინეს. დააფიქრა მსუბუქ სცხელოდა კამეა
-              სცენარზე მტლად. მრუშო ნახიზნარსა საშა გადაუგდიათ აღძრავს პაციენტი. სცენარზე მაიძულა
-              ძირტკბილას წამსაც, საზღაპრო გაცხოველებული სტუმრობის გაეთამაშნენ სცხელოდა გადავიდნენ
-              მასტურბაციის ვეტერანი პაციენტი გაფაციცებული მოსავლის. უმოკლესი დააფიქრა სცენარზე
-              წარსულს ფრანცისკოდან უკლებლივ ქრისტიანია მონათლავდნენ აღძრავს მკვლელად აჩვენო.
-              საიმედოდ იყბედებენ მოუსმინეს ქველობდა შეიცვალა გაოფლიანებულხარ ტაშის წყალწაღებულ
-              საყრდენად მიჰგვარე დაფატვასო. დაისრული დააფიქრა მწვერვალად საყრდენად, ბებერია
-              დაბინძურდებოდა უჭკუების წამსაც, გაეთამაშნენ გაფაციცებული მიაწვა სცენარზე, აზნაურს
-              ქართველებში. ქრისტიანია საყრდენად გავთავისუფლებულვარ აზნაურს კაცების შეიცვალა აღძრავს
-              შებმა პაციენტი მოკლულს ქედმაღლობისგან კარადაზე.</p>
+            <p style="text-align: right;"><span
+              style="font-size: 13px; text-align: right;">&nbsp;</span></p>
+            
+            <p><strong><u>მარტივ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>იპოთეკურ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>სესხი
+              განახლებული</u></strong>&nbsp;<strong><u>პირობებით:</u></strong></p>
+            
+            <p>მიიღეთ იპოთეკური სესხი&nbsp;<strong>მარტივად</strong>&nbsp;და&nbsp;<strong>შეღავათიანი</strong>
+              <strong>პირობებით</strong><strong>:&nbsp;</strong></p>
+            
+            <p><strong>დაბალი</strong>&nbsp;საპროცენტო განაკვეთი წლიური 6.20%-დან (ეფექტური
+              6.39%-დან) <strong>ფიქსირებულია</strong>&nbsp;სესხის&nbsp;მოქმედების მთელ ვადაზე.</p>
+            
+            <a href="#ngFroalaText">გაიგეთ მეტი</a>
           </div>
         </div>
       </div>
@@ -335,50 +337,115 @@
     </mat-list>
   </mat-card>
   
-  <mat-card class="ng-text-image-container">
+  <mat-card class="ng-text-image-container" id="ngFroalaText">
     <div class="ng-text-wrapper">
-      <p>ლორემ იპსუმ მიმართული დაუჩაგვრიხარ ხარჯავდა ხეივანში, ჭუჭყია მამასახლისი გაუხსნიდა,
-        დილიდან, ანგარიშსაც გენანება, შემიბრალეთ ყრმობას იმუქრებოდი შეიტყოს. გაიმხნევა დავტუქსავ
-        გვირჩევნია სცხვენიანო მიანებეს ნიკაპზე. კასრზე კატრინ მივიღეთ თუთუნის, დილიდან აუჩქარებლივ,
-        მჩქეფარე დაოსტატდა მკიდია პასუხზე უარია გვირჩევნია. სიმღერებიც ვატრიალე დასტრიალებდე ყრმობას
-        კასრზე კრაოტებიც არაბუნებრივად სიმწრით აუტის იდარდებს. სიბრალულის რამოდენა გაყოს სცხვენიანო
-        ნიკაპზე აუჩქარებლივ. ნუ შეიტყოს მადარდებს ზაქარეიშვილმა საგიჟეთს დამართნია, დაყვანა კატრინ
-        შემიბრალეთ კინოდრამატურგმა ჭუჭყია ხროქინებდა. საზამთრო ეთამაშებიან ფილმებს გაუხსნიდა
-        ანგარიშსაც შუაღამის. გვირჩევნია შემიბრალეთ სპორტის მივიღეთ წინააღმდეგობები, დავტუქსავ
-        საზამთრო გათვალიერებდა იდარდებს თუთუნის. ხროქინებდა აღგზნებისაგან გვირჩევნია გაუხსნიდა,
-        მივიღეთ აღშფოთებითა ჭუჭყია ახლადგამოცემული მოისყიდოთ გახსნეს, ვეტყვი კატრინ იმიტომაო ნიკაპზე
-        განწირულებს. მიმზიდველობისა ითვალისწინებს მიანებეს მწარეა შეიტყოს შუაღამის, ახლადგამოცემული
-        საგიჟეთს გაიმხნევა კრაოტებიც რამოდენა.</p>
+        <h1>მარტივი იპოთეკური სესხი</h1>
+        <div class="html-content">
+          <p style="text-align: right;"><span style="font-size: 13px; text-align: right;">&nbsp;</span></p>
       
-      <p>დაუჯერებელია დაგანებებინო დამხობილი გამოყენებითის, ერთხმად ეფექტის ნაგლეჯებს უხსენებიათ
-        როჯერსისა. გადმოცემაში გაგვიჯიუტდა სავსეაო მოურავი გამვლელ ნაძირალებო ჩამარხული უცდებოდათ.
-        დაგრჩება მამაცმა ადამრაშუნ სინჯავდნენ, აღთქმას ტრიუფოზე მეთაურობდა განერთხო, ჰუმანიტარებს
-        გვიჩვენებს. განერთხო დაგრჩება თვალებჩამქრალი ჰსაქმობს კითხავდნენ წაელუღლუღებინა დაიღმუილა.
-        დამხობილი ნიხასი მეთაურობდა გამვლელ კლაუდიოს, უკვირსო ლეღვი ეფექტის აღთქმას. უხსენებიათ
-        ჯონსა უჩვენებენ გადმოცემაში გამვლელ სამუშაოს, გადაიყრება მომჭრიან ბეჯით გაუჩნდება. სავსეაო
-        მოსხმული უხსენებიათ თვალებჩამქრალი სტყუი გაზვიადებული წყდებოდათ ითვლებოდა, ემატებოდა დინჯად
-        ლენინს ქვიშაში მაშშ ნაამბობს უმრავლესობა. ცოდვად ჯონსა აღლუმი უკვირსო ნიხასი აწოდებს. ჭერას
-        კორპუსიდან ჩვენების გვიჩვენებს ნემსის დასტური კითხავდნენ ნაძირალებო, ეფექტის ოფისში,
-        ეთამაშათ პოეტად, წაელუღლუღებინა მოურავი დინჯად.</p>
+          <p><strong><u>მარტივ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>იპოთეკურ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>სესხი განახლებული</u></strong>&nbsp;<strong><u>პირობებით:</u></strong></p>
       
-      <p>გადმოიარა დეპეშებს მაკდონალდსი ფიცარი უცნობია სუპერჟღერადობა დარბაზიდან. საშინელებებს
-        ვაკითხებდი მაზანდისა ქართველებისა, სიღარიბის თაოსნობა კარუსელი იხოცებიან, ხალიჩას ავზნიან
-        გადაარჩინო აბსტრაქტულ ვალდებული დეიდასაც მიმართულება. თეტჩერზე პაზოლინი უცნობია ფაუსტი,
-        დეპეშებს დავუტოვებდით, სუპერჟღერადობა ცხოვრებაზედ ანთებდნენ მეგობრებიდან, მასკარადის
-        ამიჩიჩქნეს დაატანდა უცხოური. ეგებებოდნენ ჩამოვიგლიჯე თაოსნობა მონაწილეობდა მშურს გადმოიარა
-        იხოცებიან დაატანდა შეძრომა ბუზმა უცხოური პაზოლინი ტაქსი. ქართველებისა დაჩაგრული კოშმარული
-        ეგებებოდნენ დავუტოვებდით ხაზზე კიბეებზე, მობილური ვაკითხებდი დმიტრიევი ფაუსტი დეიდასაც
-        ანთებდნენ. ამოვიყვირე ცხოვრებაზედ მოყვანილ გააყოლა ენერგიაც მონაწილეობდა მასკარადის
-        ხუმრობაშიც, მუაჯირზედ აბსტრაქტულ მივაკვლიეთ ბავშვობიდან. გადაადგილდეთ იგივ აგვიკლებთ ჰი
-        ეზრუნა, კოშმარული წავგრძელდი ავზნიან კუჭი უცხოური მოიცადეს. ჟიდო გადაადგილებას ხაზზე მოტივს,
-        გამიხარდებოდა, ყოელთვის ბუზმა ავზნიან გადაარჩინო იხოცებიან ჩამოვიგლიჯე. ბავშვობიდან ცის
-        წავგრძელდი გააყოლა გაეროს ტაქსი, ხუმრობაშიც ხაზზე გეკითხებიან გამოჰყავს ჩაისახება
-        რაშიდის.</p>
+          <p>მიიღეთ იპოთეკური სესხი&nbsp;<strong>მარტივად</strong>&nbsp;და&nbsp;<strong>შეღავათიანი</strong> <strong>პირობებით</strong><strong>:&nbsp;</strong></p>
       
-      <p>შეაბიჯებდა გადასაჭრელად ხალათებში დარტყმით სტკიცა ასაკობრივი, გაშტერება ფეიქრები. სოფლები
-        დაალევინებსო აო, ამეწერა გადაგიხადო, სარგებელს საკნები. გააბოროტეს მუშტის ორგვარ გარემოსგან,
-        იჯერეს გაშლიდა ნასყიდი. კამოდზე ალმასივით სპენსერ დაწონეთ გიფიქრია, გააბოროტეს გაშტერება
-        ბარაქიანად, ჭოჭმანი სტკიცა, კონტინენტის ავთანდილის ვამართლებთ მომკვდარიყო.</p>
+          <p><strong>დაბალი</strong>&nbsp;საპროცენტო განაკვეთი წლიური 6.20%-დან (ეფექტური 6.39%-დან) <strong>ფიქსირებულია</strong>&nbsp;სესხის&nbsp;მოქმედების მთელ ვადაზე.</p>
+      
+          <p>სესხი გაიცემა ყოველგვარი&nbsp;<strong>დამატებითი</strong> <strong>ხარჯის</strong> <strong>გარეშე</strong>:</p>
+      
+          <ul>
+            <li>გაცემის საკომისიო -&nbsp;<strong>0%</strong></li>
+            <li>მომსახურების საკომისიო <strong>- 0%</strong></li>
+            <li>წინსწრებით დაფარვის საკომისიო -&nbsp;<strong>0%</strong></li>
+            <li>სხვა სახის საკომისიო -<strong> 0%</strong></li>
+          </ul>
+      
+          <p>თქვენ გადაიხდით&nbsp;<strong>მხოლოდ</strong> <strong>პროცენტს</strong><strong>!</strong>&nbsp;</p>
+      
+          <p>სესხის აღება შეგიძლიათ&nbsp;უძრავი ქონების შესაძენად, ასაშენებლად ან გასარემონტებლად. ასევე თანმხლები მიზნობრიობითაც; მაგალითად, სხვა იპოთეკური სესხის გადასაფარად და პირობების გასაუმჯობესებლად.</p>
+      
+          <p>მარტივ იპოთეკურ სესხთან ერთად&nbsp;<strong>ავტომატურად</strong>&nbsp;<strong>დაგიმტკიცდებათ</strong>&nbsp;5 000 ლარამდე ლიმიტი, რომლის ათვისება შეგიძლიათ საკრედიტო ბარათით ან განვადებით.</p>
+      
+          <p>სესხი გაიცემა მათ შორის უცხო ქვეყნის მოქალაქეებზე - საქართველოში მუდმივი ბინადრობის უფლების ქონა სავალდებულო არ არის.</p>
+      
+          <p>სესხის მისაღებად ეწვიეთ ლიბერთი ბანკის უახლოეს <a href="https://libertybank.ge/ge/pizikuri-pirebistvis/chveni-qseli">სერვის ცენტრს</a>.&nbsp;</p>
+      
+          <div class="content-table-wrapper"><table border="0" cellpadding="0" cellspacing="0" style="width:100%;" width="623">
+            <thead>
+            <tr>
+              <td style="width: 323px;">
+                <p><span class="highlight-caps"><strong>იპოთეკური სესხის პირობები</strong></span></p>
+              </td>
+              <th style="width:300px;">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td style="width:323px;">
+                <p>სესხის ვალუტა</p>
+              </td>
+              <td style="width:300px;">
+                <p>ლარი / აშშ დოლარი / ევრო</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:323px;">
+                <p>ნომინალური (წლიური) საპროცენტო განაკვეთი</p>
+              </td>
+              <td style="width:300px;">
+                <p>13% - დან (ლარი), 6.20% - დან (აშშ დოლარი / ევრო)</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:323px;">
+                <p><span style="color:#FF0000;">**</span>ეფექტური საპროცენტო განაკვეთი</p>
+              </td>
+              <td style="width:300px;">
+                <p>13.82% - დან (ლარი), 6.39% (აშშ დოლარი / ევრო)</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:323px;">
+                <p>მინიმალური სესხის თანხა</p>
+              </td>
+              <td style="width:300px;">
+                <p>ლარი - 30,000-დან<br>
+                  აშშ დოლარი / ევრო - 100,000+ ლარის ექვივალენტი შესაბამის ვალუტაში</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:323px;height:11px;">
+                <p>სესხის დამტკიცების საკომისიო</p>
+              </td>
+              <td style="width:300px;height:11px;">
+                <p>0%</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:323px;height:11px;">მომსახურების საკომისიო</td>
+              <td style="width:300px;height:11px;">0%</td>
+            </tr>
+            <tr>
+              <td style="width:323px;height:11px;">
+                <p>სესხის წინსწრებით დაფარვის საკომისიო</p>
+              </td>
+              <td style="width:300px;height:11px;">
+                <p>0%</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="width:323px;">
+                <p>დაფარვის სიხშირე</p>
+              </td>
+              <td style="width:300px;">
+                <p>ყოველთვიური</p>
+              </td>
+            </tr>
+            </tbody>
+          </table></div>
+      
+          <p><span style="color:#FF0000;">**</span> საპროცენტო განაკვეთი განისაზღვრება ინვიდუალურად.</p>
+      
+          <div>&nbsp;</div>
+        </div>
     </div>
   </mat-card>
 </div>

@@ -214,3 +214,16 @@ mat-card {
   width: 100%;
   text-align: left;
 }
+
+.ng-video-updated-date {
+  font-size: 10px;
+  position: absolute;
+  z-index: 9999;
+  left: 27%;
+  transform: translateX(0%);
+  color: grey;
+}
+
+.ng-red-text {
+  color: #e03126;
+}
