@@ -10,12 +10,19 @@ import { MyOperationsModel } from '../models/my-operations.model';
 export class NetworkingService {
   // url = 'http://home.gelashvili.net:8080';
   // url = 'http://31.146.153.23:9191';
-  url = 'http://192.168.100.100:9191';
+  // url = 'http://192.168.100.100:9191';
   // url = 'http://192.168.60.10:9191';
-  //  url = 'http://192.168.57.181:9191';
+  // url = 'http://192.168.57.181:9191';
   // url = 'http://192.168.100.23:9191';
+  url = '';
 
   constructor(private http: HttpClient, private currentUser: AuthorizedUserService) {
+    const jsonFile = 'assets/url.config.json';
+    this.http.get(jsonFile).toPromise().then((response: Response) => {
+      this.url = response.url;
+    }).catch((response: any) => {
+      console.log(response);
+    });
   }
 
   postRequest(data: any, url: string): Observable<any> {
