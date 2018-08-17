@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { AuthorizedUserService } from './authorized-user.service';
 import { LibertyUserModel } from '../models/liberty-user.model';
 import { MyOperationsModel } from '../models/my-operations.model';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class NetworkingService {
@@ -16,7 +15,7 @@ export class NetworkingService {
   //  url = 'http://192.168.57.181:9191';
   // url = 'http://192.168.100.23:9191';
 
-  constructor(private http: HttpClient, private currentUser: AuthorizedUserService, private router: Router) {
+  constructor(private http: HttpClient, private currentUser: AuthorizedUserService) {
   }
 
   postRequest(data: any, url: string): Observable<any> {
@@ -90,7 +89,6 @@ export class NetworkingService {
           } else {
             user.isAdmin = true;
             this.currentUser.setUser(user);
-            this.router.navigate(['admin/bonus-systems']);
           }
         });
   }

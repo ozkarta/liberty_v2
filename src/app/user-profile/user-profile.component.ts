@@ -5,14 +5,14 @@ import { AuthorizedUserService } from '../services/authorized-user.service';
 import { MyOperationsModel } from '../models/my-operations.model';
 import { LibertyUserModel } from '../models/liberty-user.model';
 import { BankStatisticsModel } from '../models/bank-statistics.model';
-import { Router } from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
   selectedTab = new FormControl(0);
   dataIsLoading = true;
   color = 'warn';
@@ -166,19 +166,22 @@ export class UserProfileComponent implements OnInit {
 
   totalBonuses: BankTotalStatistics[] = [];
 
-  constructor(private network: NetworkingService, private currentUser: AuthorizedUserService, private router: Router) {
+  subscription: Subscription;
+
+  constructor(private network: NetworkingService, private currentUser: AuthorizedUserService) {
   }
 
   ngOnInit() {
     this.setUser();
   }
 
-  // ngOnDestroy() {
-  //
-  // }
+  ngOnDestroy() {
+    console.log('fired');
+    this.subscription.unsubscribe();
+  }
 
   setUser() {
-    this.currentUser.getUser
+    this.subscription = this.currentUser.getUser
       .subscribe(
         (userData: LibertyUserModel) => {
           if (userData) {
@@ -270,7 +273,7 @@ export class UserProfileComponent implements OnInit {
         });
   }
 
-  loadLineChartData(index: number, months: number, chart?) {
+  loadLineChartData(index: number, months: number) {
     let firstData = index === -1 ? JSON.parse(JSON.stringify(this.monthlyLineChartData)) : JSON.parse(JSON.stringify(this.lineChartArray));
     if (index !== -1) {
       firstData.prorductsBonusesByMonths.forEach((p) => {
