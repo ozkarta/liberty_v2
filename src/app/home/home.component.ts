@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { LibertyUserModel } from '../models/liberty-user.model';
-import { AuthorizedUserService } from '../services/authorized-user.service';
-import { NetworkingService } from '../services/networking.service';
+import {Component, OnInit} from '@angular/core';
+import {LibertyUserModel} from '../models/liberty-user.model';
+import {AuthorizedUserService} from '../services/authorized-user.service';
+import {NetworkingService} from '../services/networking.service';
 
 @Component({
   selector: 'app-home',

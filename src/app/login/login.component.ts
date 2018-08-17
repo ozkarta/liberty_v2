@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NetworkingService } from '../services/networking.service';
-import { FormControl } from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import { AuthService } from '@lbge/auth';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {NetworkingService} from '../services/networking.service';
+import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -29,9 +28,7 @@ export class LoginComponent implements OnInit {
   dataIsLoading = false;
 
   constructor(private network: NetworkingService,
-              private router: Router,
-              private auth: AuthService,
-              private activatedRoute: ActivatedRoute) {
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -48,7 +45,7 @@ export class LoginComponent implements OnInit {
             this.passwordExists = response.passwordExists;
             this.dataIsLoading = false;
           } else {
-            this.user.setErrors({ notExists: true });
+            this.user.setErrors({notExists: true});
           }
           this.dataIsLoading = false;
         },
@@ -69,7 +66,7 @@ export class LoginComponent implements OnInit {
               this.network.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
               this.network.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
               this.network.getLoggedUser().then(() => {
-                this.router.navigate(['/'])
+                this.router.navigate(['/home'])
                   .then(
                     () => {
                       this.dataIsLoading = false;
@@ -78,7 +75,7 @@ export class LoginComponent implements OnInit {
             },
           );
       } else {
-        this.passwordVal.setErrors({ passNotEqual: true });
+        this.passwordVal.setErrors({passNotEqual: true});
         this.dataIsLoading = false;
         return;
       }
@@ -93,16 +90,16 @@ export class LoginComponent implements OnInit {
             this.network.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
             this.network.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
             this.network.getLoggedUser().then(() => {
-              this.router.navigate(['/'])
+              this.router.navigate(['/home'])
                 .then(
                   () => {
                     this.dataIsLoading = false;
                   });
             });
           },
-          (error) => {
+          () => {
             this.dataIsLoading = false;
-            this.passwordValOriginal.setErrors({ wrongPassword: true });
+            this.passwordValOriginal.setErrors({wrongPassword: true});
             this.getPassErrorMessage();
           });
     }
@@ -115,6 +112,7 @@ export class LoginComponent implements OnInit {
   getPassErrorMessage() {
     return this.passwordVal.hasError('passNotEqual') ? 'შეყვანილი პაროლი არ ემთხვევა' : '';
   }
+
   getPassOriginalErrorMessage() {
     return this.passwordValOriginal.hasError('wrongPassword') ? 'პაროლი არასწორია' : '';
   }

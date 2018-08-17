@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Component Imports
@@ -82,8 +82,13 @@ import { ConfigModule, ConfigService } from '@lbge/config';
 import { AuthModule, AuthService, AuthGuard } from '@lbge/auth';
 import { AuthConfig } from '@lbge/auth/lib/models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { APP_INITIALIZER } from '@angular/core';
 // import {ErrorsHandler} from './handlers/errors-handler';
 // import {ServerErrorsInterceptor} from './handlers/server-errors.interceptor';
+
+export function initializeApp(appConfig: NetworkingService) {
+  return () => appConfig.getUrl();
+}
 
 @NgModule({
   declarations: [
@@ -167,6 +172,9 @@ import { ActivatedRoute, Router } from '@angular/router';
     LoggedOutGuardService,
     OtherUserService,
     AuthorizedUserService,
+    { provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [NetworkingService], multi: true }
     // {
     //   provide: ErrorHandler,
     //   useClass: ErrorsHandler,
@@ -191,7 +199,8 @@ export class AppModule {
               private configService: ConfigService,
               private activatedRoute: ActivatedRoute,
               private network: NetworkingService,
-              private router: Router) {
+              private router: Router,
+              private http: HttpClient) {
     // this.configService.get('auth').subscribe((config: AuthConfig) => {
     //   this.auth.init(config);
     //   this.activatedRoute.fragment

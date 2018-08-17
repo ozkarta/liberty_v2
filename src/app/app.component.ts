@@ -31,6 +31,8 @@ export class AppComponent implements OnInit {
             this.network.getLoggedUser().then(() => {
               this.setUser();
             });
+          } else {
+            this.setUser();
           }
         });
   }
@@ -39,9 +41,13 @@ export class AppComponent implements OnInit {
     this.currentUser.getUser
       .subscribe(
         (userData: LibertyUserModel) => {
-          this.checkLoginStatus().then(() => {
-            this.userData = userData;
-          });
+          if (userData) {
+            this.checkLoginStatus().then(() => {
+              if (this.isAuthorized) {
+                this.userData = userData;
+              }
+            });
+          }
         });
   }
 
