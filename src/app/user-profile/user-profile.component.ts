@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NetworkingService } from '../services/networking.service';
-import { FormControl } from '@angular/forms';
-import { AuthorizedUserService } from '../services/authorized-user.service';
-import { MyOperationsModel } from '../models/my-operations.model';
-import { LibertyUserModel } from '../models/liberty-user.model';
-import { BankStatisticsModel } from '../models/bank-statistics.model';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {NetworkingService} from '../services/networking.service';
+import {FormControl} from '@angular/forms';
+import {AuthorizedUserService} from '../services/authorized-user.service';
+import {MyOperationsModel} from '../models/my-operations.model';
+import {LibertyUserModel} from '../models/liberty-user.model';
+import {BankStatisticsModel} from '../models/bank-statistics.model';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -389,7 +389,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     });
     let tmpMonth = new Date().getMonth();
     let monthLiteral;
-    for (let i = 0 ; i < months ; i++) {
+    for (let i = 0; i < months; i++) {
       monthLiteral = this.monthNames[tmpMonth - 1];
       this.lineChartLabels.push(monthLiteral);
       tmpMonth = (tmpMonth === 1) ? 12 : tmpMonth - 1;
