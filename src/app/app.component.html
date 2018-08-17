@@ -34,6 +34,11 @@
       </div>
     </div>
     <ul class="main-menu" *ngIf="userData?.isAdmin !== true">
+      <li class="menu-item" routerLink="/home">
+        <mat-icon>home</mat-icon>
+        <a>
+          მთავარი
+        </a></li>
       <li class="menu-item" routerLink="/profile">
         <mat-icon>perm_identity</mat-icon>
         <a>
@@ -66,6 +71,11 @@
         </a></li>
     </ul>
     <ul class="main-menu" *ngIf="userData?.isAdmin">
+      <li class="menu-item" routerLink="/home">
+        <mat-icon>home</mat-icon>
+        <a>
+          მთავარი
+        </a></li>
       <li class="menu-item" routerLink="/admin/bonus-systems">
         <mat-icon>perm_identity</mat-icon>
         <a>
