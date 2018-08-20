@@ -28,6 +28,10 @@ import { RecalculateBonusComponent } from './admin/recalculate-bonus/recalculate
 // import { KnowledgeBaseComponentAdmin } from './admin/knowledge-base/knowledge-base.component';
 import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.component';
 
+// Admin Imports
+import { AdminKnowledgeBaseComponent } from './admin/knowledge-base/knowledge-base.component';
+import { AdminProductCategoriesComponent } from './admin/product-categories/product-categories.component';
+
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate: [RouteGuardService] },
@@ -50,9 +54,14 @@ const appRoutes: Routes = [
   { path: 'admin/product-reordering', component: ProductReorderingComponent, canActivate: [AdminGuard] },
   { path: 'admin/product-competence-level', component: ProductCompetenceLevelComponent, canActivate: [AdminGuard] },
   { path: 'knowledge-base', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
+  { path: 'knowledge-base/product/:productId', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
   { path: 'admin/product-product-edit', component: ProductEditingComponent, canActivate: [AdminGuard] },
   { path: 'admin/additional-parameters', component: AdditionalParametersComponent, canActivate: [AdminGuard] },
   { path: 'admin/recalculate', component: RecalculateBonusComponent, canActivate: [AdminGuard] },
+  { path: 'admin/knowledge-base', component: AdminKnowledgeBaseComponent, canActivate: [AdminGuard] },
+  { path: 'admin/knowledge-base/product/new', component: AdminKnowledgeBaseComponent, canActivate: [AdminGuard] },
+  { path: 'admin/knowledge-base/product/:productId', component: AdminKnowledgeBaseComponent, canActivate: [AdminGuard] },
+  { path: 'admin/product-categories', component: AdminProductCategoriesComponent, canActivate: [AdminGuard] }
 ];
 
 @NgModule({

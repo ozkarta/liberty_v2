@@ -1,0 +1,196 @@
+<div class="ng-15-p">
+
+  <ng-container>
+    <app-knowledge-base-menu (categoryClickHandler)="this.categoryClickHandler($event)" [shouldEmitFirstId]="false" [loadCategoryTrigger]="loadCategoryTrigger"></app-knowledge-base-menu>
+  </ng-container>
+
+  <mat-divider></mat-divider>
+  <div class=""></div>
+
+  <div class="knowledge-base-header">
+    <h2>
+      <ng-container *ngIf="formType === 'CREATE'">
+        ახალი პროდუქტის დამატება
+      </ng-container>
+
+      <ng-container *ngIf="formType === 'UPDATE'">
+        პროდუქტის განახლება
+      </ng-container>
+    </h2>
+
+    <li class="menu-item" routerLink="/admin/product-categories">
+      <mat-icon>info</mat-icon>
+      <a>
+        პროდუქტის კატეგორიები
+      </a>
+    </li>
+  </div>
+
+  <mat-divider></mat-divider>
+  <div class=""></div>
+
+  <ng-container *ngIf="product">
+
+
+    <ng-container *ngIf="!product.status || product.status === 'ACTIVE'">
+      <form #productForm="ngForm" (ngSubmit)="formSubmit()">
+        <div class="product-title-section">
+          <mat-form-field class="product-category">
+            <mat-select placeholder="კატეგორია" [(ngModel)]="product.categoryId" name="category" required>
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width product-name">
+            <input matInput placeholder="პროდუქტის დასახელება" [(ngModel)]="product.name" name="name" autocomplete="off" required>
+          </mat-form-field>
+        </div>
+        <p class="ng-video-updated-date">ვიდეოს განახლების თარიღი: 17/08/2018</p>
+        <div class="ng-flex-row">
+          <mat-card>
+            <div class="ng-video-files-container">
+
+              <!--Video Container-->
+              <div class="ng-video-container">
+                <vg-player>
+                  <vg-scrub-bar>
+                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                  </vg-scrub-bar>
+                  <vg-controls>
+                    <vg-play-pause></vg-play-pause>
+                    <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+                    <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+                    <!--<vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>-->
+                    <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+                    <vg-mute></vg-mute>
+                    <vg-volume></vg-volume>
+
+                    <vg-fullscreen></vg-fullscreen>
+                  </vg-controls>
+                  <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
+                    <source src="http://static.videogular.com/assets/videos/videogular.mp4"
+                            type="video/mp4">
+                  </video>
+                </vg-player>
+              </div>
+              <!--Right To The Video-->
+              <div class="ng-video-file-right-container">
+                <div class="ng-file-upload-container">
+                  <h3 class="m-t-0">ფაილების ატვირთვა</h3>
+
+                  <!--<div class="file-upload">-->
+                  <!--&lt;!&ndash;<label for="upload" class="file-upload__label">აირჩიეთ ფაილი</label>&ndash;&gt;-->
+                  <!--<label for="upload" [ngClass]="'file-upload__label' + (!fileUploader? ' disabled' : ' enabled')">აირჩიეთ ფაილი</label>-->
+                  <!--<input id="upload" class="file-upload__input" [disabled]="!fileUploader" type="file" ng2FileSelect [uploader]="fileUploader" />-->
+                  <!--</div>-->
+
+                  <label [ngClass]="'file-upload-wrapper' + (!fileUploader? '-disabled' : '')">
+                    ფაილის ატვირთვა
+                    <input id="upload" class="file-upload__input" [disabled]="!fileUploader" type="file" ng2FileSelect [uploader]="fileUploader" />
+                  </label>
+
+                </div>
+                <!--File Upload/List container-->
+                <div class="ng-files-container">
+                  <h3 class="m-t-0">ფაილები</h3>
+                  <div class="ng-file-container-scrollable">
+                    <mat-list>
+
+                        <ng-container *ngIf="product['productMediaList'] && product['productMediaList']">
+                          <ng-container *ngFor="let mediaItem of product.productMediaList">
+                            <mat-list-item>
+                              <button mat-raised-button (click)="attachmentItemClickHandler($event, mediaItem)">
+                                <span class="ng-attachment-image"></span>
+                                <span class="ng-attachment-text">{{mediaItem.fileName}}</span>
+                              </button>
+                            </mat-list-item>
+                          </ng-container>
+                        </ng-container>
+
+                    </mat-list>
+                  </div>
+                </div>
+                <!--Product Description Container-->
+                <!--<div class="ng-files-text-container">-->
+                <!--<p style="text-align: right;"><span-->
+                <!--style="font-size: 13px; text-align: right;">&nbsp;</span></p>-->
+
+                <!--<p><strong><u>მარტივ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>იპოთეკურ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>სესხი-->
+                <!--განახლებული</u></strong>&nbsp;<strong><u>პირობებით:</u></strong></p>-->
+
+                <!--<p>მიიღეთ იპოთეკური სესხი&nbsp;<strong>მარტივად</strong>&nbsp;და&nbsp;<strong>შეღავათიანი</strong>-->
+                <!--<strong>პირობებით</strong><strong>:&nbsp;</strong></p>-->
+
+                <!--<p><strong>დაბალი</strong>&nbsp;საპროცენტო განაკვეთი წლიური 6.20%-დან (ეფექტური-->
+                <!--6.39%-დან) <strong>ფიქსირებულია</strong>&nbsp;სესხის&nbsp;მოქმედების მთელ ვადაზე.</p>-->
+
+                <!--<a href="#ngFroalaText">გაიგეთ მეტი</a>-->
+                <!--</div>-->
+
+                <div class="ng-files-text-editor-container">
+                  <app-tinymce [(ngModel)]='product.description' name="mce"></app-tinymce>
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+            <div class="ng-like-container">
+              <div class="like-container-left">
+                <button mat-button>
+                  <mat-icon>thumb_up</mat-icon>
+                  <span>300</span>
+                </button>
+                <button mat-button>
+                  <mat-icon>thumb_down</mat-icon>
+                  <span>300</span>
+                </button>
+                <button mat-button>
+                  <mat-icon>share</mat-icon>
+                </button>
+              </div>
+              <div class="like-container-rigth">
+                ნანახია 100,321-ჯერ
+              </div>
+            </div>
+          </mat-card>
+        </div>
+
+        <!--FORM BUTTONS-->
+        <mat-card>
+
+          <ng-container *ngIf="formType === 'UPDATE'">
+            <button type="submit" mat-stroked-button color="primary" class="form-buttons" [disabled]="disableForm(productForm)">
+              შენახვა
+            </button>
+
+            <button  mat-stroked-button color="warn" [disabled]="!productId" class="form-buttons" (click)="deleteProduct($event)">
+              პროდუქტის წაშლა
+            </button>
+          </ng-container>
+
+          <ng-container *ngIf="formType === 'CREATE'">
+            <button type="submit" mat-stroked-button color="primary" class="form-buttons" [disabled]="disableForm(productForm)">
+              ახალი პროდუქტის შექმნა
+            </button>
+          </ng-container>
+
+        </mat-card>
+
+      </form>
+    </ng-container>
+
+    <ng-container *ngIf="product.status === 'DELETED'">
+      <div>
+        <h3>პროდუქტი წაშლილია</h3>
+      </div>
+    </ng-container>
+  </ng-container>
+
+</div>

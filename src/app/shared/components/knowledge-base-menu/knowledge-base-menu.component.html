@@ -1,0 +1,38 @@
+<div class="ng-padded">
+
+  <ng-container *ngIf="loadedCategories && loadedCategories.length">
+    <!--Create Default Row In Menu-->
+    <ng-container *ngFor="let category of loadedCategories;">
+
+       <ng-container *ngIf="category.id != 'MERGED_ARTIFICIAL_ID'">
+         <button mat-button [matMenuTriggerFor]="menuItems">{{category.name}}</button>
+         <mat-menu #menuItems="matMenu" class="nga-menu-dropdown">
+           <ng-container *ngIf="category.products && category.products.length">
+             <ng-container *ngFor="let product of category.products; let j = index">
+
+               <ng-container *ngIf="!product.products">
+                 <button mat-menu-item (click)="clickEventHandler(product)">{{product.name}}</button>
+               </ng-container>
+
+             </ng-container>
+           </ng-container>
+         </mat-menu>
+        </ng-container>
+
+        <ng-container *ngIf="category.id === 'MERGED_ARTIFICIAL_ID'">
+          <button mat-button [matMenuTriggerFor]="other">{{category.name}}</button>
+          <mat-menu #other="matMenu" class="nga-menu-dropdown">
+
+            <ng-container *ngFor="let childCategory of category.childCategories">
+              <button mat-menu-item [matMenuTriggerFor]="vertebrates">{{childCategory.name}}</button>
+              <mat-menu #vertebrates="matMenu">
+                <button mat-menu-item *ngFor="let product of childCategory.products"  (click)="clickEventHandler(product)">{{product.name}}</button>
+              </mat-menu>
+            </ng-container>
+
+          </mat-menu>
+        </ng-container>
+
+      </ng-container>
+  </ng-container>
+</div>

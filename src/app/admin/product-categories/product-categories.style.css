@@ -1,0 +1,12 @@
+.ng-15-p {
+  padding: 0 15px;
+}
+
+.example-container {
+  max-height: 700px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}

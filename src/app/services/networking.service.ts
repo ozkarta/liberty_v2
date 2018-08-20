@@ -53,6 +53,20 @@ export class NetworkingService {
           }));
   }
 
+  deleteRequest(url: string): Observable<any> {
+    const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
+      .set('authorization', 'Bearer ' + this.getCookie('access_token'));
+    return this.http.delete(`${this.url}${url}`, {headers: header})
+      .pipe(map(
+        (response: Response) => {
+          return response;
+        }),
+        catchError(
+          (error: Response) => {
+            return throwError(error);
+          }));
+  }
+
   getRequest(url: string): Observable<any> {
     const header = new HttpHeaders().set('X-Requested-With', 'XMLHttpRequest')
       .set('authorization', 'Bearer ' + this.getCookie('access_token'));

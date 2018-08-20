@@ -31,6 +31,8 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 
+import { FileUploadModule } from 'ng2-file-upload';
+import { TinymceModule } from 'angular2-tinymce';
 // Service Imports
 import { NetworkingService } from './services/networking.service';
 import { RouteGuardService } from './guards/route-guard.service';
@@ -86,6 +88,13 @@ import { APP_INITIALIZER } from '@angular/core';
 // import {ErrorsHandler} from './handlers/errors-handler';
 // import {ServerErrorsInterceptor} from './handlers/server-errors.interceptor';
 
+
+// Admin Imports
+import { AdminKnowledgeBaseComponent } from './admin/knowledge-base/knowledge-base.component';
+import { AdminProductCategoriesComponent } from './admin/product-categories/product-categories.component';
+// Shared imports
+import { KnowledgeBaseMenuComponent } from './shared/components/knowledge-base-menu/knowledge-base-menu.component';
+
 export function initializeApp(appConfig: NetworkingService) {
   return () => appConfig.getUrl();
 }
@@ -122,7 +131,13 @@ export function initializeApp(appConfig: NetworkingService) {
     AdditionalParametersComponent,
     RecalculateBonusComponent,
     KnowledgeBaseComponent,
+    AdminProductCategoriesComponent,
     // KnowledgeBaseComponentAdmin,
+
+    // Admin
+    AdminKnowledgeBaseComponent,
+    // Shared
+    KnowledgeBaseMenuComponent,
   ],
   imports: [
     HttpClientModule,
@@ -163,6 +178,8 @@ export function initializeApp(appConfig: NetworkingService) {
     VgOverlayPlayModule,
     VgBufferingModule,
     MatMenuModule,
+    FileUploadModule,
+    TinymceModule.withConfig({}),
     ConfigModule.forRoot('assets/config.json'),
     AuthModule,
   ],
