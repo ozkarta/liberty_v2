@@ -92,6 +92,8 @@ import { APP_INITIALIZER } from '@angular/core';
 // Admin Imports
 import { AdminKnowledgeBaseComponent } from './admin/knowledge-base/knowledge-base.component';
 import { AdminProductCategoriesComponent } from './admin/product-categories/product-categories.component';
+import { ProductCategoryFormComponent } from './admin/product-categories/product-category-form.component';
+
 // Shared imports
 import { KnowledgeBaseMenuComponent } from './shared/components/knowledge-base-menu/knowledge-base-menu.component';
 import { AttachmentListComponent } from './shared/components/attachment-list/attachment-list.component';
@@ -132,6 +134,7 @@ export function initializeApp(appConfig: NetworkingService) {
     RecalculateBonusComponent,
     KnowledgeBaseComponent,
     AdminProductCategoriesComponent,
+    ProductCategoryFormComponent,
     // KnowledgeBaseComponentAdmin,
 
     // Admin
@@ -210,6 +213,7 @@ export function initializeApp(appConfig: NetworkingService) {
     BonusSystemEditComponent,
     EvaluationGroupEditComponent,
     ProductEditComponent,
+    ProductCategoryFormComponent,
   ],
 })
 export class AppModule {

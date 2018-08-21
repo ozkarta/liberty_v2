@@ -2,6 +2,8 @@ import {Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {AuthorizedUserService} from '../../services/authorized-user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NetworkingService} from '../../services/networking.service';
+import {ProductCategoryFormComponent} from './product-category-form.component';
+import {MatDialog} from '@angular/material';
 const ELEMENT_DATA: any[] = [
   {id: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {id: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
@@ -27,17 +29,19 @@ export class AdminProductCategoriesComponent implements OnInit, OnDestroy {
   public dataSource: any;
   newCategory: any = {
     id: '',
+    categorySortId: '',
     name: ''
   };
   constructor(private currentUser: AuthorizedUserService,
               private router: Router,
               private network: NetworkingService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.getCategories();
-    this.displayedColumns = ['id', 'name', 'edit'];
+    this.displayedColumns = ['id', 'categorySortId', 'name', 'actions'];
     this.dataSource = ELEMENT_DATA;
   }
 
@@ -65,11 +69,42 @@ export class AdminProductCategoriesComponent implements OnInit, OnDestroy {
       );
   }
 
-  editCategory(event: Event, category) {
-    this.categories[this.categories.indexOf(category)] && (this.categories[this.categories.indexOf(category)]['ACTION_TYPE'] = 'EDIT');
-    console.dir(this.categories);
+  // editCategory(event: Event, category) {
+  //   this.categories[this.categories.indexOf(category)] && (this.categories[this.categories.indexOf(category)]['ACTION_TYPE'] = 'EDIT');
+  //   event.preventDefault();
+  // }
 
+  editCategory(event: Event, category) {
+    this.openDialog(category, 'update');
     event.preventDefault();
+  }
+
+  createCategory(event: Event) {
+    this.openDialog(this.newCategory, 'create');
+    event.preventDefault();
+  }
+
+  openDialog(category, type): void {
+    const dialogRef = this.dialog.open(ProductCategoryFormComponent, {
+      width: '500px',
+      data: {category: category, type: type},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (type === 'create') {
+        if (result && result.data && result.data.id) {
+          this.loadCategoryById(result.data.id);
+          this.newCategory = {
+            id: '',
+            categorySortId: '',
+            name: ''
+          };
+        }
+      }
+      if (type === 'update') {
+        this.getCategories();
+      }
+    });
   }
 
   saveCategory($event: Event, category) {
@@ -103,25 +138,6 @@ export class AdminProductCategoriesComponent implements OnInit, OnDestroy {
         },
         (error: Error) => {
           console.dir(error);
-        }
-      );
-  }
-
-  createCategory() {
-    this.network.postRequest(this.newCategory, '/liberty-category/add')
-      .subscribe(
-        (category) => {
-          this.newCategory = {
-            id: '',
-            name: ''
-          };
-          if (category && category.id) {
-            this.loadCategoryById(category.id);
-          }
-        },
-        (error: Error) => {
-          console.dir(error);
-          // TODO handle
         }
       );
   }

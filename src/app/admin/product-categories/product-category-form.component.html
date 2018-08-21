@@ -1,0 +1,24 @@
+<form #form="ngForm">
+  <div class="form-container" *ngIf="data && data.category">
+    <mat-form-field *ngIf="data.type==='update'">
+      <input matInput placeholder="კატეგორიის ID" name="id"  [(ngModel)]="data.category.categorySortId" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="კატეგორიის სახელი" name="name" [(ngModel)]="data.category.name" required>
+    </mat-form-field>
+  </div>
+
+  <div class="form-container" *ngIf="!(data && data.category)">
+    კატეგორია ვერ მოიძებნა
+  </div>
+
+  <div>
+    <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onDismiss($event)">გაუქმება</button>
+    <button mat-button (click)="onSummit($event)" [disabled]="!form.valid">შენახვა</button>
+  </div>
+</form>
