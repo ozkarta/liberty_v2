@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-knowledge-base',
   templateUrl: './knowledge-base.component.html',
-  styleUrls: ['./knowledge-base.component.css'],
+  styleUrls: ['./knowledge-base.style.css'],
 })
 export class KnowledgeBaseComponent implements OnInit, OnDestroy {
   user: LibertyUserModel;

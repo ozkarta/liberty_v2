@@ -12,7 +12,7 @@
 .ng-half-comment-card {
   width: 54%;
   max-height: 300px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .ng-flex-row {
@@ -178,8 +178,8 @@ mat-card {
 }
 
 .ng-files-text-container {
-  max-height: 190px;
-  overflow: scroll;
+  max-height: 150px;
+  overflow-y: scroll;
   margin-top: 5px;
   font-size: 14px;
 }
@@ -193,19 +193,6 @@ mat-card {
 .mat-success {
   background-color: #e03126;
   color: white;
-}
-
-.ng-attachment-image {
-  background: url("../../images/attachment.png") no-repeat center;
-  background-size: cover;
-  height: 28px;
-  width: 20px;
-  position: absolute;
-  top: 7px;
-}
-
-.ng-attachment-text {
-  margin-left: 30px;
 }
 
 .mat-raised-button {

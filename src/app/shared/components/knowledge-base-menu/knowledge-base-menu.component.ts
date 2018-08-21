@@ -7,7 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-knowledge-base-menu',
   templateUrl: './knowledge-base-menu.component.html',
-  styleUrls: ['./knowledge-base-menu.css'],
+  styleUrls: ['./knowledge-base-menu.style.css'],
 })
 
 export class KnowledgeBaseMenuComponent implements OnInit, OnDestroy {
