@@ -36,7 +36,10 @@
     "rxjs": "^6.2.2",
     "tinymce": "^4.8.2",
     "videogular2": "^6.3.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "@lbge/auth": "0.0.27",
+    "@lbge/config": "0.0.27"
+
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.3",

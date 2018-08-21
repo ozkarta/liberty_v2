@@ -10,7 +10,7 @@
     </mat-form-field>
     <mat-slide-toggle
       [checked]="checked"
-      (change)="onSlideChange()">{{!checked ? 'რაოდენობა' : 'თანხა' }}
+      (change)="onSlideChange()">{{!checked ? 'ბონუსი' : 'თანხა' }}
     </mat-slide-toggle>
   </div>
   <mat-divider></mat-divider>
@@ -34,8 +34,8 @@
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? userSales[selectedOption].bankAverage + ' ც' : bankStatistics?.saleRatingDto.mean.toLocaleString() + ' ც'}}</p>
           <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMean : selectedOption > -1 ? (userBonuses[selectedOption].bankAverage)+' ლ' : (bankStatistics?.bonusRatingDto.mean).toLocaleString()+' ლ'}}</p>
-          <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ბანკში ოპერაციების მიხედვით' : 'ჩემი რეიტინგი ბანკში ბონუსის მიხედვით'">{{selectedOption === -1 && !checked ? bankStatistics?.saleRatingDto.rating  + ' |' : selectedOption === -1 && checked ? bankStatistics?.bonusRatingDto.rating  + ' |' : !checked ? userSales[selectedOption].bankrating + ' |' : userBonuses[selectedOption].bankrating + ' |'}}</p>
-          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ბანკის საშუალო ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ბანკის საშუალო ბონუსთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.mean)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.mean)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankAverage)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankAverage)).toFixed(1) + '%'}}</p>
+          <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ბანკში' : 'ჩემი რეიტინგი ბანკში'">{{selectedOption === -1 && !checked ? bankStatistics?.saleRatingDto.rating  + ' |' : selectedOption === -1 && checked ? bankStatistics?.bonusRatingDto.rating  + ' |' : !checked ? userSales[selectedOption].bankrating + ' |' : userBonuses[selectedOption].bankrating + ' |'}}</p>
+          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი რაოდენობის შეფარდება ბანკის საშუალოსთან' : 'ჩემი ბონუსის შეფარდება ბანკის საშუალოსთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.mean)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.mean)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankAverage)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankAverage)).toFixed(1) + '%'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -47,8 +47,8 @@
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? userSales[selectedOption].bankmax + ' ც' : bankStatistics?.saleRatingDto.maxPoints.toLocaleString() + ' ც'}}</p>
           <p class="card-number" *ngIf="checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.branchesMax : selectedOption > -1 ? (userBonuses[selectedOption].bankmax)+' ლ' : (bankStatistics?.bonusRatingDto.maxPoints).toLocaleString()+' ლ'}}</p>
-          <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ბანკში ოპერაციების მიხედვით' : 'ჩემი რეიტინგი ბანკში ბონუსის მიხედვით'">{{selectedOption === -1 && !checked ? bankStatistics?.saleRatingDto.rating  + ' |' : selectedOption === -1 && checked ? bankStatistics?.bonusRatingDto.rating  + ' |' : !checked ? userSales[selectedOption].bankrating + ' |' : userBonuses[selectedOption].bankrating + ' |'}}</p>
-          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ბანკის მაქსიმალურ ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ბანკის მაქსიმალურ ბონუსთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.maxPoints)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.maxPoints)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankmax)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankmax)).toFixed(1) + '%'}}</p>
+          <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ბანკში' : 'ჩემი რეიტინგი ბანკში'">{{selectedOption === -1 && !checked ? bankStatistics?.saleRatingDto.rating  + ' |' : selectedOption === -1 && checked ? bankStatistics?.bonusRatingDto.rating  + ' |' : !checked ? userSales[selectedOption].bankrating + ' |' : userBonuses[selectedOption].bankrating + ' |'}}</p>
+          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი რაოდენობის შეფარდება ბანკის მაქსიმუმთან' : 'ჩემი ბონუსის შეფარდება ბანკის მაქსიმუმთან'">{{selectedOption === -1 && !checked ? (salesTotalQuantityPrimary/(bankStatistics?.saleRatingDto.maxPoints)).toFixed(1) + '%' : selectedOption === -1 && checked ? (myBonusInGel/(bankStatistics?.bonusRatingDto.maxPoints)).toFixed(1) + '%' : !checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].bankmax)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].bankmax)).toFixed(1) + '%'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -60,8 +60,8 @@
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{userSales[selectedOption].groupAverage.toLocaleString() + ' ც'}}</p>
           <p class="card-number" *ngIf="checked">{{(userBonuses[selectedOption].groupAverage)+' ლ'}}</p>
-          <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ჯგუფში ოპერაციების მიხედვით' : 'ჩემი რეიტინგი ჯგუფში ბონუსის მიხედვით'" *ngIf="selectedOption > -1">{{!checked ? userSales[selectedOption].groupRating + ' |' : userBonuses[selectedOption].groupRating + ' |'}}</p>
-          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ჯგუფის საშუალო ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ჯგუფის საშუალო ბონუსთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupAverage)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].groupAverage)).toFixed(1) + '%'}}</p>
+          <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ჯგუფში' : 'ჩემი რეიტინგი ჯგუფში'" *ngIf="selectedOption > -1">{{!checked ? userSales[selectedOption].groupRating + ' |' : userBonuses[selectedOption].groupRating + ' |'}}</p>
+          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი რაოდენობის შეფარდება ჯგუფის საშუალოსთან' : 'ჩემი ბონუსის შეფარდება ჯგუფის საშუალოსთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupAverage)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses[selectedOption].groupAverage)).toFixed(1) + '%'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -73,8 +73,8 @@
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{userSales[selectedOption].groupMax.toLocaleString() + ' ც'}}</p>
           <p class="card-number" *ngIf="checked">{{(userBonuses[selectedOption].groupMax).toLocaleString()+' ლ'}}</p>
-          <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ჯგუფში ოპერაციების მიხედვით' : 'ჩემი რეიტინგი ჯგუფში ბონუსის მიხედვით'" *ngIf="selectedOption > -1">{{!checked ? userSales[selectedOption].groupRating + ' |' : userBonuses[selectedOption].groupRating + ' |'}}</p>
-          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი ოპერაციების შეფარდება ჯგუფის მაქსიმალურ ოპერაციებთან' : 'ჩემი ბონუსის შეფარდება ჯგუფის მაქსიმალურ ბონუსთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupMax)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses [selectedOption].groupMax)).toFixed(1) + '%'}}</p>
+          <p class="rating__position" [matTooltip]="!checked ? 'ჩემი რეიტინგი ჯგუფში' : 'ჩემი რეიტინგი ჯგუფში'" *ngIf="selectedOption > -1">{{!checked ? userSales[selectedOption].groupRating + ' |' : userBonuses[selectedOption].groupRating + ' |'}}</p>
+          <p class="rating__percentage" [matTooltip]="!checked ? 'ჩემი რაოდენობის შეფარდება ჯგუფის მაქსიმუმთან' : 'ჩემი ბონუსის შეფარდება ჯგუფის მაქსიმუმთან'" *ngIf="selectedOption > -1">{{!checked ? (userSales[selectedOption].userResult/(userSales[selectedOption].groupMax)).toFixed(1) + '%' : (userBonuses[selectedOption].userResult/(userBonuses [selectedOption].groupMax)).toFixed(1) + '%'}}</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -86,7 +86,7 @@
           ძირითადი პროდუქტები და მომსახურება
         </mat-panel-title>
         <mat-panel-description>
-          {{checked ?  'ბონუსი: ' + (bonusTotalQuantityPrimary)?.toLocaleString() +' ლარი' : 'ოპერაცია: ' + salesTotalQuantityPrimary?.toLocaleString() + ' ცალი'}}
+          {{checked ?  'ბონუსი: ' + (bonusTotalQuantityPrimary)?.toLocaleString() +' ლარი' : 'ოპერაციების რაოდენობა: ' + salesTotalQuantityPrimary?.toLocaleString() + ' ცალი'}}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-expansion-panel>
@@ -112,7 +112,7 @@
                  matTooltipPosition="above"></div>
             <mat-icon class="triangle"
                       [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
-                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჩემი რაოდენობა: ' + data.userResult + ' ცალი' : 'ჩემი ბონუსი: ' + data.userResult + ' ლარი'"
                       matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
             <mat-icon class="triangle-down" style="color: blue"
                       [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
@@ -158,7 +158,7 @@
                  matTooltipPosition="above"></div>
             <mat-icon class="triangle"
                       [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
-                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჩემი რაოდენობა: ' + data.userResult + ' ცალი' : 'ჩემი ბონუსი: ' + data.userResult + ' ლარი'"
                       matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
             <mat-icon class="triangle-down" style="color: blue"
                       [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
@@ -204,7 +204,7 @@
                  matTooltipPosition="above"></div>
             <mat-icon class="triangle"
                       [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
-                      [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult + ' ლარი'"
+                      [matTooltip]="!checked ? 'ჩემი რაოდენობა: ' + data.userResult + ' ცალი' : 'ჩემი ბონუსი: ' + data.userResult + ' ლარი'"
                       matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
             <mat-icon class="triangle-down" style="color: blue"
                       [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"
@@ -251,7 +251,7 @@
                matTooltipPosition="above"></div>
           <mat-icon class="triangle"
                     [ngStyle]="{left: (data.userResult/data.bankmax * 100) > 95 ? '95%' : (data.userResult/data.bankmax * 100) + '%', color: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green'}"
-                    [matTooltip]="!checked ? 'ჩემი შედეგი: ' + data.userResult + ' ცალი' : 'ჩემი შედეგი: ' + data.userResult + ' ლარი'"
+                    [matTooltip]="!checked ? 'ჩემი რაოდენობა: ' + data.userResult + ' ცალი' : 'ჩემი ბონუსი: ' + data.userResult + ' ლარი'"
                     matTooltipPosition="above">{{!checked ? data.competenceLevel.productMinSales > data.userResult ? 'sentiment_very_dissatisfied' : 'sentiment_satisfied' : 'sentiment_satisfied'}}</mat-icon>
           <mat-icon class="triangle-down" style="color: blue"
                     [ngStyle]="{left: (data.groupAverage/data.bankmax * 100) > 95 ? '95%' : (data.groupAverage/data.bankmax * 100) + '%'}"

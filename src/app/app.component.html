@@ -42,12 +42,12 @@
       <li class="menu-item" routerLink="/profile">
         <mat-icon>perm_identity</mat-icon>
         <a>
-          ჩემი შედეგები
+          ჩემი შედეგი
         </a></li>
       <li class="menu-item" routerLink="/my-transactions">
         <mat-icon>trending_up</mat-icon>
         <a>
-          ჩემი ოპერაციები
+          ჩემი რაოდენობა
         </a></li>
       <li *ngIf="userData?.userStaffLevel === 'FIRST_LEVEL_MANAGER' || userData?.userStaffLevel === 'SECOND_LEVEL_MANAGER' || userData?.userStaffLevel === 'THIRD_LEVEL_MANAGER' || userData?.userStaffLevel === 'FOURTH_LEVEL_MANAGER'" class="menu-item" routerLink="/employees">
         <mat-icon>trending_up</mat-icon>
@@ -57,7 +57,7 @@
       <li class="menu-item" routerLink="/branch-bonuses">
         <mat-icon>insert_chart</mat-icon>
         <a>
-          სამოტივაციო პოლიტიკა
+          საბონუსე სისტემა
         </a></li>
       <li class="menu-item" routerLink="/org-chart">
         <mat-icon>device_hub</mat-icon>
