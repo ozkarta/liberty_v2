@@ -95,25 +95,29 @@
 
                 </div>
                 <!--File Upload/List container-->
-                <div class="ng-files-container">
-                  <h3 class="m-t-0">ფაილები</h3>
-                  <div class="ng-file-container-scrollable">
-                    <mat-list>
 
-                        <ng-container *ngIf="product['productMediaList'] && product['productMediaList']">
-                          <ng-container *ngFor="let mediaItem of product.productMediaList">
-                            <mat-list-item>
-                              <button mat-raised-button (click)="attachmentItemClickHandler($event, mediaItem)">
-                                <span class="ng-attachment-image"></span>
-                                <span class="ng-attachment-text">{{mediaItem.fileName}}</span>
-                              </button>
-                            </mat-list-item>
-                          </ng-container>
-                        </ng-container>
+                <app-attachment-list [product]="product"></app-attachment-list>
+                <!--<div class="ng-files-container">-->
+                  <!--<h3 class="m-t-0">ფაილები</h3>-->
+                  <!--<div class="ng-file-container-scrollable">-->
+                    <!--<mat-list>-->
 
-                    </mat-list>
-                  </div>
-                </div>
+                        <!--<ng-container *ngIf="product['productMediaList'] && product['productMediaList']">-->
+                          <!--<ng-container *ngFor="let mediaItem of product.productMediaList">-->
+                            <!--<mat-list-item>-->
+                              <!--<button mat-raised-button (click)="attachmentItemClickHandler($event, mediaItem)">-->
+                                <!--<span class="ng-attachment-image"></span>-->
+                                <!--<span class="ng-attachment-text">{{mediaItem.fileName}}</span>-->
+                              <!--</button>-->
+                            <!--</mat-list-item>-->
+                          <!--</ng-container>-->
+                        <!--</ng-container>-->
+
+                    <!--</mat-list>-->
+                  <!--</div>-->
+                <!--</div>-->
+
+
                 <!--Product Description Container-->
                 <!--<div class="ng-files-text-container">-->
                 <!--<p style="text-align: right;"><span-->

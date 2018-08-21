@@ -1,0 +1,36 @@
+.ng-files-container {
+  margin-top: 10px;
+}
+
+.m-t-0 {
+  margin-top: 0;
+}
+
+.ng-file-container-scrollable {
+  overflow: scroll;
+  max-height: 207px;
+}
+
+.ng-attachment-image {
+  background: url("../../../../images/attachment.png") no-repeat center;
+  background-size: cover;
+  height: 28px;
+  width: 20px;
+  position: absolute;
+  top: 7px;
+}
+
+.ng-attachment-text {
+  margin-left: 30px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-raised-button {
+  height: 40px;
+  display: block;
+  width: 100%;
+  text-align: left !important;
+}

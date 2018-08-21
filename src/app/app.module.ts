@@ -94,7 +94,7 @@ import { AdminKnowledgeBaseComponent } from './admin/knowledge-base/knowledge-ba
 import { AdminProductCategoriesComponent } from './admin/product-categories/product-categories.component';
 // Shared imports
 import { KnowledgeBaseMenuComponent } from './shared/components/knowledge-base-menu/knowledge-base-menu.component';
-
+import { AttachmentListComponent } from './shared/components/attachment-list/attachment-list.component';
 export function initializeApp(appConfig: NetworkingService) {
   return () => appConfig.getUrl();
 }
@@ -138,6 +138,7 @@ export function initializeApp(appConfig: NetworkingService) {
     AdminKnowledgeBaseComponent,
     // Shared
     KnowledgeBaseMenuComponent,
+    AttachmentListComponent,
   ],
   imports: [
     HttpClientModule,

@@ -136,21 +136,6 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
   disableForm(productForm: NgForm) {
     return !productForm.valid;
   }
-
-  attachmentItemClickHandler(event: Event, attachment) {
-    this.network.getRequestDownload(`/product-media/${attachment['id']}`)
-      .subscribe(
-        (blob) => {
-          const fileURL = URL.createObjectURL(blob);
-          window.open(fileURL);
-        },
-        (error: Error) => {
-          console.dir(error);
-        }
-      );
-    // ________________________
-    event.preventDefault();
-  }
   // HTTP Requests
   createNewProduct(product: any) { // TODO add type
     this.network.postRequest(product, `/liberty-product/add`)

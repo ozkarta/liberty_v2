@@ -37,23 +37,9 @@
             </vg-player>
           </div>
           <div class="ng-video-file-right-container">
-            <div class="ng-files-container">
-              <h3 class="m-t-0">ფაილები</h3>
-              <mat-list>
 
-                <ng-container *ngIf="product['productMediaList'] && product['productMediaList']">
-                  <ng-container *ngFor="let mediaItem of product.productMediaList">
-                    <mat-list-item>
-                      <button mat-raised-button>
-                        <span class="ng-attachment-image"></span>
-                        <span class="ng-attachment-text">{{mediaItem.fileName}}</span>
-                      </button>
-                    </mat-list-item>
-                  </ng-container>
-                </ng-container>
+            <app-attachment-list [product]="product"></app-attachment-list>
 
-              </mat-list>
-            </div>
             <div class="ng-files-text-container">
               <p style="text-align: right;"><span
                 style="font-size: 13px; text-align: right;">&nbsp;</span></p>
