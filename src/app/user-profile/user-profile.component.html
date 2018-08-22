@@ -10,7 +10,7 @@
     </mat-form-field>
     <mat-slide-toggle
       [checked]="checked"
-      (change)="onSlideChange()">{{!checked ? 'ბონუსი' : 'თანხა' }}
+      (change)="onSlideChange()">{{!checked ? 'რაოდენობა' : 'ბონუსი' }}
     </mat-slide-toggle>
   </div>
   <mat-divider></mat-divider>
@@ -18,7 +18,7 @@
     <mat-grid-tile>
       <mat-card>
         <mat-card-header>
-          <mat-card-title>{{checked ? 'ჩემი თანხა' : 'ჩემი ოპერაციები' }}</mat-card-title>
+          <mat-card-title>{{checked ? 'ჩემი თანხა' : 'ჩემი რაოდენობა' }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p class="card-number" *ngIf="!checked">{{user?.userStaffLevel === 'MIDDLE_MANAGER' ? branchTotalOperations?.currentBranchSales.toLocaleString() : selectedOption > -1 ? userSales[selectedOption].userResult.toLocaleString() + ' ც' : salesTotalQuantityPrimary?.toLocaleString() + ' ც'}}</p>
@@ -234,7 +234,7 @@
           სხვა პროდუქტები და მომსახურება
         </mat-panel-title>
         <mat-panel-description>
-          {{checked ? 'ბონუსი: '+(bonusTotalQuantityOther)?.toLocaleString() + ' ლარი'  :  'ოპერაცია: ' + salesTotalQuantityOther?.toLocaleString() + ' ცალი' }}
+          {{checked ? 'ბონუსი: '+(bonusTotalQuantityOther)?.toLocaleString() + ' ლარი'  :  'ოპერაციების რაოდენობა: ' + salesTotalQuantityOther?.toLocaleString() + ' ცალი' }}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <ng-container *ngFor="let data of (!checked ? userSales : userBonuses)">
@@ -392,12 +392,12 @@
                                                                              [ngStyle]="{ backgroundColor: data.color }"></span>{{data.label}}</label>
       </div>
       <div class="doughnut-chart__label">
-        <label>ჩემი ბონუსი <b>{{myBonusInGel}} ლარი</b></label>
+        <label>ჩემი ბონუსი <b>{{myBonusInGel}} ლ</b></label>
       </div>
       <div class="doughnut-chart__rating-data">
         <div class="doughnut-chart__rating-data--right-side">
           <p>რეიტინგი ბანკში ბონუსის მიხედვით <b>{{bankStatistics?.bonusRatingDto.rating}}</b></p>
-          <p>მაქსიმალური ბონუსი ბანკში <b>{{(bankStatistics?.bonusRatingDto.maxPoints)?.toLocaleString()}} ლარი</b></p>
+          <p>მაქსიმალური ბონუსი ბანკში <b>{{(bankStatistics?.bonusRatingDto.maxPoints)?.toLocaleString()}} ლ</b></p>
         </div>
       </div>
     </div>

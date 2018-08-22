@@ -1,25 +1,26 @@
 <div class="padded">
   <mat-slide-toggle
     [checked]="checked"
-    (change)="onSlideChange()">{{checked ? 'თანხა' : 'რაოდენობა'}}
+    (change)="onSlideChange()">{{checked ? 'ბონუსი' : 'რაოდენობა'}}
   </mat-slide-toggle>
   <button mat-raised-button (click)="export()">ექსპორტი</button>
 </div>
 <mat-divider></mat-divider>
-<div class="padded">
+<div class="padded" style="padding: 0 2rem">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="ფილტრი">
   </mat-form-field>
 </div>
 <mat-divider></mat-divider>
-<div class="padded">
+<div class="padded" style="padding: 0 2rem">
   <div class="title-header" style="margin: 0; padding: 0">
     <h5 class="text-left">
-      ჩემი ოპერაციები
+      {{checked ? 'ჩემი ბონუსი' : 'ჩემი რაოდენობა'}}
     </h5>
   </div>
 </div>
-<div class="padded" style="overflow: auto">
+<div class="padded" style="overflow-y: scroll;
+height: calc(100vh - 68px - 65px - 65px)">
   <table mat-table [dataSource]="checked ? dataSourceBonuses : dataSourceSales" matSort class="full-width table-padded"
          style="padding: 0" (matSortChange)="sortTable($event)">
     <ng-container matColumnDef="motivation">
@@ -27,54 +28,54 @@
       <td mat-cell *matCellDef="let operation">{{operation.motivation}}</td>
     </ng-container>
     <ng-container matColumnDef="productName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> პროდუქტი</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> პროდუქტი/მომსახურება</th>
       <td mat-cell *matCellDef="let operation">{{operation.product.name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="userResult">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ჩემი შედეგი</th>
-      <td mat-cell *matCellDef="let operation">{{operation.userResult}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{operation.userResult}}</td>
     </ng-container>
 
     <ng-container matColumnDef="groupRating">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> რეიტინგი ჯგუფში</th>
-      <td mat-cell *matCellDef="let operation">{{operation.groupRating}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{operation.groupRating}}</td>
     </ng-container>
 
     <ng-container matColumnDef="bankrating">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> რეიტინგი ბანკში</th>
-      <td mat-cell *matCellDef="let operation">{{operation.bankrating}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{operation.bankrating}}</td>
     </ng-container>
 
     <ng-container matColumnDef="groupMin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ჯგუფის მინიმუმი</th>
-      <td mat-cell *matCellDef="let operation">{{!checked ? operation.groupMin : (operation.groupMin)+' ლ'}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{!checked ? operation.groupMin+' ც.' : (operation.groupMin)+' ლ.'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="groupAverage">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ჯგუფის საშუალო</th>
-      <td mat-cell *matCellDef="let operation">{{!checked ? operation.groupAverage : (operation.groupAverage)+' ლ'}}
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{!checked ? operation.groupAverage+' ც.' : (operation.groupAverage)+' ლ.'}}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="groupMax">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ჯგუფის მაქსიმუმი</th>
-      <td mat-cell *matCellDef="let operation">{{!checked ? operation.groupMax : (operation.groupMax)+' ლ'}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{!checked ? operation.groupMax+' ც.' : (operation.groupMax)+' ლ.'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="bankMin">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ბანკის მინიმუმი</th>
-      <td mat-cell *matCellDef="let operation">{{!checked ? operation.bankMin : (operation.bankMin)+' ლ'}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{!checked ? operation.bankMin+' ც.' : (operation.bankMin)+' ლ.'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="bankAverage">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ბანკის საშუალო</th>
-      <td mat-cell *matCellDef="let operation">{{!checked ? operation.bankAverage : (operation.bankAverage)+' ლ'}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{!checked ? operation.bankAverage+' ც.' : (operation.bankAverage)+' ლ.'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="bankmax">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ბანკის მაქსიმუმი</th>
-      <td mat-cell *matCellDef="let operation">{{!checked ? operation.bankmax : (operation.bankmax)+' ლ'}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{!checked ? operation.bankmax+' ც.' : (operation.bankmax)+' ლ.'}}</td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

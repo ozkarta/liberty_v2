@@ -387,9 +387,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       data.data.reverse();
     });
     let tmpMonth = new Date().getMonth();
+    let tmpYear = new Date().getFullYear();
     let monthLiteral;
     for (let i = 0; i < months; i++) {
-      monthLiteral = this.monthNames[tmpMonth - 1];
+      monthLiteral = this.monthNames[tmpMonth - 1] + '-' + tmpYear;
       this.lineChartLabels.push(monthLiteral);
       tmpMonth = (tmpMonth === 1) ? 12 : tmpMonth - 1;
     }
