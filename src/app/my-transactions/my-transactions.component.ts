@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
-import { NetworkingService } from '../services/networking.service';
-import { MyOperationsModel } from '../models/my-operations.model';
-import { AuthorizedUserService } from '../services/authorized-user.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatSort, MatTableDataSource} from '@angular/material';
+import {NetworkingService} from '../services/networking.service';
+import {MyOperationsModel} from '../models/my-operations.model';
+import {AuthorizedUserService} from '../services/authorized-user.service';
 
 @Component({
   selector: 'app-my-transactions',
@@ -10,6 +10,24 @@ import { AuthorizedUserService } from '../services/authorized-user.service';
   styleUrls: ['./my-transactions.component.css'],
 })
 export class MyTransactionsComponent implements OnInit {
+  myTotalBonus = 0;
+  myTotalOperations = 0;
+
+  groupMinSumBonus = 0;
+  groupAvgSumBonus = 0;
+  groupMaxSumBonus = 0;
+  bankMinSumBonus = 0;
+  bankAvgSumBonus = 0;
+  bankMaxSumBonus = 0;
+
+  groupMinSumOperations = 0;
+  groupAvgSumOperations = 0;
+  groupMaxSumOperations = 0;
+  bankMinSumOperations = 0;
+  bankAvgSumOperations = 0;
+  bankMaxSumOperations = 0;
+
+
   dataLoaded = false;
   displayedColumns = [
     'motivation',
@@ -66,11 +84,13 @@ export class MyTransactionsComponent implements OnInit {
             bonuses.forEach((b) => {
               b.productName = b.product.name;
               b.motivation = b.product.productMotivationalBlockType === 'ACQUISITION' ?
-                'მოზიდვა' : b.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ?  'დაკრედიტება' : 'მომსახურება';
+                'მოზიდვა' : b.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ? 'დაკრედიტება' : 'მომსახურება';
               this.myBonuses.push(b);
             });
             this.dataSourceBonuses = new MatTableDataSource(this.myBonuses);
             this.dataSourceBonuses.sort = this.sort;
+            this.getMyResultSum();
+            this.getMyResultSumOperations();
             this.dataLoaded = true;
           }
         });
@@ -78,21 +98,21 @@ export class MyTransactionsComponent implements OnInit {
 
   getMySales() {
     this.currentUser.getMyOperations
-        .subscribe(
-          (operations: MyOperationsModel[]) => {
-            if (operations) {
-              operations = operations.filter(b => b.product.productMotivationalBlockType !== 'OTHER');
-              operations.forEach((b) => {
-                b.productName = b.product.name;
-                b.motivation = b.product.productMotivationalBlockType === 'ACQUISITION' ?
-                  'მოზიდვა' : b.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ?  'დაკრედიტება' : 'მომსახურება';
-                this.saleQuantities.push(b);
-              });
-              this.dataSourceSales = new MatTableDataSource(this.saleQuantities);
-              this.dataSourceSales.sort = this.sort;
-              this.dataLoaded = true;
-            }
-          });
+      .subscribe(
+        (operations: MyOperationsModel[]) => {
+          if (operations) {
+            operations = operations.filter(b => b.product.productMotivationalBlockType !== 'OTHER');
+            operations.forEach((b) => {
+              b.productName = b.product.name;
+              b.motivation = b.product.productMotivationalBlockType === 'ACQUISITION' ?
+                'მოზიდვა' : b.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ? 'დაკრედიტება' : 'მომსახურება';
+              this.saleQuantities.push(b);
+            });
+            this.dataSourceSales = new MatTableDataSource(this.saleQuantities);
+            this.dataSourceSales.sort = this.sort;
+            this.dataLoaded = true;
+          }
+        });
   }
 
   onSlideChange() {
@@ -148,10 +168,29 @@ export class MyTransactionsComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSourceSales.filter = filterValue.trim().toLowerCase();
     this.dataSourceBonuses.filter = filterValue.trim().toLowerCase();
-    debugger;
   }
 
-  sortTable(event: any) {
+  getMyResultSum() {
+    this.dataSourceBonuses.data.forEach((d) => {
+      this.myTotalBonus += d.userResult;
+      this.groupMinSumBonus += d.groupMin;
+      this.groupAvgSumBonus += d.groupAverage;
+      this.groupMaxSumBonus += d.groupMax;
+      this.bankMinSumBonus += d.bankMin;
+      this.bankAvgSumBonus += d.bankAverage;
+      this.bankMaxSumBonus += d.bankmax;
+    });
+  }
 
+  getMyResultSumOperations() {
+    this.dataSourceSales.data.forEach((d) => {
+      this.myTotalOperations += d.userResult;
+      this.groupMinSumOperations += d.groupMin;
+      this.groupAvgSumOperations += d.groupAverage;
+      this.groupMaxSumOperations += d.groupMax;
+      this.bankMinSumOperations += d.bankMin;
+      this.bankAvgSumOperations += d.bankAverage;
+      this.bankMaxSumOperations += d.bankmax;
+    });
   }
 }

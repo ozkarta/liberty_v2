@@ -4,6 +4,10 @@
 .table-padded tr:nth-of-type(odd) {
  background-color: #d5dade;
 }
+
+.table-padded tr:nth-of-type(even) {
+  background-color: #f2f4f8;
+}
 .table-padded {
   border-collapse: separate;
   border-spacing: 0 5px;

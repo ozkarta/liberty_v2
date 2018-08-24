@@ -22,7 +22,47 @@
 <div class="padded" style="overflow-y: scroll;
 height: calc(100vh - 68px - 65px - 65px)">
   <table mat-table [dataSource]="checked ? dataSourceBonuses : dataSourceSales" matSort class="full-width table-padded"
-         style="padding: 0" (matSortChange)="sortTable($event)">
+         style="padding: 0">
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: 800"> სულ </th>
+    </ng-container>
+
+    <!-- Cost Description Column -->
+    <ng-container matColumnDef="empty">
+      <th mat-header-cell *matHeaderCellDef ></th>
+    </ng-container>
+    <ng-container matColumnDef="my-result-sum">
+      <th mat-header-cell *matHeaderCellDef style="text-align: right; font-weight: 800; padding: 0.5rem 1.1rem !important;">{{checked ? myTotalBonus + ' ლ.' : myTotalOperations + ' ც.'}} </th>
+    </ng-container>
+    <ng-container matColumnDef="empty1">
+      <th mat-header-cell *matHeaderCellDef> </th>
+    </ng-container>
+    <ng-container matColumnDef="empty2">
+      <th mat-header-cell *matHeaderCellDef> </th>
+    </ng-container>
+    <ng-container matColumnDef="empty3">
+      <th mat-header-cell *matHeaderCellDef style="text-align: right; font-weight: 800; padding: 0.5rem 1.1rem !important;"> {{checked ? groupMinSumBonus + ' ლ.' : groupMinSumOperations + ' ც.'}}</th>
+    </ng-container>
+    <ng-container matColumnDef="empty4">
+      <th mat-header-cell *matHeaderCellDef style="text-align: right; font-weight: 800; padding: 0.5rem 1.1rem !important;"> {{checked ? groupAvgSumBonus + ' ლ.' : groupAvgSumOperations + ' ც.'}}</th>
+    </ng-container>
+    <ng-container matColumnDef="empty5">
+      <th mat-header-cell *matHeaderCellDef style="text-align: right; font-weight: 800; padding: 0.5rem 1.1rem !important;"> {{checked ? groupMaxSumBonus + ' ლ.' : groupMaxSumOperations + ' ც.'}}</th>
+    </ng-container>
+    <ng-container matColumnDef="empty6">
+      <th mat-header-cell *matHeaderCellDef style="text-align: right; font-weight: 800; padding: 0.5rem 1.1rem !important;"> {{checked ? bankMinSumBonus + ' ლ.' : bankMinSumOperations + ' ც.'}}</th>
+    </ng-container>
+    <ng-container matColumnDef="empty7">
+      <th mat-header-cell *matHeaderCellDef style="text-align: right; font-weight: 800; padding: 0.5rem 1.1rem !important;"> {{checked ? bankAvgSumBonus + ' ლ.' : bankAvgSumOperations + ' ც.'}}</th>
+    </ng-container>
+    <ng-container matColumnDef="empty8">
+      <th mat-header-cell *matHeaderCellDef style="text-align: right; font-weight: 800; padding: 0.5rem 1.1rem !important;"> {{checked ? bankMaxSumBonus + ' ლ.' : bankMaxSumOperations + ' ც.'}}</th>
+    </ng-container>
+
+
+
+
     <ng-container matColumnDef="motivation">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> სამოტივაციო ბლოკი</th>
       <td mat-cell *matCellDef="let operation">{{operation.motivation}}</td>
@@ -34,7 +74,7 @@ height: calc(100vh - 68px - 65px - 65px)">
 
     <ng-container matColumnDef="userResult">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ჩემი შედეგი</th>
-      <td mat-cell *matCellDef="let operation" style="text-align: right">{{operation.userResult}}</td>
+      <td mat-cell *matCellDef="let operation" style="text-align: right">{{!checked ? operation.userResult+' ც.' : (operation.userResult)+' ლ.'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="groupRating">
@@ -78,54 +118,9 @@ height: calc(100vh - 68px - 65px - 65px)">
       <td mat-cell *matCellDef="let operation" style="text-align: right">{{!checked ? operation.bankmax+' ც.' : (operation.bankmax)+' ლ.'}}</td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-header-row *matHeaderRowDef="['total', 'empty', 'my-result-sum', 'empty1', 'empty2', 'empty3', 'empty4', 'empty5', 'empty6', 'empty7', 'empty8']; sticky: true"
+        class="example-second-header-row">
+    </tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-
-<!--<p-table [columns]="cols" [value]="checked ? myBonuses : saleQuantities" *ngIf="dataLoaded">-->
-<!--<ng-template pTemplate="header" let-columns>-->
-<!--<tr>-->
-<!--<th *ngFor="let col of columns" [pSortableColumn]="col.field">-->
-<!--{{col.header}}-->
-<!--<p-sortIcon [field]="col.field"></p-sortIcon>-->
-<!--</th>-->
-<!--</tr>-->
-<!--</ng-template>-->
-<!--<ng-template pTemplate="body" let-data>-->
-<!--<tr>-->
-<!--<td>-->
-<!--{{data.motivation}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.product.name}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.userResult}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.groupRating}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.bankrating}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.groupMin}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.groupAverage}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.groupMax}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.bankMin}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.bankAverage}}-->
-<!--</td>-->
-<!--<td>-->
-<!--{{data.bankmax}}-->
-<!--</td>-->
-<!--</tr>-->
-<!--</ng-template>-->
-<!--</p-table>-->
