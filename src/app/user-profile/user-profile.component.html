@@ -102,7 +102,7 @@
           <div class="progress-bar__container"
                *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'ACQUISITION'">
             <div class="progress-bar__labels">
-              <div class="progress-bar__labels-left" routerLink="/product">
+              <div class="progress-bar__labels-left">
                 {{data.product.name}}
               </div>
             </div>
@@ -129,7 +129,8 @@
             <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
                  [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ლარი'"
                  matTooltipPosition="above">
-            <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
+            <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }"
+                 [matTooltip]="data.competenceLevel.productMinSales <= data.userResult ? 'მინიმალური ზღვარი გადალახულია!' : data.competenceLevel.productMinSales === 0 ? 'პროდუქტს არ აქვს მინიმალური ზღვარი' : 'მინიმალური ზღვარი გადასახალია!'">
             </div>
           </div>
 
@@ -148,7 +149,7 @@
           <div class="progress-bar__container"
                *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'CREDIT_ISSUANCE'">
             <div class="progress-bar__labels">
-              <div class="progress-bar__labels-left" routerLink="/product">
+              <div class="progress-bar__labels-left">
                 {{data.product.name}}
               </div>
             </div>
@@ -175,7 +176,8 @@
             <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
                  [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ლარი'"
                  matTooltipPosition="above">
-            <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
+            <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }"
+                 [matTooltip]="data.competenceLevel.productMinSales <= data.userResult ? 'მინიმალური ზღვარი გადალახულია!' : data.competenceLevel.productMinSales === 0 ? 'პროდუქტს არ აქვს მინიმალური ზღვარი' : 'მინიმალური ზღვარი გადასახალია!'">
             </div>
           </div>
 
@@ -194,7 +196,7 @@
           <div class="progress-bar__container"
                *ngIf="data.product.primary && data.product.productMotivationalBlockType === 'SERVICE'">
             <div class="progress-bar__labels">
-              <div class="progress-bar__labels-left" routerLink="/product">
+              <div class="progress-bar__labels-left" >
                 {{data.product.name}}
               </div>
             </div>
@@ -221,7 +223,8 @@
             <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
                  [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ლარი'"
                  matTooltipPosition="above">
-            <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
+            <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }"
+                 [matTooltip]="data.competenceLevel.productMinSales <= data.userResult ? 'მინიმალური ზღვარი გადალახულია!' : data.competenceLevel.productMinSales === 0 ? 'პროდუქტს არ აქვს მინიმალური ზღვარი' : 'მინიმალური ზღვარი გადასახალია!'">
             </div>
           </div>
 
@@ -241,7 +244,7 @@
         <div class="progress-bar__container"
              *ngIf="!data.product.primary">
           <div class="progress-bar__labels">
-            <div class="progress-bar__labels-left" routerLink="/product">
+            <div class="progress-bar__labels-left" >
               {{data.product.name}}
             </div>
           </div>
@@ -268,7 +271,8 @@
           <img src="../../images/bankMax.png" class="triangle-down"  [ngStyle]="{left: '95%'}"
                [matTooltip]="!checked ? 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ცალი' : 'ბანკის მაქსიმუმი: ' + data.bankmax + ' ლარი'"
                matTooltipPosition="above">
-          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }">
+          <div class="progress-bar__level1" [ngStyle]="{ backgroundColor: !checked ? data.competenceLevel.productMinSales <= data.userResult ? 'green' : 'red' : 'green' }"
+               [matTooltip]="data.competenceLevel.productMinSales <= data.userResult ? 'მინიმალური ზღვარი გადალახულია!' : data.competenceLevel.productMinSales === 0 ? 'პროდუქტს არ აქვს მინიმალური ზღვარი' : 'მინიმალური ზღვარი გადასახალია!'">
           </div>
         </div>
 
@@ -297,7 +301,7 @@
                   [legend]="lineChartLegend"
                   [chartType]="lineChartType" #chart></canvas>
 
-          <mat-form-field style="width: 100%; font-size: 12px">
+          <mat-form-field style="width: 35%; font-size: 12px">
             <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
                         (selectionChange)="loadLineChartData(selected.value, 3)">
               <mat-option [value]="-1">ყველა პროდუქტი და მომსახურება</mat-option>
@@ -317,7 +321,7 @@
                   [legend]="lineChartLegend"
                   [chartType]="lineChartType"></canvas>
 
-          <mat-form-field style="width: 100%; font-size: 12px">
+          <mat-form-field style="width: 35%; font-size: 12px">
             <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
                         (selectionChange)="loadLineChartData(selected.value, 6)">
               <mat-option [value]="-1">ყველა პროდუქტი და მომსახურება</mat-option>
@@ -337,7 +341,7 @@
                   [legend]="lineChartLegend"
                   [chartType]="lineChartType"></canvas>
 
-          <mat-form-field style="width: 100%; font-size: 12px">
+          <mat-form-field style="width: 35%; font-size: 12px">
             <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
                         (selectionChange)="loadLineChartData(selected.value, 9)">
               <mat-option [value]="-1">ყველა პროდუქტი და მომსახურება</mat-option>
@@ -357,7 +361,7 @@
                   [legend]="lineChartLegend"
                   [chartType]="lineChartType"></canvas>
 
-          <mat-form-field style="width: 100%; font-size: 12px">
+          <mat-form-field style="width: 35%; font-size: 12px">
             <mat-select placeholder="აირჩიეთ პროდუქტი" [(value)]="selected.value"
                         (selectionChange)="loadLineChartData(selected.value, 12)">
               <mat-option [value]="-1">ყველა პროდუქტი და მომსახურება</mat-option>

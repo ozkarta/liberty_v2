@@ -97,6 +97,7 @@ import { ProductCategoryFormComponent } from './admin/product-categories/product
 // Shared imports
 import { KnowledgeBaseMenuComponent } from './shared/components/knowledge-base-menu/knowledge-base-menu.component';
 import { AttachmentListComponent } from './shared/components/attachment-list/attachment-list.component';
+import { EvaluationGroupListComponent } from './evaluation-group-list/evaluation-group-list.component';
 export function initializeApp(appConfig: NetworkingService) {
   return () => appConfig.getUrl();
 }
@@ -142,6 +143,7 @@ export function initializeApp(appConfig: NetworkingService) {
     // Shared
     KnowledgeBaseMenuComponent,
     AttachmentListComponent,
+    EvaluationGroupListComponent,
   ],
   imports: [
     HttpClientModule,

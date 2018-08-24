@@ -31,6 +31,7 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
 // Admin Imports
 import { AdminKnowledgeBaseComponent } from './admin/knowledge-base/knowledge-base.component';
 import { AdminProductCategoriesComponent } from './admin/product-categories/product-categories.component';
+import {EvaluationGroupListComponent} from './evaluation-group-list/evaluation-group-list.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
   { path: 'employees', component: EmployeeListComponent, canActivate: [RouteGuardService] },
   { path: 'branch-bonuses', component: BonusPointsComponent, canActivate: [RouteGuardService] },
   { path: 'transactions', component: TransactionsComponent, canActivate: [RouteGuardService] },
+  { path: 'evaluation-group-list/:id', component: EvaluationGroupListComponent, canActivate: [RouteGuardService] },
   { path: 'my-transactions', component: MyTransactionsComponent, canActivate: [RouteGuardService] },
   { path: 'my-branch-transactions', component: BranchTransactionsComponent, canActivate: [RouteGuardService] },
   { path: 'org-chart', component: OrganizationStructureComponent, canActivate: [RouteGuardService] },

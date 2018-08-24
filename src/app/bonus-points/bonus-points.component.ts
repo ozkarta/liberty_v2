@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NetworkingService } from '../services/networking.service';
-import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
-import { ProductAddDialogComponent } from '../product-add-dialog/product-add-dialog.component';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NetworkingService} from '../services/networking.service';
+import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
+import {ProductAddDialogComponent} from '../product-add-dialog/product-add-dialog.component';
 
 @Component({
   selector: 'app-bonus-points',
@@ -10,11 +10,12 @@ import { ProductAddDialogComponent } from '../product-add-dialog/product-add-dia
 })
 export class BonusPointsComponent implements OnInit {
   displayedColumns = ['motivation', 'name', 'bonusSystem', 'productMinSales', 'productBonusPointStart', 'bonusPoints'];
-  products: BonusPoints[] = [];
+  products: Products[] = [];
   dataSource = new MatTableDataSource(this.products);
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private network: NetworkingService, public dialog: MatDialog) { }
+  constructor(private network: NetworkingService, public dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.getBonusPoints();
@@ -25,18 +26,9 @@ export class BonusPointsComponent implements OnInit {
       .subscribe(
         (response: any[]) => {
           response.forEach((t) => {
-            this.products.push({
-              name: t.product.name,
-              bonusSystem: t.product.bonusSystem.name,
-              bonusPoints: t.product.bonusPoints,
-              productMinSales: t.competenceLevel.productMinSales,
-              productBonusPointStart: t.competenceLevel.productBonusPointStart,
-              evaluationGroup: t.evaluationGroup.name,
-              product: t.product,
-              motivation: t.product.productMotivationalBlockType === 'ACQUISITION' ? 'მოზიდვა' : t.product.productMotivationalBlockType === 'CREDIT_ISSUANCE' ?  'დაკრედიტება' : 'მომსახურება',
-            });
+            this.products.push(t);
           });
-          this.products.sort((a, b) => a.product.productMotivationalBlockTypeId - b.product.productMotivationalBlockTypeId || a.product.sortOrder - b.product.sortOrder);
+          this.products.sort((a, b) => a.productMotivationalBlockTypeId - b.productMotivationalBlockTypeId || a.productSortOrder - b.productSortOrder);
           this.dataSource.sort = this.sort;
         });
   }
@@ -94,3 +86,17 @@ export interface BonusPoints {
   product?: any;
   motivation?: string;
 }
+
+export interface Products {
+  productMotivationalBlockType: string;
+  productMotivationalBlockTypeId: number;
+  productName: string;
+  productId: number;
+  evaluationGroupName: string;
+  evaluationGroupId: number;
+  productMinSale: number;
+  productBonusPointStart: number;
+  productBonusPoints: number;
+  productSortOrder: number;
+}
+

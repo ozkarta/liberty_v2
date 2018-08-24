@@ -84,6 +84,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         },
       }],
     },
+    legend: {position: 'right'}
   };
   public lineChartColors = [
     { // grey
@@ -390,9 +391,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     let tmpYear = new Date().getFullYear();
     let monthLiteral;
     for (let i = 0; i < months; i++) {
+      let curAttempt = 0;
       monthLiteral = this.monthNames[tmpMonth - 1] + '-' + tmpYear;
       this.lineChartLabels.push(monthLiteral);
       tmpMonth = (tmpMonth === 1) ? 12 : tmpMonth - 1;
+      if (tmpMonth === 1) {
+        curAttempt += 1;
+      }
+      if (curAttempt > 0 ) {
+        tmpYear = tmpYear - curAttempt;
+      }
     }
     this.lineChartLabels.reverse();
     this.lineChartData = _lineChartData;

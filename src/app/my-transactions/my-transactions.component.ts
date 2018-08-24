@@ -101,11 +101,25 @@ export class MyTransactionsComponent implements OnInit {
 
   export() {
     let url;
+    let ids = '';
     if (this.checked) {
-      url = '/bonusRewards/exportCurrentMonthBonuses';
+      url = '/bonusRewards/exportCurrentMonthBonuses?';
+      if (this.dataSourceBonuses.filter !== '') {
+        this.dataSourceBonuses.filteredData.forEach((p) => {
+          ids += 'productId=' + p.product.id + '&';
+        });
+        url += ids;
+      }
     } else {
-      url = '/sales/exportCurrentMonthSales';
+      url = '/sales/exportCurrentMonthSales?';
+      if (this.dataSourceSales.filter !== '') {
+        this.dataSourceSales.filteredData.forEach((p) => {
+          ids += 'productId=' + p.product.id + '&';
+        });
+        url += ids;
+      }
     }
+
     this.network.getRequestDownload(url)
       .subscribe(
         (response: any) => {
@@ -134,6 +148,7 @@ export class MyTransactionsComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSourceSales.filter = filterValue.trim().toLowerCase();
     this.dataSourceBonuses.filter = filterValue.trim().toLowerCase();
+    debugger;
   }
 
   sortTable(event: any) {
