@@ -6,6 +6,7 @@ import {BehaviorSubject, Subscription, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {FileUploader} from 'ng2-file-upload';
 import {NgForm} from '@angular/forms';
+import {SpinnerService} from '../../services/spinner.service';
 
 @Component({
   selector: 'app-admin-knowledge-base',
@@ -27,7 +28,8 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
   constructor(private currentUser: AuthorizedUserService,
               private router: Router,
               private network: NetworkingService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private spinnerService: SpinnerService) {
   }
 
   ngOnInit() {
@@ -111,12 +113,15 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
   }
 
   getProductAttachments() {
+    this.spinnerService.next(true);
     this.network.getRequest(`/product-media/of/${this.productId}`)
       .subscribe(
         (productMediaList) => {
+          this.spinnerService.next(false);
           this.product.productMediaList = productMediaList;
         },
         (error: Error) => {
+          this.spinnerService.next(false);
           // TODO handle error
           console.dir(error);
         }
@@ -138,6 +143,7 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
   }
   // HTTP Requests
   createNewProduct(product: any) { // TODO add type
+    this.spinnerService.next(true);
     this.network.postRequest(product, `/liberty-product/add`)
       .pipe(
         map(createdProduct => {
@@ -152,6 +158,7 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
           })
       ).subscribe(
       (createdProduct: any) => {
+        this.spinnerService.next(false);
         // Load updated menu
         this.loadCategoryTrigger.next(true);
 
@@ -161,6 +168,7 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
         this.categoryClickHandler(createdProduct.id);
       },
       (error: Error) => {
+        this.spinnerService.next(false);
         // TODO handle error
         console.dir(error);
       }
@@ -168,13 +176,15 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
   }
 
   deleteProduct(event: Event) {
-
+    this.spinnerService.next(true);
     this.network.deleteRequest(`/liberty-product/delete/${this.productId}`)
       .subscribe(
         (success: Response) => {
+          this.spinnerService.next(false);
           this.router.navigate(['/admin/knowledge-base']);
         },
         (error: Error) => {
+          this.spinnerService.next(false);
           // TODO handle error
           console.dir(error);
         }
@@ -188,6 +198,7 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
       this.globalErrorMessage = 'პროდუქტის რედაქტირება შეუძლებელია.';
       return;
     }
+    this.spinnerService.next(true);
     this.network.putRequest(product, `/liberty-product/update/${product.id}`)
       .subscribe(
         (updatedProduct: any) => {
@@ -197,26 +208,31 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
           this.loadCategoryTrigger.next(true);
         },
         error => {
+          this.spinnerService.next(false);
           console.dir(error);
         }
       );
   }
 
   getCategories() {
+    this.spinnerService.next(true);
     this.network.getRequest('/liberty-category/all')
       .subscribe(
         (categories: any[]) => { // TODO add type
           if (categories) {
             this.categories = categories;
           }
+          this.spinnerService.next(false);
         },
         (error: Error) => {
+          this.spinnerService.next(false);
           console.dir(error); // TODO handle error
         }
       );
   }
 
   getProductById() {
+    this.spinnerService.next(true);
     this.network.getRequest(`/liberty-product/${this.productId}`)
       .pipe(
         map(product => {
@@ -231,8 +247,10 @@ export class AdminKnowledgeBaseComponent implements OnInit, OnDestroy {
       .subscribe(
         (product: any) => { // TODO add type
           this.product = product;
+          this.spinnerService.next(false);
         },
         (error: Error) => {
+          this.spinnerService.next(false);
           console.dir(error);
         }
       );

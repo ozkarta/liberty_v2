@@ -39,6 +39,7 @@ import { RouteGuardService } from './guards/route-guard.service';
 import { LoggedOutGuardService } from './services/logged-out-guard.service';
 import { OtherUserService } from './services/other-user.service';
 import { AuthorizedUserService } from './services/authorized-user.service';
+import { SpinnerService } from './services/spinner.service';
 
 // Material Design Imports
 import { MatInputModule } from '@angular/material/input';
@@ -98,6 +99,7 @@ import { ProductCategoryFormComponent } from './admin/product-categories/product
 import { KnowledgeBaseMenuComponent } from './shared/components/knowledge-base-menu/knowledge-base-menu.component';
 import { AttachmentListComponent } from './shared/components/attachment-list/attachment-list.component';
 import { EvaluationGroupListComponent } from './evaluation-group-list/evaluation-group-list.component';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 export function initializeApp(appConfig: NetworkingService) {
   return () => appConfig.getUrl();
 }
@@ -144,6 +146,7 @@ export function initializeApp(appConfig: NetworkingService) {
     KnowledgeBaseMenuComponent,
     AttachmentListComponent,
     EvaluationGroupListComponent,
+    SpinnerComponent
   ],
   imports: [
     HttpClientModule,
@@ -197,7 +200,8 @@ export function initializeApp(appConfig: NetworkingService) {
     AuthorizedUserService,
     { provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [NetworkingService], multi: true }
+      deps: [NetworkingService], multi: true },
+    SpinnerService,
     // {
     //   provide: ErrorHandler,
     //   useClass: ErrorsHandler,

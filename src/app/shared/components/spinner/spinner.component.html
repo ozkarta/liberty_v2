@@ -1,0 +1,9 @@
+<div class="login-backdrop" *ngIf="isLoading">
+  <mat-progress-spinner
+    style="margin: auto auto;"
+    class="login-spinner"
+    [color]="'warn'"
+    [mode]="'indeterminate'"
+    [value]="50">
+  </mat-progress-spinner>
+</div>

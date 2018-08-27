@@ -1,0 +1,15 @@
+.login-backdrop {
+  position: fixed;
+  z-index: 9998;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(38, 38, 38, 0.22);
+}
+
+.login-spinner {
+  position: absolute;
+  top: 39%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
