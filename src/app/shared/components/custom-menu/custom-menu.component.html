@@ -1,0 +1,12 @@
+<ul class="main-menu some-class">
+  <ng-container *ngFor="let item of sidebarElements">
+    <li [ngClass]="(item.route === url? 'selected ' : 'test')">
+      <a routerLink="{{item.route}}">
+        <div class="icon-w">
+          <div class="{{item.iconClass}}"></div>
+        </div>
+        <span>{{item.title}}</span></a>
+    </li>
+  </ng-container>
+
+</ul>

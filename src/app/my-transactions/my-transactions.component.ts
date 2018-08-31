@@ -183,7 +183,7 @@ export class MyTransactionsComponent implements OnInit {
   }
 
   getMyResultSumOperations() {
-    this.dataSourceSales.data.forEach((d) => {
+    this.dataSourceSales && this.dataSourceSales.data.forEach((d) => {
       this.myTotalOperations += d.userResult;
       this.groupMinSumOperations += d.groupMin;
       this.groupAvgSumOperations += d.groupAverage;

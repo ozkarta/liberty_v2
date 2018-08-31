@@ -1,0 +1,26 @@
+<form #form="ngForm">
+  <div class="form-container" *ngIf="data && data.product">
+    <mat-form-field>
+      <input matInput placeholder="პროდუქტის დასახელება" name="name"  [(ngModel)]="data.product.name" required>
+    </mat-form-field>
+
+    <mat-form-field class="product-category">
+      <mat-select placeholder="კატეგორია" [(ngModel)]="data.product.categoryId" name="category" required [disabled]="!data.categories">
+        <mat-option *ngFor="let category of data.categories" [value]="category.id">{{category.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-container" *ngIf="!(data && data.product)">
+    კატეგორია ვერ მოიძებნა
+  </div>
+
+  <div>
+    <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onDismiss($event)">გაუქმება</button>
+    <button mat-button (click)="onSummit($event)" [disabled]="!form.valid">შენახვა</button>
+  </div>
+</form>

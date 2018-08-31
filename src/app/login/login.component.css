@@ -33,3 +33,18 @@
   width: 100vw;
   background-color: rgba(38, 38, 38, 0.22);
 }
+
+
+.custom-color {
+  background-color: #E65252;
+  border-color: #E65252;
+}
+
+.icon-color {
+  color: #E65252 !important;
+}
+
+.custom-color:hover {
+  background-color: #ef6767;
+  border-color: #ef6767;
+}

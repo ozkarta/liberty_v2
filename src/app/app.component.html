@@ -1,142 +1,376 @@
-<app-spinner></app-spinner>
-<div class="logo__logged-out" *ngIf="!isAuthorized">
-  <img src="../images/logo.png">
-</div>
-<div class="side-text" *ngIf="!isAuthorized">
-  <p class="main-text">ჩემი ბონუსი</p>
-  <p>მოთხოვნების მენეჯმენტი</p>
-  <p>Knowledge Base</p>
-  <p>კომუნიკაცია</p>
-</div>
-<mat-sidenav-container class="example-container"
-[ngClass]="{'background-image': !isAuthorized}">
-  <mat-sidenav #sidenav mode="side" [opened]="true" class="side-navbar"
-               [fixedInViewport]="options.value.fixed"
-               *ngIf="isAuthorized && router.url !== '/home'">
-    <div class="logo" *ngIf="!isAuthorized">
-      <img src="../images/logo.png">
-    </div>
-    <div class="logged-user">
-      <div class="logged-user-info">
-        <div class="user-avatar">
-          <img [src]="'data:image/png;base64,'+ userData?.profilePicture">
-        </div>
-        <div class="logged-user-ident">
-          <div class="logged-user-name">
-            {{userData?.firstName + ' ' + userData?.lastName}}
-          </div>
-          <div class="logged-user-position"
-               [matTooltip]="userData?.email"
-               [matTooltipPosition]="'above'"
-               [matTooltipClass]="'tooltip__bigger-text'">
-            {{userData?.email}}
-          </div>
-        </div>
-      </div>
-    </div>
-    <ul class="main-menu" *ngIf="userData?.isAdmin !== true">
-      <li class="menu-item" routerLink="/home">
-        <mat-icon>home</mat-icon>
-        <a>
-          მთავარი
-        </a></li>
-      <li class="menu-item" routerLink="/profile">
-        <mat-icon>perm_identity</mat-icon>
-        <a>
-          ჩემი შედეგი
-        </a></li>
-      <li class="menu-item" routerLink="/my-transactions">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          ჩემი რაოდენობა
-        </a></li>
-      <li *ngIf="userData?.userStaffLevel === 'FIRST_LEVEL_MANAGER' || userData?.userStaffLevel === 'SECOND_LEVEL_MANAGER' || userData?.userStaffLevel === 'THIRD_LEVEL_MANAGER' || userData?.userStaffLevel === 'FOURTH_LEVEL_MANAGER'" class="menu-item" routerLink="/employees">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          ჩემი გუნდის ოპერაციები
-        </a></li>
-      <li class="menu-item" routerLink="/branch-bonuses">
-        <mat-icon>insert_chart</mat-icon>
-        <a>
-          საბონუსე სისტემა
-        </a></li>
-      <li class="menu-item" routerLink="/org-chart">
-        <mat-icon>device_hub</mat-icon>
-        <a>
-          ორგანიზაციული სტრუქტურა
-        </a></li>
-      <li class="menu-item" routerLink="/knowledge-base">
-        <mat-icon>info</mat-icon>
-        <a>
-          ცოდნის ბაზა
-        </a></li>
-    </ul>
-    <ul class="main-menu" *ngIf="userData?.isAdmin">
-      <li class="menu-item" routerLink="/home">
-        <mat-icon>home</mat-icon>
-        <a>
-          მთავარი
-        </a></li>
-      <li class="menu-item" routerLink="/admin/bonus-systems">
-        <mat-icon>perm_identity</mat-icon>
-        <a>
-          ბონუს სისტემები
-        </a></li>
-      <li class="menu-item" routerLink="/admin/evaluation-groups">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          შეფასების ჯგუფები
-        </a></li>
-      <li class="menu-item" routerLink="/admin/products">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          პროდუქტები
-        </a></li>
-      <li class="menu-item" routerLink="/admin/branch-bonus-system">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          ფილიალების ჯგუფები
-        </a></li>
-      <li class="menu-item" routerLink="/admin/staff-level-bonuses">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          მომხმარებლის ჯგუფის ბონუსები
-        </a></li>
-      <li class="menu-item" routerLink="/admin/product-reordering">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          პროდუქტების რიგითობა
-        </a></li>
-      <li class="menu-item" routerLink="/admin/product-competence-level">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          კომპეტენციის დონე
-        </a></li>
-      <li class="menu-item" routerLink="/admin/product-product-edit">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          პროდუქტების ედიტირება
-        </a></li>
-      <li class="menu-item" routerLink="/admin/additional-parameters">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          დამატებითი პარამეტრები
-        </a></li>
-      <li class="menu-item" routerLink="/admin/recalculate">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          ბონუსის გადათვლა
-        </a></li>
-      <li class="menu-item" routerLink="/admin/knowledge-base">
-        <mat-icon>trending_up</mat-icon>
-        <a>
-          ცოდნის ბაზა
-        </a></li>
-    </ul>
-    <button mat-raised-button (click)="logout()" class="logout">გამოსვლა</button>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<app-spinner class="spinner"></app-spinner>
+<!--<div class="logo__logged-out" *ngIf="!isAuthorized">-->
+  <!--<img src="../images/logo.png">-->
+<!--</div>-->
+<!--<div class="side-text" *ngIf="!isAuthorized">-->
+  <!--<p class="main-text">ჩემი ბონუსი</p>-->
+  <!--<p>მოთხოვნების მენეჯმენტი</p>-->
+  <!--<p>Knowledge Base</p>-->
+  <!--<p>კომუნიკაცია</p>-->
+<!--</div>-->
 
+<!--<ng-container *ngIf="url && (startsWith('/knowledge-base', url))">-->
+  <!--<router-outlet></router-outlet>-->
+<!--</ng-container>-->
+
+<!--<ng-container *ngIf="!(url && (startsWith('/knowledge-base', url)))">-->
+  <!--<mat-sidenav-container class="example-container"-->
+                         <!--[ngClass]="{'background-image': !isAuthorized}">-->
+    <!--<mat-sidenav #sidenav mode="side" [opened]="true" class="side-navbar"-->
+                 <!--[fixedInViewport]="options.value.fixed"-->
+                 <!--*ngIf="isAuthorized && router.url !== '/home'">-->
+      <!--<div class="logo" *ngIf="!isAuthorized">-->
+        <!--<img src="../images/logo.png">-->
+      <!--</div>-->
+      <!--<div class="logged-user">-->
+        <!--<div class="logged-user-info">-->
+          <!--<div class="user-avatar">-->
+            <!--<img [src]="'data:image/png;base64,'+ userData?.profilePicture">-->
+          <!--</div>-->
+          <!--<div class="logged-user-ident">-->
+            <!--<div class="logged-user-name">-->
+              <!--{{userData?.firstName + ' ' + userData?.lastName}}-->
+            <!--</div>-->
+            <!--<div class="logged-user-position"-->
+                 <!--[matTooltip]="userData?.email"-->
+                 <!--[matTooltipPosition]="'above'"-->
+                 <!--[matTooltipClass]="'tooltip__bigger-text'">-->
+              <!--{{userData?.email}}-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--&lt;!&ndash;<ul class="main-menu" *ngIf="userData?.isAdmin !== true">&ndash;&gt;-->
+        <!--&lt;!&ndash;<li class="menu-item" routerLink="/home">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon>home</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a>&ndash;&gt;-->
+            <!--&lt;!&ndash;მთავარი&ndash;&gt;-->
+          <!--&lt;!&ndash;</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li class="menu-item" routerLink="/profile">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon>perm_identity</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a>&ndash;&gt;-->
+            <!--&lt;!&ndash;ჩემი შედეგი&ndash;&gt;-->
+          <!--&lt;!&ndash;</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li class="menu-item" routerLink="/my-transactions">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon>trending_up</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a>&ndash;&gt;-->
+            <!--&lt;!&ndash;ჩემი რაოდენობა&ndash;&gt;-->
+          <!--&lt;!&ndash;</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li *ngIf="" class="menu-item" routerLink="/employees">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon>trending_up</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a>&ndash;&gt;-->
+            <!--&lt;!&ndash;ჩემი გუნდის ოპერაციები&ndash;&gt;-->
+          <!--&lt;!&ndash;</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li class="menu-item" routerLink="/branch-bonuses">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon>insert_chart</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a>&ndash;&gt;-->
+            <!--&lt;!&ndash;საბონუსე სისტემა&ndash;&gt;-->
+          <!--&lt;!&ndash;</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li class="menu-item" routerLink="/org-chart">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon>device_hub</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a>&ndash;&gt;-->
+            <!--&lt;!&ndash;ორგანიზაციული სტრუქტურა&ndash;&gt;-->
+          <!--&lt;!&ndash;</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li class="menu-item" routerLink="/knowledge-base">&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-icon>info</mat-icon>&ndash;&gt;-->
+          <!--&lt;!&ndash;<a>&ndash;&gt;-->
+            <!--&lt;!&ndash;ცოდნის ბაზა&ndash;&gt;-->
+          <!--&lt;!&ndash;</a></li>&ndash;&gt;-->
+      <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+      <!--<ng-container *ngIf="userData?.isAdmin !== true">-->
+        <!--<app-material-sidebar [sidebarElements]="userNavItems"></app-material-sidebar>-->
+      <!--</ng-container>-->
+      <!--<ng-container *ngIf="userData?.isAdmin">-->
+        <!--<app-material-sidebar [sidebarElements]="adminNavbarItems"></app-material-sidebar>-->
+      <!--</ng-container>-->
+      <!--<button mat-raised-button (click)="logout()" class="logout">გამოსვლა</button>-->
+    <!--</mat-sidenav>-->
+    <!--<mat-sidenav-content>-->
+      <!--<router-outlet></router-outlet>-->
+    <!--</mat-sidenav-content>-->
+  <!--</mat-sidenav-container>-->
+<!--</ng-container>-->
+
+
+
+
+<!--<div class="menu-position-top full-screen">-->
+<!--<div class="menu-w color-scheme-dark color-style-bright menu-position-top menu-layout-compact selected-menu-color-light menu-activated-on-hover menu-has-selected-link">-->
+<!--<app-admin-custom-component class="some-class" [sidebarElements]="navItems"></app-admin-custom-component>-->
+<!--</div>-->
+<!--</div>-->
+<ng-container *ngIf="isAuthorized">
+  <div class="menu-position-top full-screen">
+    <div [ngStyle]="headerImageStyles" class="menu-w color-scheme-dark color-style-bright menu-position-top menu-layout-compact sub-menu-style-over sub-menu-color-bright selected-menu-color-light menu-activated-on-hover menu-with-image menu-has-selected-link">
+      <div class="gradiant-trial" style="z-index: 100"></div>
+      <div style="z-index:500" class="logo-w">
+        <a class="logo" routerLink="/">
+          <!--<div class="logo-element"></div>-->
+          <!--<div class="logo-label">-->
+          <!--Clean Admin-->
+          <!--</div>-->
+          <div class="logo__logged-out">
+            <img src="/images/logo.png">
+          </div>
+        </a>
+      </div>
+      <ng-container *ngIf="isAuthorized">
+        <div style="z-index:500" class="logged-user-w avatar-inline">
+          <div class="logged-user-i">
+            <div class="avatar-w">
+              <img alt="" [src]="'data:image/png;base64,'+ userData?.profilePicture">
+            </div>
+            <div class="logged-user-info-w">
+              <div class="logged-user-name">
+                {{userData?.firstName + ' ' + userData?.lastName}}
+              </div>
+              <div class="logged-user-role">
+                {{userData?.isAdmin? 'ადმინისტრატორი' : 'რეგულარული მომხმარებელი'}}
+              </div>
+            </div>
+            <div class="logged-user-toggler-arrow">
+              <div class="os-icon os-icon-chevron-down"></div>
+            </div>
+            <div class="logged-user-menu color-style-bright">
+              <div class="logged-user-avatar-info">
+                <div class="avatar-w">
+                  <img alt="" [src]="'data:image/png;base64,'+ userData?.profilePicture">
+                </div>
+                <div class="logged-user-info-w">
+                  <div class="logged-user-name">
+                    {{userData?.firstName + ' ' + userData?.lastName}}
+                  </div>
+                  <div class="logged-user-role">
+                    {{userData?.isAdmin? 'ადმინისტრატორი' : 'რეგულარული მომხმარებელი'}}
+                  </div>
+                </div>
+              </div>
+              <div class="bg-icon">
+                <i class="os-icon os-icon-wallet-loaded"></i>
+              </div>
+              <ul>
+                <!--<li>-->
+                <!--<a href="apps_email.html"><i class="os-icon os-icon-mail-01"></i><span>Incoming Mail</span></a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="users_profile_big.html"><i class="os-icon os-icon-user-male-circle2"></i><span>Profile Details</span></a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="users_profile_small.html"><i class="os-icon os-icon-coins-4"></i><span>Billing Details</span></a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#"><i class="os-icon os-icon-others-43"></i><span>Notifications</span></a>-->
+                <!--</li>-->
+                <li>
+                  <a (click)="logout()"><i class="os-icon os-icon-signs-11"></i><span>გამოსვლა</span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div style="z-index:500" class="menu-actions">
+          <!--------------------
+          START - Messages Link in secondary top menu
+          -------------------->
+          <div class="messages-notifications os-dropdown-trigger os-dropdown-position-right">
+            <i class="os-icon os-icon-mail-14"></i>
+            <div class="new-messages-count">
+              12
+            </div>
+            <div class="os-dropdown light message-list">
+              <ul>
+                <li>
+                  <a href="#">
+                    <div class="user-avatar-w">
+                      <img alt="" src="images/avatar1.jpg">
+                    </div>
+                    <div class="message-content">
+                      <h6 class="message-from">
+                        John Mayers
+                      </h6>
+                      <h6 class="message-title">
+                        Account Update
+                      </h6>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="user-avatar-w">
+                      <img alt="" src="images/avatar2.jpg">
+                    </div>
+                    <div class="message-content">
+                      <h6 class="message-from">
+                        Phil Jones
+                      </h6>
+                      <h6 class="message-title">
+                        Secutiry Updates
+                      </h6>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="user-avatar-w">
+                      <img alt="" src="images/avatar3.jpg">
+                    </div>
+                    <div class="message-content">
+                      <h6 class="message-from">
+                        Bekky Simpson
+                      </h6>
+                      <h6 class="message-title">
+                        Vacation Rentals
+                      </h6>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="user-avatar-w">
+                      <img alt="" src="images/avatar4.jpg">
+                    </div>
+                    <div class="message-content">
+                      <h6 class="message-from">
+                        Alice Priskon
+                      </h6>
+                      <h6 class="message-title">
+                        Payment Confirmation
+                      </h6>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!--------------------
+          END - Messages Link in secondary top menu
+          --------------------><!--------------------
+            START - Settings Link in secondary top menu
+            -------------------->
+          <div class="top-icon top-settings os-dropdown-trigger os-dropdown-position-right">
+            <i class="os-icon os-icon-ui-46"></i>
+            <div class="os-dropdown">
+              <div class="icon-w">
+                <i class="os-icon os-icon-ui-46"></i>
+              </div>
+              <ul>
+                <li>
+                  <a href="users_profile_small.html"><i class="os-icon os-icon-ui-49"></i><span>Profile Settings</span></a>
+                </li>
+                <li>
+                  <a href="users_profile_small.html"><i class="os-icon os-icon-grid-10"></i><span>Billing Info</span></a>
+                </li>
+                <li>
+                  <a href="users_profile_small.html"><i class="os-icon os-icon-ui-44"></i><span>My Invoices</span></a>
+                </li>
+                <li>
+                  <a href="users_profile_small.html"><i class="os-icon os-icon-ui-15"></i><span>Cancel Account</span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!--------------------
+          END - Settings Link in secondary top menu
+          --------------------><!--------------------
+            START - Messages Link in secondary top menu
+            -------------------->
+          <div class="messages-notifications os-dropdown-trigger os-dropdown-position-right">
+            <i class="os-icon os-icon-zap"></i>
+            <div class="new-messages-count">
+              4
+            </div>
+            <div class="os-dropdown light message-list">
+              <div class="icon-w">
+                <i class="os-icon os-icon-zap"></i>
+              </div>
+              <ul>
+                <li>
+                  <a href="#">
+                    <div class="user-avatar-w">
+                      <img alt="" src="images/avatar1.jpg">
+                    </div>
+                    <div class="message-content">
+                      <h6 class="message-from">
+                        John Mayers
+                      </h6>
+                      <h6 class="message-title">
+                        Account Update
+                      </h6>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="user-avatar-w">
+                      <img alt="" src="images/avatar2.jpg">
+                    </div>
+                    <div class="message-content">
+                      <h6 class="message-from">
+                        Phil Jones
+                      </h6>
+                      <h6 class="message-title">
+                        Secutiry Updates
+                      </h6>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="user-avatar-w">
+                      <img alt="" src="images/avatar3.jpg">
+                    </div>
+                    <div class="message-content">
+                      <h6 class="message-from">
+                        Bekky Simpson
+                      </h6>
+                      <h6 class="message-title">
+                        Vacation Rentals
+                      </h6>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="user-avatar-w">
+                      <img alt="" src="images/avatar4.jpg">
+                    </div>
+                    <div class="message-content">
+                      <h6 class="message-from">
+                        Alice Priskon
+                      </h6>
+                      <h6 class="message-title">
+                        Payment Confirmation
+                      </h6>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!--------------------
+          END - Messages Link in secondary top menu
+          -------------------->
+        </div>
+      </ng-container>
+      <div style="z-index:500" class="element-search autosuggest-search-activator">
+        <input placeholder="Start typing to search..." type="text">
+      </div>
+
+
+      <h1 class="menu-page-header">
+        {{pageName}}
+      </h1>
+
+      <app-custom-menu-v2 class="some-class" [menuElements]="menuItems"></app-custom-menu-v2>
+
+    </div>
+  </div>
+
+
+
+</ng-container>
+
+<div class="content-w">
+  <app-navigation-indicator *ngIf="isAuthorized"></app-navigation-indicator>
+  <router-outlet></router-outlet>
+</div>

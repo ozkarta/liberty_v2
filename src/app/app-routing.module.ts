@@ -32,21 +32,51 @@ import { KnowledgeBaseComponent } from './knowledge-base/knowledge-base.componen
 import { AdminKnowledgeBaseComponent } from './admin/knowledge-base/knowledge-base.component';
 import { AdminProductCategoriesComponent } from './admin/product-categories/product-categories.component';
 import {EvaluationGroupListComponent} from './evaluation-group-list/evaluation-group-list.component';
+import { AdminUncategorizedProductsComponent } from "./admin/uncotegoriesed-products/uncotegoriesed-products.component";
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [RouteGuardService] },
+
+
+
+
+
+
+
+
+
+
+
   { path: 'login', component: LoginComponent, canActivate: [LoggedOutGuardService] },
-  { path: 'profile', component: UserProfileComponent, canActivate: [RouteGuardService] },
+  { path: 'bonus/profile', component: UserProfileComponent, canActivate: [RouteGuardService] },
+  { path: 'bonus/my-transactions', component: MyTransactionsComponent, canActivate: [RouteGuardService] },
+  { path: 'bonus/org-chart', component: OrganizationStructureComponent, canActivate: [RouteGuardService] },
+  { path: 'bonus/employees', component: EmployeeListComponent, canActivate: [RouteGuardService] },
+  { path: 'bonus/branch-bonuses', component: BonusPointsComponent, canActivate: [RouteGuardService] },
+  { path: 'knowledge-base', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
+  { path: 'knowledge-base/:productId', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
+  { path: 'bonus', redirectTo: '/bonus/profile', canActivate: [RouteGuardService] },
+  { path: 'profile', redirectTo: '/bonus/profile', canActivate: [RouteGuardService] },
+  { path: 'my-transactions', redirectTo: '/bonus/my-transactions', canActivate: [RouteGuardService] },
+  { path: 'branch-bonuses', redirectTo: '/bonus/branch-bonuses', canActivate: [RouteGuardService] },
+  { path: 'employees', redirectTo: '/bonus/employees', canActivate: [RouteGuardService] },
+  { path: 'org-chart', redirectTo: '/bonus/org-chart', canActivate: [RouteGuardService] },
+
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: 'home', component: HomeComponent, canActivate: [RouteGuardService] },
+
+  // { path: 'profile', component: UserProfileComponent, canActivate: [RouteGuardService] },
   { path: 'others/:id', component: OtherUserProfileComponent, canActivate: [RouteGuardService] },
-  { path: 'employees', component: EmployeeListComponent, canActivate: [RouteGuardService] },
-  { path: 'branch-bonuses', component: BonusPointsComponent, canActivate: [RouteGuardService] },
+  // { path: 'employees', component: EmployeeListComponent, canActivate: [RouteGuardService] },
+  // { path: 'branch-bonuses', component: BonusPointsComponent, canActivate: [RouteGuardService] },
   { path: 'transactions', component: TransactionsComponent, canActivate: [RouteGuardService] },
   { path: 'evaluation-group-list/:id', component: EvaluationGroupListComponent, canActivate: [RouteGuardService] },
-  { path: 'my-transactions', component: MyTransactionsComponent, canActivate: [RouteGuardService] },
+  // { path: 'my-transactions', component: MyTransactionsComponent, canActivate: [RouteGuardService] },
   { path: 'my-branch-transactions', component: BranchTransactionsComponent, canActivate: [RouteGuardService] },
-  { path: 'org-chart', component: OrganizationStructureComponent, canActivate: [RouteGuardService] },
+  // { path: 'org-chart', component: OrganizationStructureComponent, canActivate: [RouteGuardService] },
   { path: 'product', component: ProductWikiComponent, canActivate: [RouteGuardService] },
+  // { path: 'knowledge-base', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
+  // { path: 'knowledge-base/product/:productId', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
+
   { path: 'admin/bonus-systems', component: BonusSystemsComponent, canActivate: [AdminGuard] },
   { path: 'admin/evaluation-groups', component: EvaluationGroupComponent, canActivate: [AdminGuard] },
   { path: 'admin/products', component: ProductsComponent, canActivate: [AdminGuard]  },
@@ -55,15 +85,17 @@ const appRoutes: Routes = [
   { path: 'admin/product-documentation', component: ProductDocumentationComponent, canActivate: [AdminGuard] },
   { path: 'admin/product-reordering', component: ProductReorderingComponent, canActivate: [AdminGuard] },
   { path: 'admin/product-competence-level', component: ProductCompetenceLevelComponent, canActivate: [AdminGuard] },
-  { path: 'knowledge-base', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
-  { path: 'knowledge-base/product/:productId', component: KnowledgeBaseComponent, canActivate: [RouteGuardService] },
   { path: 'admin/product-product-edit', component: ProductEditingComponent, canActivate: [AdminGuard] },
   { path: 'admin/additional-parameters', component: AdditionalParametersComponent, canActivate: [AdminGuard] },
   { path: 'admin/recalculate', component: RecalculateBonusComponent, canActivate: [AdminGuard] },
   { path: 'admin/knowledge-base', component: AdminKnowledgeBaseComponent, canActivate: [AdminGuard] },
   { path: 'admin/knowledge-base/product/new', component: AdminKnowledgeBaseComponent, canActivate: [AdminGuard] },
+  { path: 'admin/knowledge-base/product/uncategorized-products', component: AdminUncategorizedProductsComponent, canActivate: [AdminGuard] },
   { path: 'admin/knowledge-base/product/:productId', component: AdminKnowledgeBaseComponent, canActivate: [AdminGuard] },
-  { path: 'admin/product-categories', component: AdminProductCategoriesComponent, canActivate: [AdminGuard] }
+  { path: 'admin/product-categories', component: AdminProductCategoriesComponent, canActivate: [AdminGuard] },
+
+  { path: '', redirectTo: 'bonus/profile', pathMatch: 'full' },
+  { path: '**', redirectTo: 'bonus/profile', pathMatch: 'full' },
 ];
 
 @NgModule({

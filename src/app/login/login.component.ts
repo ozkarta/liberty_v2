@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NetworkingService} from '../services/networking.service';
 import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import {SpinnerService} from "../services/spinner.service";
 
 @Component({
   selector: 'app-login',
@@ -25,17 +26,16 @@ export class LoginComponent implements OnInit {
   mode = 'indeterminate';
   value = 50;
 
-  dataIsLoading = false;
-
   constructor(private network: NetworkingService,
-              private router: Router) {
+              private router: Router,
+              private spinnerService: SpinnerService) {
   }
 
   ngOnInit() {
   }
 
   checkUsername() {
-    this.dataIsLoading = true;
+    this.spinnerService.next(true);
     this.network.getRequest(`/users/checkUser?userName=${this.username.nativeElement.value}`)
       .subscribe(
         (response: any) => {
@@ -43,17 +43,16 @@ export class LoginComponent implements OnInit {
             this.usernameVal = this.username.nativeElement.value;
             this.usernameExists = response.userExists;
             this.passwordExists = response.passwordExists;
-            this.dataIsLoading = false;
           } else {
             this.user.setErrors({notExists: true});
           }
-          this.dataIsLoading = false;
+          this.spinnerService.next(false);
         },
       );
   }
 
   login() {
-    this.dataIsLoading = true;
+    this.spinnerService.next(true);
     if (!this.passwordExists) {
       if (this.password.nativeElement.value === this.repeatPassword.nativeElement.value) {
         const data = {
@@ -66,17 +65,17 @@ export class LoginComponent implements OnInit {
               this.network.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
               this.network.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
               this.network.getLoggedUser().then(() => {
-                this.router.navigate(['/home'])
+                this.router.navigate(['home'])
                   .then(
                     () => {
-                      this.dataIsLoading = false;
+                      this.spinnerService.next(false);
                     });
               });
             },
           );
       } else {
         this.passwordVal.setErrors({passNotEqual: true});
-        this.dataIsLoading = false;
+        this.spinnerService.next(false);
         return;
       }
     } else {
@@ -90,15 +89,15 @@ export class LoginComponent implements OnInit {
             this.network.setCookie('access_token', tokens.access_token, 0, tokens.expires_in);
             this.network.setCookie('refresh_token', tokens.refresh_token, 0, tokens.expires_in);
             this.network.getLoggedUser().then(() => {
-              this.router.navigate(['/home'])
+              this.router.navigate(['home'])
                 .then(
                   () => {
-                    this.dataIsLoading = false;
+                    this.spinnerService.next(false);
                   });
             });
           },
           () => {
-            this.dataIsLoading = false;
+            this.spinnerService.next(false);
             this.passwordValOriginal.setErrors({wrongPassword: true});
             this.getPassErrorMessage();
           });
@@ -115,5 +114,26 @@ export class LoginComponent implements OnInit {
 
   getPassOriginalErrorMessage() {
     return this.passwordValOriginal.hasError('wrongPassword') ? 'პაროლი არასწორია' : '';
+  }
+
+
+  clickEventHandler(event: Event) {
+    this.spinnerService.next(true);
+    this.network.getRequest(`/users/checkUser?userName=${this.username.nativeElement.value}`)
+      .subscribe(
+        (response: any) => {
+          if (response.userExists) {
+            this.usernameVal = this.username.nativeElement.value;
+            this.login();
+            // this.usernameExists = response.userExists;
+            // this.passwordExists = response.passwordExists;
+          } else {
+            this.user.setErrors({notExists: true});
+          }
+          this.spinnerService.next(false);
+        },
+      );
+
+    event.preventDefault();
   }
 }

@@ -40,7 +40,7 @@ import { LoggedOutGuardService } from './services/logged-out-guard.service';
 import { OtherUserService } from './services/other-user.service';
 import { AuthorizedUserService } from './services/authorized-user.service';
 import { SpinnerService } from './services/spinner.service';
-
+import { NavigationMenuService } from "./services/navigation-menu.service";
 // Material Design Imports
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -94,12 +94,20 @@ import { APP_INITIALIZER } from '@angular/core';
 import { AdminKnowledgeBaseComponent } from './admin/knowledge-base/knowledge-base.component';
 import { AdminProductCategoriesComponent } from './admin/product-categories/product-categories.component';
 import { ProductCategoryFormComponent } from './admin/product-categories/product-category-form.component';
-
+import { AdminUncategorizedProductsComponent } from "./admin/uncotegoriesed-products/uncotegoriesed-products.component";
+import { AdminUncategorizedProductsFormComponent } from "./admin/uncotegoriesed-products/uncotegoriesed-products-form.component";
 // Shared imports
 import { KnowledgeBaseMenuComponent } from './shared/components/knowledge-base-menu/knowledge-base-menu.component';
+import { KnowledgeBaseMenuV2Component } from "./shared/components/knowledge-base-menu-v2/knowledge-base-menu-v2.component";
 import { AttachmentListComponent } from './shared/components/attachment-list/attachment-list.component';
 import { EvaluationGroupListComponent } from './evaluation-group-list/evaluation-group-list.component';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { MaterialSidebarComponent } from "./shared/components/material-sidebar/material-sidebar.component";
+import { CustomMenuComponent } from "./shared/components/custom-menu/custom-menu.component";
+
+import { CustomMenuV2Component } from "./shared/components/custom-menu-v2/custom-menu-v2.component";
+import { NavigationIndicatorComponent } from "./shared/components/navigation-indicator/navigation-indicator.component";
+
 export function initializeApp(appConfig: NetworkingService) {
   return () => appConfig.getUrl();
 }
@@ -138,15 +146,22 @@ export function initializeApp(appConfig: NetworkingService) {
     KnowledgeBaseComponent,
     AdminProductCategoriesComponent,
     ProductCategoryFormComponent,
+    AdminUncategorizedProductsFormComponent,
     // KnowledgeBaseComponentAdmin,
 
     // Admin
     AdminKnowledgeBaseComponent,
+    AdminUncategorizedProductsComponent,
     // Shared
     KnowledgeBaseMenuComponent,
+    KnowledgeBaseMenuV2Component,
     AttachmentListComponent,
     EvaluationGroupListComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    MaterialSidebarComponent,
+    CustomMenuComponent,
+    CustomMenuV2Component,
+    NavigationIndicatorComponent,
   ],
   imports: [
     HttpClientModule,
@@ -202,6 +217,7 @@ export function initializeApp(appConfig: NetworkingService) {
       useFactory: initializeApp,
       deps: [NetworkingService], multi: true },
     SpinnerService,
+    NavigationMenuService,
     // {
     //   provide: ErrorHandler,
     //   useClass: ErrorsHandler,
@@ -220,6 +236,7 @@ export function initializeApp(appConfig: NetworkingService) {
     EvaluationGroupEditComponent,
     ProductEditComponent,
     ProductCategoryFormComponent,
+    AdminUncategorizedProductsFormComponent,
   ],
 })
 export class AppModule {

@@ -1,48 +1,615 @@
-.example-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.mat-icon {
-  color: #8d9092;
-  margin-right: 7px;
-}
-li {
-  font-size: 0.9rem;
-  outline: none;
+/*.example-container {*/
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+/*}*/
+/*.mat-icon {*/
+  /*color: #8d9092;*/
+  /*margin-right: 7px;*/
+/*}*/
+/*li {*/
+  /*font-size: 0.9rem;*/
+  /*outline: none;*/
+/*}*/
+
+/*.logout{*/
+  /*position: absolute;*/
+  /*bottom: 30px;*/
+  /*left:50px;*/
+/*}*/
+/*.background-image {*/
+  /*background: url("../images/lbBackground.png") no-repeat center;*/
+  /*background-size: cover;*/
+/*}*/
+/*.logo__logged-out {*/
+  /*padding: 14px 1rem 14px 1.7rem;*/
+  /*position: relative;*/
+  /*z-index: 99999;*/
+  /*top: 60px;*/
+  /*left: 60px;*/
+/*}*/
+/*.side-text {*/
+  /*position: relative;*/
+  /*z-index: 99999;*/
+  /*left: 80px;*/
+  /*top: 280px;*/
+  /*color: white;*/
+  /*display: inline-flex;*/
+  /*flex-direction: column;*/
+/*}*/
+/*.main-text {*/
+  /*font-size: 1.5rem;*/
+  /*text-shadow: 1px 1px 10px black;*/
+/*}*/
+/*.side-text p {*/
+  /*margin-bottom: 30px;*/
+/*}*/
+
+/*.spinner {*/
+  /*top: 0;*/
+  /*bottom: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  /*position: absolute;*/
+/*}*/
+
+
+
+/*__________________________________________________________NEW VERSION______________________________________________*/
+
+/** {*/
+/*-webkit-transition: all 0.3s ease !important;*/
+/*-moz-transition: all 0.3s ease !important;*/
+/*-o-transition: all 0.3s ease !important;*/
+/*transition: all 0.3s ease !important;*/
+/*}*/
+
+/*.ng-half-card {*/
+/*width: 54%;*/
+/*}*/
+
+/*.ng-half-comment-card {*/
+/*width: 54%;*/
+/*max-height: 300px;*/
+/*overflow-y: scroll;*/
+/*}*/
+
+/*.ng-flex-row {*/
+/*display: flex;*/
+/*flex-direction: row;*/
+/*}*/
+
+/*.ng-list-container {*/
+/*display: flex;*/
+/*flex-direction: column;*/
+/*margin-left: 30px;*/
+/*width: calc(40% - 30px);*/
+/*}*/
+
+/*.small-divider {*/
+/*width: 54%*/
+/*}*/
+
+/*.ng-comment-reply {*/
+/*margin-left: 30px;*/
+/*}*/
+
+/*.ng-center {*/
+/*display: flex;*/
+/*justify-content: center;*/
+/*}*/
+
+/*.ng-comment-user-wrapper {*/
+/*display: flex;*/
+/*flex-direction: row;*/
+/*margin-top: 5px;*/
+
+/*}*/
+
+/*.ng-comment-user-divider {*/
+/*margin: 0 6px;*/
+/*font-size: 12px;*/
+
+/*}*/
+
+/*.ng-comment-user {*/
+/*font-size: 12px;*/
+/*}*/
+
+/*.ng-comment-time {*/
+/*color: blue;*/
+/*font-size: 12px;*/
+/*}*/
+
+/*.ng-comment-input-wrapper {*/
+/*width: 100%;*/
+/*}*/
+
+/*.ng-comment-input {*/
+/*width: 80%;*/
+/*}*/
+
+/*.ng-comment-submit {*/
+/*width: 20%;*/
+/*}*/
+
+/*.ng-text-wrapper {*/
+/*width: 100%;*/
+/*max-height: 500px;*/
+/*overflow-y: scroll;*/
+/*}*/
+
+/*.ng-image-wrapper {*/
+/*width: 30%;*/
+/*padding-left: 10px;*/
+
+/*}*/
+
+/*.ng-text-image-container {*/
+/*display: flex;*/
+/*flex-direction: row;*/
+/*margin-top: 10px;*/
+/*}*/
+
+/*.ng-like-container {*/
+/*display: flex;*/
+/*justify-content: space-between;*/
+/*flex-direction: row;*/
+/*margin-top: 10px;*/
+/*width: 48.5%;*/
+/*}*/
+
+/*.ng-comment-info-container {*/
+/*display: flex;*/
+/*flex-direction: row;*/
+/*justify-content: space-between;*/
+/*}*/
+
+/*.ng-full-comment-card {*/
+/*width: 80%;*/
+/*max-height: 700px;*/
+/*overflow: scroll;*/
+/*}*/
+
+/*.ng-15-p {*/
+/*padding: 0 15px;*/
+/*}*/
+
+/*.m-t-10 {*/
+/*margin-top: 10px;*/
+/*}*/
+
+
+/*.ng-video-files-container {*/
+/*width: 100%;*/
+/*display: flex;*/
+/*flex-direction: row;*/
+/*}*/
+
+/*.ng-video-container {*/
+/*width: 50%;*/
+/*height: 350px;*/
+/*}*/
+
+/*.ng-files-container {*/
+/*max-height: 207px;*/
+/*overflow: scroll;*/
+/*}*/
+
+/*mat-card {*/
+/*width: 80%;*/
+/*}*/
+
+
+/*.ng-full-card-faq {*/
+/*width: 80%;*/
+/*max-height: 700px;*/
+/*}*/
+
+/*.ng-flex {*/
+/*display: flex;*/
+/*}*/
+
+/*.ng-hide {*/
+/*display: none;*/
+/*}*/
+
+/*.ng-faq-wrapper {*/
+/*flex-direction: row;*/
+/*width: 80%;*/
+/*}*/
+
+/*.ng-faq-right{*/
+/*width: 30%;*/
+/*}*/
+
+/*.ng-faq-left{*/
+/*width: 70%;*/
+/*}*/
+
+/*.ng-cursor-pointer {*/
+/*cursor: pointer;*/
+/*}*/
+
+
+/*.m-t-0 {*/
+/*margin-top: 0;*/
+/*}*/
+
+/*.ng-files-text-container {*/
+/*max-height: 150px;*/
+/*overflow-y: scroll;*/
+/*margin-top: 5px;*/
+/*font-size: 14px;*/
+/*}*/
+
+/*.ng-video-file-right-container {*/
+/*margin-left: 3%;*/
+/*width: 50%;*/
+/*height: 350px;*/
+/*}*/
+
+/*.mat-success {*/
+/*background-color: #e03126;*/
+/*color: white;*/
+/*}*/
+
+/*.mat-raised-button {*/
+/*height: 40px;*/
+/*display: block;*/
+/*width: 100%;*/
+/*text-align: left;*/
+/*}*/
+
+/*.ng-video-updated-date {*/
+/*font-size: 10px;*/
+/*position: absolute;*/
+/*z-index: 9999;*/
+/*left: 27%;*/
+/*transform: translateX(0%);*/
+/*color: grey;*/
+/*}*/
+
+/*.ng-red-text {*/
+/*color: #e03126;*/
+/*}*/
+
+
+* {
+  -webkit-transition: all 0.3s ease !important;
+  -moz-transition: all 0.3s ease !important;
+  -o-transition: all 0.3s ease !important;
+  transition: all 0.3s ease !important;
 }
 
-.logout{
-  position: absolute;
-  bottom: 30px;
-  left:50px;
+.ng-half-card {
+  width: 54%;
 }
-.background-image {
-  background: url("../images/lbBackground.png") no-repeat center;
-  background-size: cover;
+
+.ng-half-comment-card {
+  width: 54%;
+  max-height: 300px;
+  overflow: scroll;
 }
-.logo__logged-out {
-  padding: 14px 1rem 14px 1.7rem;
-  position: relative;
-  z-index: 99999;
-  top: 60px;
-  left: 60px;
+
+.ng-flex-row {
+  display: flex;
+  flex-direction: row;
 }
-.side-text {
-  position: relative;
-  z-index: 99999;
-  left: 80px;
-  top: 280px;
-  color: white;
-  display: inline-flex;
+
+.ng-list-container {
+  display: flex;
   flex-direction: column;
+  margin-left: 30px;
+  width: calc(40% - 30px);
 }
-.main-text {
-  font-size: 1.5rem;
-  text-shadow: 1px 1px 10px black;
+
+.small-divider {
+  width: 54%
 }
-.side-text p {
-  margin-bottom: 30px;
+
+.ng-comment-reply {
+  margin-left: 30px;
+}
+
+.ng-center {
+  display: flex;
+  justify-content: center;
+}
+
+.ng-comment-user-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+
+}
+
+.ng-comment-user-divider {
+  margin: 0 6px;
+  font-size: 12px;
+
+}
+
+.ng-comment-user {
+  font-size: 12px;
+}
+
+.ng-comment-time {
+  color: blue;
+  font-size: 12px;
+}
+
+.ng-comment-input-wrapper {
+  width: 100%;
+}
+
+.ng-comment-input {
+  width: 80%;
+}
+
+.ng-comment-submit {
+  width: 20%;
+}
+
+.ng-text-wrapper {
+  width: 100%;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.ng-image-wrapper {
+  width: 30%;
+  padding-left: 10px;
+
+}
+
+.ng-text-image-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.ng-like-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 10px;
+  width: 48.5%;
+}
+
+.ng-comment-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ng-full-comment-card {
+  width: 80%;
+  max-height: 700px;
+  overflow-y: scroll;
+}
+
+.ng-15-p {
+  padding: 0 15px;
+}
+
+.m-t-10 {
+  margin-top: 10px;
+}
+
+
+.ng-video-files-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.ng-video-container {
+  width: 50%;
+  height: 600px;
+}
+
+.ng-file-upload-container {
+  max-height: 100px;
+}
+
+mat-card {
+  width: 80%;
+}
+
+
+.ng-full-card-faq {
+  width: 80%;
+  max-height: 700px;
+}
+
+.ng-flex {
+  display: flex;
+}
+
+.ng-hide {
+  display: none;
+}
+
+.ng-faq-wrapper {
+  flex-direction: row;
+  width: 80%;
+}
+
+.ng-faq-right{
+  width: 30%;
+}
+
+.ng-faq-left{
+  width: 70%;
+}
+
+.ng-cursor-pointer {
+  cursor: pointer;
+}
+
+
+.m-t-0 {
+  margin-top: 0;
+}
+
+.ng-files-text-container {
+  max-height: 190px;
+  overflow: scroll;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.ng-video-file-right-container {
+  margin-left: 3%;
+  width: 50%;
+  height: 350px;
+}
+
+.mat-success {
+  background-color: #e03126;
+  color: white;
+}
+
+.mat-raised-button {
+  height: 40px;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.ng-video-updated-date {
+  font-size: 10px;
+  position: absolute;
+  z-index: 9999;
+  left: 27%;
+  transform: translateX(0%);
+  color: grey;
+}
+
+.ng-red-text {
+  color: #e03126;
+}
+
+
+.product-title-section {
+  margin: 20px 10px 0px 0px;
+  width: 80%;
+}
+
+.product-name {
+  width: 80%;
+  padding-left: 2%;
+}
+
+.product-category {
+  width: 20%
+}
+
+.file-upload {
+  position: relative;
+  display: inline-block;
+}
+
+.disabled:hover {
+  cussor: not-allowed;
+}
+
+.enabled:hover {
+  cursor: pointer;
+}
+
+.file-upload__label {
+  display: block;
+  border-radius: .4em;
+  border: 1px solid black;
+  height: 40px;
+  width: 200px;
+  transition: background .3s;
+  text-align: center;
+}
+
+.file-upload__input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 1;
+  width:0;
+  height: 100%;
+  opacity: 0;
+}
+
+.ng-files-text-editor-container {
+  height: 160px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.quill-editor {
+  max-height: 190px;
+}
+
+.mce-statusbar {
+  position: relative;
+  display: none !important;
+}
+
+.knowledge-base-header {
+
+}
+
+.file-upload-wrapper {
+  cursor: pointer;
+  padding: 10px;
+  background: red;
+  display: table;
+  color: #fff;
+}
+
+.file-upload-wrapper-disabled {
+  cursor: not-allowed;
+  padding: 10px;
+  background: grey;
+  color: red;
+  display: table;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.form-buttons {
+  margin: 5px;
+}
+
+.some-class {
+  -webkit-box-ordinal-group: 7;
+  -ms-flex-order: 6;
+  order: 6;
+  margin-top: 20px;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+}
+
+.content-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-left: 13px;
+  border-top: 2px solid black;
+  padding-top: 15px;
+}
+
+.gradiant-trial {
+  height: 80px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-image: url(/images/knowledge-base-header-2.png) !important
 }

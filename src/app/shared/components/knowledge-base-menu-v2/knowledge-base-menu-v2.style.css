@@ -1,0 +1,14 @@
+.ng-15-p {
+  padding: 0 15px;
+}
+
+.black-text {
+  color: black;
+}
+
+
+.black-text:hover {
+  opacity: 1;
+  -webkit-transform: translate(0px, -1px);
+  transform: translate(0px, -1px);
+}

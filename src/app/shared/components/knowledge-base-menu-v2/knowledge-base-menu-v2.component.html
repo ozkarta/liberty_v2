@@ -1,0 +1,22 @@
+<div class="ng-padded">
+
+  <ng-container *ngIf="categories && categories.length">
+    <!--Create Default Row In Menu-->
+    <ng-container *ngFor="let category of categories;">
+
+
+        <button mat-button class="black-text" [matMenuTriggerFor]="subCategory">{{category.name}}</button>
+        <mat-menu #subCategory="matMenu" class="nga-menu-dropdown">
+
+          <ng-container *ngFor="let childCategory of category.subCategories">
+            <button mat-menu-item [matMenuTriggerFor]="vertebrates">{{childCategory.name}}</button>
+            <mat-menu #vertebrates="matMenu">
+              <button mat-menu-item *ngFor="let product of childCategory.productList"  (click)="clickEventHandler(product)">{{product.name}}</button>
+            </mat-menu>
+          </ng-container>
+
+        </mat-menu>
+
+    </ng-container>
+  </ng-container>
+</div>

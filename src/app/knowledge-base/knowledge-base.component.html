@@ -1,356 +1,166 @@
-<div class="ng-15-p">
-  <app-knowledge-base-menu (categoryClickHandler)="this.categoryClickHandler($event)"></app-knowledge-base-menu>
-
-  <mat-divider></mat-divider>
-  <div class=""></div>
-
-  <ng-container *ngIf="product">
-    <h3 class="ng-page-title">{{product.category?.name}} / {{product.name}}</h3>
-    <p class="ng-video-updated-date">ვიდეოს განახლების თარიღი: 17/08/2018</p>
-    <div class="ng-flex-row">
-      <mat-card>
-        <div class="ng-video-files-container">
-          <div class="ng-video-container">
-            <vg-player>
-              <vg-scrub-bar>
-                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-              </vg-scrub-bar>
-              <vg-controls>
-                <vg-play-pause></vg-play-pause>
-                <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
-
-                <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
-
-                <!--<vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>-->
-                <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-
-                <vg-mute></vg-mute>
-                <vg-volume></vg-volume>
-
-                <vg-fullscreen></vg-fullscreen>
-              </vg-controls>
-              <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
-                <source src="http://static.videogular.com/assets/videos/videogular.mp4"
-                        type="video/mp4">
-              </video>
-            </vg-player>
-          </div>
-          <div class="ng-video-file-right-container">
-
-            <app-attachment-list [product]="product"></app-attachment-list>
-
-            <div class="ng-files-text-container">
-              <p style="text-align: right;"><span
-                style="font-size: 13px; text-align: right;">&nbsp;</span></p>
-
-              <p><strong><u>მარტივ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>იპოთეკურ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>სესხი
-                განახლებული</u></strong>&nbsp;<strong><u>პირობებით:</u></strong></p>
-
-              <p>მიიღეთ იპოთეკური სესხი&nbsp;<strong>მარტივად</strong>&nbsp;და&nbsp;<strong>შეღავათიანი</strong>
-                <strong>პირობებით</strong><strong>:&nbsp;</strong></p>
-
-              <p><strong>დაბალი</strong>&nbsp;საპროცენტო განაკვეთი წლიური 6.20%-დან (ეფექტური
-                6.39%-დან) <strong>ფიქსირებულია</strong>&nbsp;სესხის&nbsp;მოქმედების მთელ ვადაზე.</p>
-
-              <a href="#ngFroalaText">გაიგეთ მეტი</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="ng-like-container">
-          <div class="like-container-left">
-            <button mat-button>
-              <mat-icon>thumb_up</mat-icon>
-              <span>300</span>
-            </button>
-            <button mat-button>
-              <mat-icon>thumb_down</mat-icon>
-              <span>300</span>
-            </button>
-            <button mat-button>
-              <mat-icon>share</mat-icon>
-            </button>
-          </div>
-          <div class="like-container-rigth">
-            ნანახია 100,321-ჯერ
-          </div>
-        </div>
-      </mat-card>
-    </div>
-  </ng-container>
-
-
-
-  <mat-card class="ng-center m-t-10"
-            [ngClass]="{'ng-full-card-faq': FAQOpen, 'ng-half-card': !FAQOpen}">
-    <button mat-button (click)="expandFAQ()" [color]="'success'">
-      ხშირად დასმული შეკითხვები
-    </button>
-  </mat-card>
-  
-  <div class="ng-faq-wrapper" [ngClass]="{'ng-flex': FAQOpen, 'ng-hide': !FAQOpen}">
-    <mat-card class="ng-faq-right">
-      <mat-list>
-        <mat-list-item class="ng-cursor-pointer" *ngFor="let key of getFaqKeys();">
-          <span (click)="showFAQAnswer(key)">{{FAQQuestions[key]}}</span>
-        </mat-list-item>
-      </mat-list>
-    </mat-card>
-    <mat-card class="ng-faq-left">
-      <mat-list>
-        <div>{{FAQAnswer}}</div>
-      </mat-list>
-    </mat-card>
+<div>
+  <div class="content-header">
+    <p>თვის პრიორიტეტული პროდუქტები</p>
   </div>
-  
-  <mat-divider class="small-divider"></mat-divider>
-  
-  
-  <mat-card class="ng-half-card m-t-10">
-    <div class="ng-comment-info-container">
-      <span>კომენტარები (3)</span>
-      <button mat-button (click)="expandComments()" [color]="'success'">
-        {{isFullComents?'ნაკლები კომენტარის ნახვა':'მეტი კომენტარის ნახვა'}}
-      </button>
+
+  <!--<div class="content-body">-->
+  <!--<div class="priority-products row">-->
+  <!--<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">-->
+  <!--<div class="property-item">-->
+  <!--<a class="item-media-w" href="rentals_single.html">-->
+  <!--<div class="item-media" style="background-image: url(https://media.bizj.us/view/img/5803721/bank*1024xx684-385-0-64.jpg)"></div>-->
+  <!--</a>-->
+  <!--<div class="item-info">-->
+  <!--<h3 class="item-title">-->
+  <!--<a href="rentals_single.html">Perfect Located 2BR Aspen Condo</a>-->
+  <!--</h3>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">-->
+  <!--2-->
+  <!--</div>-->
+  <!--<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">-->
+  <!--3-->
+  <!--</div>-->
+  <!--<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">-->
+  <!--4-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+  <div class="rentals">
+    <div class="rentals-list-w">
+      <div class="rentals-list">
+        <div class="property-items as-grid">
+
+          <div class="property-item">
+            <a class="item-media-w" href="rentals_single.html">
+              <div class="item-media" style="background-image: url(/images/property2.jpg)"></div>
+            </a>
+            <div class="item-info">
+              <h3 class="item-title">
+                <a href="rentals_single.html">იპოთეკური სესხი</a>
+              </h3>
+
+              <div class="item-reviews" style="display: block">
+                <div class="reviews-count">
+                  12 Comments
+                </div>
+                <div class="reviews-count">
+                  4 attachments
+                </div>
+              </div>
+
+              <div class="item-price-buttons">
+                <div class="item-price">
+
+                </div>
+                <div class="item-buttons">
+                  <a class="btn btn-outline-primary" href="rentals_single.html"><span>დეტალები</span><i class="os-icon os-icon-arrow-2-right"></i></a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="property-item">
+            <a class="item-media-w" href="rentals_single.html">
+              <div class="item-media" style="background-image: url(/images/depoziti.jpg)"></div>
+            </a>
+            <div class="item-info">
+              <h3 class="item-title">
+                <a href="rentals_single.html">ვადიანი ანაბარი</a>
+              </h3>
+
+              <div class="item-reviews" style="display: block">
+                <div class="reviews-count">
+                  12 Comments
+                </div>
+                <div class="reviews-count">
+                  4 attachments
+                </div>
+              </div>
+
+
+              <div class="item-price-buttons">
+                <div class="item-price">
+
+                </div>
+                <div class="item-buttons">
+                  <a class="btn btn-outline-primary" href="rentals_single.html"><span>დეტალები</span><i class="os-icon os-icon-arrow-2-right"></i></a>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="property-item">
+            <a class="item-media-w" href="rentals_single.html">
+              <div class="item-media" style="background-image: url(/images/deposite.jpg)"></div>
+            </a>
+            <div class="item-info">
+              <h3 class="item-title">
+                <a href="rentals_single.html">სადეპოზიტო სერტიფიკატი</a>
+              </h3>
+
+
+              <div class="item-reviews" style="display: block">
+                <div class="reviews-count">
+                  12 Comments
+                </div>
+                <div class="reviews-count">
+                  4 attachments
+                </div>
+              </div>
+
+              <div class="item-price-buttons">
+                <div class="item-price">
+
+                </div>
+                <div class="item-buttons">
+                  <a class="btn btn-outline-primary" href="rentals_single.html"><span>დეტალები</span><i class="os-icon os-icon-arrow-2-right"></i></a>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="property-item">
+            <a class="item-media-w" href="rentals_single.html">
+              <div class="item-media" style="background-image: url(/images/axali_klienti.jpg)"></div>
+            </a>
+            <div class="item-info">
+              <h3 class="item-title">
+                <a href="rentals_single.html">ახალი კლიენტი</a>
+              </h3>
+
+              <div class="item-reviews" style="display: block">
+                <div class="reviews-count">
+                  12 Comments
+                </div>
+                <div class="reviews-count">
+                  4 attachments
+                </div>
+              </div>
+
+
+
+              <div class="item-price-buttons">
+                <div class="item-price">
+
+                </div>
+                <div class="item-buttons">
+                  <a class="btn btn-outline-primary" href="rentals_single.html"><span>დეტალები</span><i class="os-icon os-icon-arrow-2-right"></i></a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
-  </mat-card>
-  
-  <mat-divider class="small-divider"></mat-divider>
-  
-  <mat-card
-    [ngClass]="{'ng-full-comment-card': isFullComents, 'ng-half-comment-card': !isFullComents}">
-    <mat-form-field class="ng-comment-input-wrapper" id="ngCommentInput">
-      <input class="ng-comment-input" matInput placeholder="Enter Comment">
-      <button class="ng-comment-submit" mat-button>Comment</button>
-    </mat-form-field>
-    <mat-list>
-      <mat-list-item>
-        <div class="ng-comment">
-          <span>rac kaia kaia</span>
-          <div class="ng-comment-user-wrapper">
-            <div class="ng-comment-user">nika garuchava</div>
-            <span class="ng-comment-user-divider">
-            |
-          </span>
-            <div class="ng-comment-time"> 2 min ago</div>
-          </div>
-        </div>
-      </mat-list-item>
-      <mat-list class="ng-comment-reply">
-        <mat-list-item>
-          <div class="ng-comment">
-            <span>Pepper</span>
-            <div class="ng-comment-user-wrapper">
-              <div class="ng-comment-user">nika garuchava</div>
-              <span class="ng-comment-user-divider">
-            |
-          </span>
-              <div class="ng-comment-time"> 2 min ago</div>
-            </div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-      <mat-list-item>
-        <div class="ng-comment">
-          <span>Pepper</span>
-          <div class="ng-comment-user-wrapper">
-            <div class="ng-comment-user">nika garuchava</div>
-            <span class="ng-comment-user-divider">
-            |
-          </span>
-            <div class="ng-comment-time"> 2 min ago</div>
-          </div>
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div class="ng-comment">
-          <span>rac kaia kaia</span>
-          <div class="ng-comment-user-wrapper">
-            <div class="ng-comment-user">nika garuchava</div>
-            <span class="ng-comment-user-divider">
-            |
-          </span>
-            <div class="ng-comment-time"> 2 min ago</div>
-          </div>
-        </div>
-      </mat-list-item>
-      <mat-list class="ng-comment-reply">
-        <mat-list-item>
-          <div class="ng-comment">
-            <span>Pepper</span>
-            <div class="ng-comment-user-wrapper">
-              <div class="ng-comment-user">nika garuchava</div>
-              <span class="ng-comment-user-divider">
-            |
-          </span>
-              <div class="ng-comment-time"> 2 min ago</div>
-            </div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-      <mat-list-item>
-        <div class="ng-comment">
-          <span>Pepper</span>
-          <div class="ng-comment-user-wrapper">
-            <div class="ng-comment-user">nika garuchava</div>
-            <span class="ng-comment-user-divider">
-            |
-          </span>
-            <div class="ng-comment-time"> 2 min ago</div>
-          </div>
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div class="ng-comment">
-          <span>rac kaia kaia</span>
-          <div class="ng-comment-user-wrapper">
-            <div class="ng-comment-user">nika garuchava</div>
-            <span class="ng-comment-user-divider">
-            |
-          </span>
-            <div class="ng-comment-time"> 2 min ago</div>
-          </div>
-        </div>
-      </mat-list-item>
-      <mat-list class="ng-comment-reply">
-        <mat-list-item>
-          <div class="ng-comment">
-            <span>Pepper</span>
-            <div class="ng-comment-user-wrapper">
-              <div class="ng-comment-user">nika garuchava</div>
-              <span class="ng-comment-user-divider">
-            |
-          </span>
-              <div class="ng-comment-time"> 2 min ago</div>
-            </div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-      <mat-list-item>
-        <div class="ng-comment">
-          <span>Pepper</span>
-          <div class="ng-comment-user-wrapper">
-            <div class="ng-comment-user">nika garuchava</div>
-            <span class="ng-comment-user-divider">
-            |
-          </span>
-            <div class="ng-comment-time"> 2 min ago</div>
-          </div>
-        </div>
-      </mat-list-item>
-    </mat-list>
-  </mat-card>
-  
-  <mat-card class="ng-text-image-container" id="ngFroalaText">
-    <div class="ng-text-wrapper">
-        <h1>მარტივი იპოთეკური სესხი</h1>
-        <div class="html-content">
-          <p style="text-align: right;"><span style="font-size: 13px; text-align: right;">&nbsp;</span></p>
-
-          <p><strong><u>მარტივ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>იპოთეკურ</u></strong><strong><u>ი</u></strong>&nbsp;<strong><u>სესხი განახლებული</u></strong>&nbsp;<strong><u>პირობებით:</u></strong></p>
-
-          <p>მიიღეთ იპოთეკური სესხი&nbsp;<strong>მარტივად</strong>&nbsp;და&nbsp;<strong>შეღავათიანი</strong> <strong>პირობებით</strong><strong>:&nbsp;</strong></p>
-
-          <p><strong>დაბალი</strong>&nbsp;საპროცენტო განაკვეთი წლიური 6.20%-დან (ეფექტური 6.39%-დან) <strong>ფიქსირებულია</strong>&nbsp;სესხის&nbsp;მოქმედების მთელ ვადაზე.</p>
-
-          <p>სესხი გაიცემა ყოველგვარი&nbsp;<strong>დამატებითი</strong> <strong>ხარჯის</strong> <strong>გარეშე</strong>:</p>
-
-          <ul>
-            <li>გაცემის საკომისიო -&nbsp;<strong>0%</strong></li>
-            <li>მომსახურების საკომისიო <strong>- 0%</strong></li>
-            <li>წინსწრებით დაფარვის საკომისიო -&nbsp;<strong>0%</strong></li>
-            <li>სხვა სახის საკომისიო -<strong> 0%</strong></li>
-          </ul>
-
-          <p>თქვენ გადაიხდით&nbsp;<strong>მხოლოდ</strong> <strong>პროცენტს</strong><strong>!</strong>&nbsp;</p>
-
-          <p>სესხის აღება შეგიძლიათ&nbsp;უძრავი ქონების შესაძენად, ასაშენებლად ან გასარემონტებლად. ასევე თანმხლები მიზნობრიობითაც; მაგალითად, სხვა იპოთეკური სესხის გადასაფარად და პირობების გასაუმჯობესებლად.</p>
-
-          <p>მარტივ იპოთეკურ სესხთან ერთად&nbsp;<strong>ავტომატურად</strong>&nbsp;<strong>დაგიმტკიცდებათ</strong>&nbsp;5 000 ლარამდე ლიმიტი, რომლის ათვისება შეგიძლიათ საკრედიტო ბარათით ან განვადებით.</p>
-
-          <p>სესხი გაიცემა მათ შორის უცხო ქვეყნის მოქალაქეებზე - საქართველოში მუდმივი ბინადრობის უფლების ქონა სავალდებულო არ არის.</p>
-
-          <p>სესხის მისაღებად ეწვიეთ ლიბერთი ბანკის უახლოეს <a href="https://libertybank.ge/ge/pizikuri-pirebistvis/chveni-qseli">სერვის ცენტრს</a>.&nbsp;</p>
-
-          <div class="content-table-wrapper"><table border="0" cellpadding="0" cellspacing="0" style="width:100%;" width="623">
-            <thead>
-            <tr>
-              <td style="width: 323px;">
-                <p><span class="highlight-caps"><strong>იპოთეკური სესხის პირობები</strong></span></p>
-              </td>
-              <th style="width:300px;">&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td style="width:323px;">
-                <p>სესხის ვალუტა</p>
-              </td>
-              <td style="width:300px;">
-                <p>ლარი / აშშ დოლარი / ევრო</p>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:323px;">
-                <p>ნომინალური (წლიური) საპროცენტო განაკვეთი</p>
-              </td>
-              <td style="width:300px;">
-                <p>13% - დან (ლარი), 6.20% - დან (აშშ დოლარი / ევრო)</p>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:323px;">
-                <p><span style="color:#FF0000;">**</span>ეფექტური საპროცენტო განაკვეთი</p>
-              </td>
-              <td style="width:300px;">
-                <p>13.82% - დან (ლარი), 6.39% (აშშ დოლარი / ევრო)</p>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:323px;">
-                <p>მინიმალური სესხის თანხა</p>
-              </td>
-              <td style="width:300px;">
-                <p>ლარი - 30,000-დან<br>
-                  აშშ დოლარი / ევრო - 100,000+ ლარის ექვივალენტი შესაბამის ვალუტაში</p>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:323px;height:11px;">
-                <p>სესხის დამტკიცების საკომისიო</p>
-              </td>
-              <td style="width:300px;height:11px;">
-                <p>0%</p>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:323px;height:11px;">მომსახურების საკომისიო</td>
-              <td style="width:300px;height:11px;">0%</td>
-            </tr>
-            <tr>
-              <td style="width:323px;height:11px;">
-                <p>სესხის წინსწრებით დაფარვის საკომისიო</p>
-              </td>
-              <td style="width:300px;height:11px;">
-                <p>0%</p>
-              </td>
-            </tr>
-            <tr>
-              <td style="width:323px;">
-                <p>დაფარვის სიხშირე</p>
-              </td>
-              <td style="width:300px;">
-                <p>ყოველთვიური</p>
-              </td>
-            </tr>
-            </tbody>
-          </table></div>
-
-          <p><span style="color:#FF0000;">**</span> საპროცენტო განაკვეთი განისაზღვრება ინვიდუალურად.</p>
-
-          <div>&nbsp;</div>
-        </div>
-    </div>
-  </mat-card>
+  </div>
 </div>

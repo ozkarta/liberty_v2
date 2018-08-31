@@ -1,37 +1,67 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>ავტორიზაცია</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-form-field class="full-width" *ngIf="!usernameExists">
-      <input matInput placeholder="მომხმარებლის სახელი" #username [formControl]="user" (keyup.enter)="checkUsername()">
-      <mat-error *ngIf="user.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field *ngIf="usernameExists" class="full-width">
-      <input matInput placeholder="პაროლი" #password [formControl]="passwordValOriginal" (keyup.enter)="passwordExists? login():''"  [type]="hide ? 'password' : 'text'">
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-      <mat-error *ngIf="passwordValOriginal.invalid">{{getPassOriginalErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field *ngIf="!passwordExists" class="full-width">
-      <input matInput placeholder="გაიმეორეთ პაროლი" #repeatPassword [formControl]="passwordVal" [type]="hideRepeat ? 'password' : 'text'">
-      <mat-icon matSuffix (click)="hideRepeat = !hideRepeat">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>
-      <mat-error *ngIf="passwordVal.invalid">{{getPassErrorMessage()}}</mat-error>
-    </mat-form-field>
-  </mat-card-content>
-  <mat-card-actions>
-    <button *ngIf="!usernameExists" mat-raised-button
-            (click)="checkUsername()">შემდეგ
-    </button>
-    <button *ngIf="usernameExists" mat-raised-button
-            (click)="login()">შესვლა
-    </button>
-  </mat-card-actions>
-</mat-card>
-<div class="login-backdrop" *ngIf="dataIsLoading">
-  <mat-progress-spinner
-    class="login-spinner"
-    [color]="color"
-    [mode]="mode"
-    [value]="value">
-  </mat-progress-spinner>
+<!--<mat-card>-->
+  <!--<mat-card-header>-->
+    <!--<mat-card-title>ავტორიზაცია</mat-card-title>-->
+  <!--</mat-card-header>-->
+  <!--<mat-card-content>-->
+    <!--<mat-form-field class="full-width" *ngIf="!usernameExists">-->
+      <!--<input matInput placeholder="მომხმარებლის სახელი" #username [formControl]="user" (keyup.enter)="checkUsername()">-->
+      <!--<mat-error *ngIf="user.invalid">{{getErrorMessage()}}</mat-error>-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field *ngIf="usernameExists" class="full-width">-->
+      <!--<input matInput placeholder="პაროლი" #password [formControl]="passwordValOriginal" (keyup.enter)="passwordExists? login():''"  [type]="hide ? 'password' : 'text'">-->
+      <!--<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>-->
+      <!--<mat-error *ngIf="passwordValOriginal.invalid">{{getPassOriginalErrorMessage()}}</mat-error>-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field *ngIf="!passwordExists" class="full-width">-->
+      <!--<input matInput placeholder="გაიმეორეთ პაროლი" #repeatPassword [formControl]="passwordVal" [type]="hideRepeat ? 'password' : 'text'">-->
+      <!--<mat-icon matSuffix (click)="hideRepeat = !hideRepeat">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>-->
+      <!--<mat-error *ngIf="passwordVal.invalid">{{getPassErrorMessage()}}</mat-error>-->
+    <!--</mat-form-field>-->
+  <!--</mat-card-content>-->
+  <!--<mat-card-actions>-->
+    <!--<button *ngIf="!usernameExists" mat-raised-button-->
+            <!--(click)="checkUsername()">შემდეგ-->
+    <!--</button>-->
+    <!--<button *ngIf="usernameExists" mat-raised-button-->
+            <!--(click)="login()">შესვლა-->
+    <!--</button>-->
+  <!--</mat-card-actions>-->
+<!--</mat-card>-->
+
+
+<div class="auth-wrapper">
+  <div class="all-wrapper menu-side with-pattern">
+    <div class="auth-box-w">
+      <div class="logo-w">
+        <a href="index.html"><img alt="" src="images/liberty-logo-30.08.18.png"></a>
+      </div>
+      <h4 class="auth-header">
+        ავტორიზაცია
+      </h4>
+      <form>
+        <div class="form-group">
+          <label for="">მომხმარებლის სახელი</label>
+          <input class="form-control" placeholder="მომხმარებლის სახელი" #username [formControl]="user" (keyup.enter)="checkUsername()">
+          <mat-error *ngIf="user.invalid">{{getErrorMessage()}}</mat-error>
+          <div class="pre-icon os-icon os-icon-user-male-circle icon-color"></div>
+        </div>
+        <div class="form-group">
+          <label for="">პაროლი</label>
+          <!--<input class="form-control" placeholder="შეიყვანეთ პაროლი" type="password">-->
+          <input class="form-control" placeholder="პაროლი" #password [formControl]="passwordValOriginal" (keyup.enter)="passwordExists? login():''"  [type]="hide ? 'password' : 'text'">
+          <mat-error *ngIf="passwordValOriginal.invalid">{{getPassOriginalErrorMessage()}}</mat-error>
+          <div class="pre-icon os-icon os-icon-fingerprint icon-color"></div>
+        </div>
+        <div class="buttons-w">
+
+          <button class="btn btn-primary custom-color" (click)="clickEventHandler($event)">შესვლა</button>
+
+          <div class="form-check-inline">
+            <label class="form-check-label"><input class="form-check-input" type="checkbox">დამახსოვრება</label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
